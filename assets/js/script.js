@@ -1,161 +1,227 @@
 $(function () {
-  /** =====================
-   *  Cambio de imágenes al hacer click
-   ====================== */
-  const imagenes = [
-    "./assets/images/profile/1.png",
-    "./assets/images/profile/2.png",
-    "./assets/images/profile/3.png",
-    "./assets/images/profile/4.png",
-    "./assets/images/profile/5.png",
-    "./assets/images/profile/6.png",
-    "./assets/images/profile/7.png",
-    "./assets/images/profile/8.png",
-    "./assets/images/profile/9.png",
-    "./assets/images/profile/10.png",
-    "./assets/images/profile/11.png",
-    "./assets/images/profile/12.png",
-    "./assets/images/profile/13.png",
-    "./assets/images/profile/14.png",
-    "./assets/images/profile/15.png",
-    "./assets/images/profile/16.png",
-    "./assets/images/profile/17.png",
-    "./assets/images/profile/18.png",
-    "./assets/images/profile/19.png",
-    "./assets/images/profile/20.png",
-    "./assets/images/profile/21.png",
-    "./assets/images/profile/22.png",
-    "./assets/images/profile/23.png",
-    "./assets/images/profile/24.png",
-  ];
-  let index = 0;
-
-  $("#avatar").on("click", function () {
-    index = (index + 1) % imagenes.length;
-    $(this).attr("src", imagenes[index]);
-  });
-
-  /** =====================
-   *  Función para alternar clase .active
-   ====================== */
-  const elementToggleFunc = (elem) => elem.toggleClass("active");
-
-  /** =====================
-   *  Sidebar (versión móvil)
-   ====================== */
-  const $sidebar = $("[data-sidebar]");
-  const $sidebarBtn = $("[data-sidebar-btn]");
-
-  $sidebarBtn.on("click", function () {
-    elementToggleFunc($sidebar);
-  });
-
-  /** =====================
-   *  Select personalizado + Filtros
-   ====================== */
-  const $select = $("[data-select]");
-  const $selectItems = $("[data-select-item]");
-  const $selectValue = $("[data-selecct-value]"); // ojo: revisa el HTML, parece haber un typo en "selecct"
-  const $filterBtn = $("[data-filter-btn]");
-  const $filterItems = $("[data-filter-item]");
-
-  $select.on("click", function () {
-    elementToggleFunc($(this));
-  });
-
-  // Evento en cada item del select
-  $selectItems.on("click", function () {
-    let selectedValue = $(this).text().toLowerCase();
-    $selectValue.text($(this).text());
-    elementToggleFunc($select);
-    filterFunc(selectedValue);
-  });
-
-  // Función de filtrado
-  function filterFunc(selectedValue) {
-    $filterItems.each(function () {
-      let $item = $(this);
-      if (selectedValue === "all" || selectedValue === $item.data("category")) {
-        $item.addClass("active");
-      } else {
-        $item.removeClass("active");
-      }
+    /** =====================
+     *  Navigation System
+     ====================== */
+    $('.nav-link').on('click', function () {
+        const target = $(this).data('target');
+        
+        // Update Navbar visually
+        $('.nav-link')
+            .removeClass('active text-dracula-fg')
+            .addClass('text-dracula-fg/60');
+            
+        $(this)
+            .addClass('active text-dracula-fg')
+            .removeClass('text-dracula-fg/60');
+            
+        // Toggle Sections with smooth transition
+        $('.section-page').removeClass('active');
+        $('#' + target).addClass('active');
+        
+        // Scroll slightly to top on mobile
+        if(window.innerWidth < 1024) {
+            window.scrollTo({
+                top: $('.glass.rounded-3xl').last().offset().top - 20,
+                behavior: 'smooth'
+            });
+        }
     });
-  }
 
-  // Filtros para pantallas grandes
-  let $lastClickedBtn = $filterBtn.first();
-  $filterBtn.on("click", function () {
-    let selectedValue = $(this).text().toLowerCase();
-    $selectValue.text($(this).text());
-    filterFunc(selectedValue);
-
-    $lastClickedBtn.removeClass("active");
-    $(this).addClass("active");
-    $lastClickedBtn = $(this);
-  });
-
-  /** =====================
-   *  Validación formulario de contacto
-   ====================== */
-  const $form = $("[data-form]");
-  const $formInputs = $("[data-form-input]");
-  const $formBtn = $("[data-form-btn]");
-
-  $formInputs.on("input", function () {
-    if ($form[0].checkValidity()) {
-      $formBtn.removeAttr("disabled");
-    } else {
-      $formBtn.attr("disabled", true);
+    /** =====================
+     *  Avatar Image Cycler
+     ====================== */
+    const imagenes = [];
+    for (let i = 1; i <= 24; i++) {
+        imagenes.push(`./assets/images/profile/${i}.png`);
     }
-  });
+    
+    let index = 0;
+    const $avatar = $('#avatar');
+    const $bubble = $('#avatar-bubble');
 
-  /** =====================
-   *  Navegación de páginas
-   ====================== */
-  const $navigationLinks = $("[data-nav-link]");
-  const $pages = $("[data-page]");
+    setTimeout(() => {
+        $bubble.addClass('show');
+    }, 1000);
 
-  $navigationLinks.on("click", function () {
-    let pageName = $(this).text().toLowerCase();
-
-    $pages.each(function (i) {
-      let $page = $(this);
-      if (pageName === $page.data("page")) {
-        $page.addClass("active");
-        $navigationLinks.eq(i).addClass("active");
-        window.scrollTo(0, 0);
-      } else {
-        $page.removeClass("active");
-        $navigationLinks.eq(i).removeClass("active");
-      }
+    $('#avatar-container').on('click', function () {
+        index = (index + 1) % imagenes.length;
+        
+        $avatar.css('transform', 'scale(0.95)');
+        setTimeout(() => {
+            $avatar.attr('src', imagenes[index]);
+            $avatar.css('transform', 'scale(1)');
+        }, 150);
+        
+        $bubble.removeClass('show');
     });
-  });
-});
 
-$(function () {
-  const $avatar = $("#avatar");
-  const $bubble = $("#avatar-bubble");
+    setTimeout(() => {
+        if ($bubble.hasClass('show')) {
+            $bubble.removeClass('show');
+        }
+    }, 8000);
 
-  // Mostrar la burbuja inicialmente (si quieres que empiece oculta, quita esta línea)
-  $bubble.addClass("show");
+    /** =====================
+     *  Portfolio Filter
+     ====================== */
+    $('.filter-btn').on('click', function () {
+        const filter = $(this).data('filter');
+        
+        $('.filter-btn')
+            .removeClass('active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20')
+            .addClass('bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50')
+            .css('border', '');
+            
+        $(this)
+            .addClass('active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20')
+            .removeClass('bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50');
 
-  // Hacer que el click en la burbuja dispare el click del avatar
-  $bubble.on("click", function (e) {
-    e.preventDefault();
-    // dispara el click real sobre la imagen para reutilizar la lógica existente
-    $avatar.trigger("click");
-    // opcional: ocultar la burbuja tras el primer click para no molestar
-    // $bubble.fadeOut(200, function () {
-    //   $bubble.remove();
-    // });
-  });
+        if (filter === 'all') {
+            $('.portfolio-item').fadeIn(400);
+        } else {
+            $('.portfolio-item').hide();
+            $(`.portfolio-item[data-category="${filter}"]`).fadeIn(400);
+        }
+    });
 
-  // Opcional: ocultar la burbuja después de X segundos si no hacen nada (ej. 5s)
-  setTimeout(function () {
-    if ($bubble.length)
-      $bubble.fadeOut(2828, function () {
-        $bubble.remove();
-      });
-  }, 5000);
+    /** =====================
+     *  Skills Filter
+     ====================== */
+    $('.skill-filter-btn').on('click', function () {
+        const filter = $(this).data('filter');
+        
+        $('.skill-filter-btn')
+            .removeClass('active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20')
+            .addClass('bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50')
+            .css('border', '');
+            
+        $(this)
+            .addClass('active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20')
+            .removeClass('bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50');
+
+        if (filter === 'all') {
+            $('.skill-item').fadeIn(400);
+        } else {
+            $('.skill-item').hide();
+            $(`.skill-item[data-category="${filter}"]`).fadeIn(400);
+        }
+    });
+
+    /** =====================
+     *  Contact Data Decoder
+     ====================== */
+    const rawEmail = "d2lsbGlhbTI4YWNoZUBnbWFpbC5jb20=";
+    const rawPhone = "KzU4NDEyMTMwNTQyMA==";
+
+    $('#contact-li-email').on('click', function(e) {
+        const $link = $('#contact-email');
+        const mail = atob(rawEmail);
+        if ($link.data('revealed')) {
+            window.location.href = `mailto:${mail}`;
+        } else {
+            $link.text(mail);
+            $link.data('revealed', true);
+            $link.removeAttr('data-translate');
+        }
+    });
+
+    $('#contact-li-phone').on('click', function(e) {
+        const $link = $('#contact-phone');
+        const phone = atob(rawPhone);
+        if ($link.data('revealed')) {
+            window.location.href = `tel:${phone}`;
+        } else {
+            $link.text("+58 (412) 130 5420");
+            $link.data('revealed', true);
+            $link.removeAttr('data-translate');
+        }
+    });
+
+    $('#contact-li-location').on('click', function() {
+        window.open('https://www.google.com/maps/place/Aragua,+Venezuela/', '_blank');
+    });
+
+    /** =====================
+     *  Contact Form AJAX
+     ====================== */
+    $('#contact-form').on('submit', function(e) {
+        e.preventDefault();
+        const $form = $(this);
+        const $btn = $form.find('button[type="submit"]');
+        const $btnSpan = $btn.find('span');
+        const originalText = $btnSpan.text();
+        
+        $btn.prop('disabled', true).addClass('opacity-70 cursor-not-allowed');
+        $btnSpan.text(currentLang === 'es' ? 'Enviando...' : 'Sending...');
+        
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: $form.serialize(),
+            dataType: 'json',
+            success: function() {
+                $btnSpan.text(currentLang === 'es' ? '¡Mensaje Enviado!' : 'Message Sent!');
+                $btn.removeClass('from-dracula-purple to-dracula-pink').addClass('bg-dracula-green text-dracula-bg');
+                $form[0].reset();
+                setTimeout(() => {
+                    $btn.prop('disabled', false).removeClass('opacity-70 cursor-not-allowed bg-dracula-green text-dracula-bg').addClass('from-dracula-purple to-dracula-pink');
+                    $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+                }, 5000);
+            },
+            error: function() {
+                $btnSpan.text(currentLang === 'es' ? 'Error al enviar' : 'Error sending');
+                $btn.removeClass('from-dracula-purple to-dracula-pink').addClass('bg-dracula-red text-dracula-fg');
+                setTimeout(() => {
+                    $btn.prop('disabled', false).removeClass('opacity-70 cursor-not-allowed bg-dracula-red text-dracula-fg').addClass('from-dracula-purple to-dracula-pink');
+                    $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+                }, 3000);
+            }
+        });
+    });
+
+    /** =====================
+     *  Theme Toggle System
+     ====================== */
+    const $themeBtn = $('#theme-toggle');
+    const $themeIcon = $('#theme-toggle-icon');
+    const $body = $('body');
+
+    $themeBtn.on('click', function() {
+        $themeBtn.toggleClass('active');
+        $body.toggleClass('light-theme');
+        
+        if ($themeBtn.hasClass('active')) {
+            $themeIcon.removeClass('bi-moon-stars-fill text-dracula-bg').addClass('bi-sun-fill text-dracula-fg');
+            localStorage.setItem('theme', 'light');
+        } else {
+            $themeIcon.removeClass('bi-sun-fill text-dracula-fg').addClass('bi-moon-stars-fill text-dracula-bg');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Persistence Check
+    if (localStorage.getItem('theme') === 'light') {
+        $themeBtn.addClass('active');
+        $body.addClass('light-theme');
+        $themeIcon.removeClass('bi-moon-stars-fill text-dracula-bg').addClass('bi-sun-fill text-dracula-fg');
+    }
+
+    /** =====================
+     *  CV Menu Logic
+     ====================== */
+    const $cvBtn = $('#cv-btn-trigger');
+    const $cvMenu = $('#cv-menu');
+
+    $cvBtn.on('click', function(e) {
+        e.stopPropagation();
+        $cvMenu.toggleClass('opacity-0 invisible translate-y-3 opacity-100 visible translate-y-0');
+    });
+
+    $(document).on('click', function() {
+        $cvMenu.addClass('opacity-0 invisible translate-y-3').removeClass('opacity-100 visible translate-y-0');
+    });
+
+    $cvMenu.on('click', 'a', function() {
+        $cvMenu.addClass('opacity-0 invisible translate-y-3').removeClass('opacity-100 visible translate-y-0');
+    });
 });
