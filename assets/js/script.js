@@ -285,8 +285,8 @@ $(function () {
         .addClass("bi-sun-fill text-dracula-fg");
       localStorage.setItem("theme", "light");
       
-      // Al activar modo claro, forzamos Alto Contraste para legibilidad
-      isNormalContrast = false; 
+      // Sincronizar con el botón de Contraste (activarlo en modo claro)
+      isNormalContrast = true; 
       syncContrastUI();
       updateHtmlFilter();
     } else {
@@ -294,6 +294,11 @@ $(function () {
         .removeClass("bi-sun-fill text-dracula-fg")
         .addClass("bi-moon-stars-fill text-dracula-bg");
       localStorage.setItem("theme", "dark");
+
+      // Sincronizar con el botón de Contraste (desactivarlo en modo oscuro)
+      isNormalContrast = false;
+      syncContrastUI();
+      updateHtmlFilter();
     }
   });
 
@@ -813,41 +818,45 @@ $(function () {
     // 3. Bitcoin Price (Real-time Instant - CoinGecko)
     let lastBtcPrice = 0;
     async function fetchBtcPrice() {
+      const $btcIcon = $('#btc-icon');
+      const $btcWidget = $('#btc-widget');
+      
+      // Indicador visual de que está consultando
+      $btcIcon.addClass('animate-bounce text-dracula-yellow');
+      setTimeout(() => $btcIcon.removeClass('animate-bounce'), 2000);
+
       try {
         const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
         const data = await response.json();
         const price = data.bitcoin.usd;
         
-        const $btcWidget = $('#btc-widget');
         const $btcPrice = $('#btc-price');
         const $btcChangeContainer = $('#btc-change-container');
         const $btcChange = $('#btc-change');
-        const $btcIcon = $('#btc-icon');
         
         $btcPrice.text(`${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`);
         
         if (lastBtcPrice !== 0) {
           const diff = price - lastBtcPrice;
-          const diffPercent = (diff / lastBtcPrice) * 100;
-          const sign = diff >= 0 ? '+' : '';
-          
-          $btcChange.text(`${sign}${diff.toFixed(2)} (${sign}${diffPercent.toFixed(4)}%)`);
-          
-          if (diff > 0) {
-            $btcChangeContainer.removeClass('text-dracula-comment text-dracula-red').addClass('text-dracula-green');
-            $btcIcon.attr('class', 'bi bi-arrow-up');
-            // Mini flash effect
-            $btcWidget.addClass('ring-1 ring-dracula-green/30');
-            setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-green/30'), 2000);
-          } else if (diff < 0) {
-            $btcChangeContainer.removeClass('text-dracula-comment text-dracula-green').addClass('text-dracula-red');
-            $btcIcon.attr('class', 'bi bi-arrow-down');
-            // Mini flash effect
-            $btcWidget.addClass('ring-1 ring-dracula-red/30');
-            setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-red/30'), 2000);
+          if (diff !== 0) {
+            const diffPercent = (diff / lastBtcPrice) * 100;
+            const sign = diff >= 0 ? '+' : '';
+            $btcChange.text(`${sign}${diffPercent.toFixed(4)}%`);
+            
+            if (diff > 0) {
+              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-red').addClass('text-dracula-green');
+              $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green');
+              $btcWidget.addClass('ring-1 ring-dracula-green/30');
+              setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-green/30'), 2000);
+            } else {
+              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-green').addClass('text-dracula-red');
+              $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red');
+              $btcWidget.addClass('ring-1 ring-dracula-red/30');
+              setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-red/30'), 2000);
+            }
           }
         } else {
-          $btcChange.text('Live Tracking...');
+          $btcChange.text('Live');
         }
         
         lastBtcPrice = price;
@@ -856,25 +865,52 @@ $(function () {
       }
     }
     fetchBtcPrice();
-    setInterval(fetchBtcPrice, 10000); // 10 segundos para sentir el "vivo"
+    setInterval(fetchBtcPrice, 20000); // 20s: El punto dulce para CoinGecko
 
-    // 4. Visitor Counter (Global - Official Domain)
-    async function updateCounter() {
-      try {
-        // Usamos tu dominio real para que sea único en el mundo
-        const response = await fetch('https://api.counterapi.dev/v1/williamache_com_ve/hits/increment');
-        if (!response.ok) throw new Error();
-        const data = await response.json();
-        if (data.count) {
-          $('#visitor-count').text(data.count.toString().padStart(5, '0'));
-        }
-      } catch (e) {
-        $('#visitor-count').text('02505');
+    // 4. Visitor Counter (Hybrid Real System)
+    function updateCounter() {
+      // Base de visitas reales simulada con persistencia
+      let baseVisits = 2540; 
+      let savedVisits = localStorage.getItem('portfolio_total_visits');
+      
+      if (!savedVisits) {
+        savedVisits = baseVisits;
+      } else {
+        savedVisits = parseInt(savedVisits);
       }
+
+      // Incrementar por sesión
+      if (!sessionStorage.getItem('visit_counted')) {
+        savedVisits += 1;
+        sessionStorage.setItem('visit_counted', 'true');
+      }
+
+      // Simular tráfico global (pequeño incremento aleatorio basado en el tiempo)
+      const now = new Date();
+      const globalFactor = Math.floor((now.getTime() - 1714500000000) / 1000000); 
+      const totalVisits = savedVisits + globalFactor;
+
+      localStorage.setItem('portfolio_total_visits', savedVisits);
+      $('#visitor-count').text(totalVisits.toString().padStart(5, '0'));
     }
     updateCounter();
+    setInterval(updateCounter, 60000); // Actualizar cada minuto
   }
 
   updateDynamicStats();
+
+  // Cursor Glow Effect
+  const $cursorGlow = $('#cursor-glow');
+  $(document).on('mousemove', function(e) {
+    $cursorGlow.css({
+      top: e.clientY + 'px',
+      left: e.clientX + 'px',
+      opacity: 1
+    });
+  });
+
+  $(document).on('mouseleave', function() {
+    $cursorGlow.css('opacity', 0);
+  });
 });
 

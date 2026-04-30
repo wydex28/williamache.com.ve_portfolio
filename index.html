@@ -73,6 +73,8 @@
 </head>
 
 <body class="bg-dracula-bg text-dracula-fg/90 font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-dracula-pink selection:text-dracula-bg">
+    <!-- Cursor Glow -->
+    <div id="cursor-glow" class="fixed top-0 left-0 w-[250px] h-[250px] rounded-full pointer-events-none z-[9999] opacity-0 transition-opacity duration-500 bg-dracula-purple/15 blur-[80px] -translate-x-1/2 -translate-y-1/2"></div>
     <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[200] bg-dracula-bg flex items-center justify-center transition-opacity duration-700">
         <div class="flex flex-col items-center gap-6">
@@ -1052,25 +1054,24 @@
                         </div>
                     </div>
 
-                    <!-- Bitcoin Price -->
-                    <div class="flex flex-col items-center gap-1">
-                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold">Bitcoin (BTC)</span>
-                        <div id="btc-widget" class="flex flex-col items-center gap-0.5 bg-dracula-card/30 px-2 py-1 rounded-lg border border-dracula-comment/20 transition-all duration-500">
-                            <div class="flex items-center gap-1.5">
-                                <i class="bi bi-currency-bitcoin text-dracula-yellow text-sm"></i>
-                                <span id="btc-price" class="text-[12px] text-dracula-fg font-bold font-mono">--.--- USD</span>
-                            </div>
-                            <div id="btc-change-container" class="flex items-center gap-1 text-[9px] font-mono text-dracula-comment">
-                                <span id="btc-change">--- (---%)</span>
-                                <i id="btc-icon" class="bi bi-dash"></i>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="flex flex-col items-center gap-1">
                         <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold" data-translate="Visitas">Visitas</span>
                         <div class="flex items-center gap-2 text-[10px] text-dracula-green font-mono bg-dracula-green/5 px-2 py-1 rounded-lg border border-dracula-green/20">
                             <span id="visitor-count">0000</span>
+                        </div>
+                    </div>
+
+                    <!-- Bitcoin Price -->
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold">Bitcoin (BTC)</span>
+                        <div id="btc-widget" class="flex items-center gap-2 bg-dracula-card/30 px-3 py-1 rounded-lg border border-dracula-comment/20 transition-all duration-500 h-[32px]">
+                            <div class="flex items-center gap-1.5">
+                                <i id="btc-icon" class="bi bi-currency-bitcoin text-dracula-yellow text-sm"></i>
+                                <span id="btc-price" class="text-[11px] text-dracula-fg font-bold font-mono whitespace-nowrap">--.--- USD</span>
+                            </div>
+                            <div id="btc-change-container" class="flex items-center gap-1 text-[9px] font-mono text-dracula-comment border-l border-dracula-comment/20 pl-2 ml-1">
+                                <span id="btc-change">--%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
