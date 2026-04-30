@@ -51,6 +51,9 @@ const translations = {
     "Asunto": "Asunto",
     "Mensaje": "Mensaje",
     "Enviar Mensaje": "Enviar Mensaje",
+    "Certificados": "Certificados",
+    "Desarrollo Web": "Desarrollo Web",
+    "IA & Datos": "IA & Datos",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - Español.pdf",
   },
   en: {
@@ -99,6 +102,9 @@ const translations = {
     "Asunto": "Subject",
     "Mensaje": "Message",
     "Enviar Mensaje": "Send Message",
+    "Certificados": "Certificates",
+    "Desarrollo Web": "Web Development",
+    "IA & Datos": "AI & Data",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - English.pdf",
   },
 };

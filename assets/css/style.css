@@ -123,6 +123,25 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
     border-color: #bd93f9 transparent transparent transparent;
 }
 
+/* Timeline Line custom style */
+.timeline-line {
+    position: relative;
+}
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        rgba(98, 114, 164, 0.4) 0%, 
+        rgba(98, 114, 164, 0.4) 85%, 
+        transparent 100%
+    );
+    border-radius: 2px;
+}
+
 /* Ambient Glow background */
 .bg-glow {
     position: fixed;

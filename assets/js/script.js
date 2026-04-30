@@ -224,4 +224,69 @@ $(function () {
     $cvMenu.on('click', 'a', function() {
         $cvMenu.addClass('opacity-0 invisible translate-y-3').removeClass('opacity-100 visible translate-y-0');
     });
+
+    /** =====================
+     *  Dynamic Years Calc
+     ====================== */
+    function updateDynamicYears() {
+        $('[data-years-from]').each(function() {
+            const startDateStr = $(this).data('years-from');
+            const startDate = new Date(startDateStr);
+            
+            if (isNaN(startDate.getTime())) return; // Skip if invalid
+
+            const today = new Date();
+            let years = today.getFullYear() - startDate.getFullYear();
+            const monthDiff = today.getMonth() - startDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < startDate.getDate())) {
+                years--;
+            }
+            
+            const suffix = currentLang === 'es' ? 'años' : 'years';
+            const prefix = $(this).text().startsWith('+') ? '+' : '';
+            $(this).text(`${prefix}${years} ${suffix}`);
+        });
+
+        // Special case for sidebar title in lang.js
+        const careerStart = new Date('2018-01-01');
+        const today = new Date();
+        let totalYears = today.getFullYear() - careerStart.getFullYear();
+        if (today.getMonth() < careerStart.getMonth()) totalYears--;
+        
+        translations.es["Desarrollador Web"] = `Desarrollador Web • +${totalYears} Años`;
+        translations.en["Desarrollador Web"] = `Web Developer • +${totalYears} Years`;
+        
+        // Refresh sidebar text if it's already rendered
+        const $sidebarTitle = $('[data-translate="Desarrollador Web"]');
+        if($sidebarTitle.length) {
+            $sidebarTitle.text(translations[currentLang]["Desarrollador Web"]);
+        }
+    }
+
+    // Initial call
+    updateDynamicYears();
+
+    // Re-run on language change to update suffixes
+    $('.language-link').on('click', function() {
+        setTimeout(updateDynamicYears, 50); // Small delay to let lang.js update currentLang
+    });
+
+    /** =====================
+     *  Certificates Filter
+     ====================== */
+    $('.cert-filter-btn').on('click', function () {
+        $('.cert-filter-btn').removeClass('active bg-dracula-purple text-dracula-bg').addClass('bg-dracula-card/80 text-dracula-fg/70 border-dracula-comment/50');
+        $(this).addClass('active bg-dracula-purple text-dracula-bg').removeClass('bg-dracula-card/80 text-dracula-fg/70 border-dracula-comment/50');
+
+        const filter = $(this).data('filter');
+        const $items = $('.cert-item');
+
+        if (filter === 'all') {
+            $items.fadeIn(400);
+        } else {
+            $items.hide();
+            $items.filter(`[data-category="${filter}"]`).fadeIn(400);
+        }
+    });
 });
