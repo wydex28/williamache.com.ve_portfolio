@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>William Ache | Desarrollador Web</title>
+    <title>William Ache | Desarrollador Full-Stack</title>
     <meta name="description" content="Portafolio de William Ache, Desarrollador Web Full-Stack especializado en Laravel, PHP, y arquitecturas robustas.">
 
     <!-- Favicon -->
@@ -12,7 +12,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="./assets/libs/bootstrap/icons/dist/bootstrap-icons.min.css" />
@@ -73,6 +73,23 @@
 </head>
 
 <body class="bg-dracula-bg text-dracula-fg/90 font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-dracula-pink selection:text-dracula-bg">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[200] bg-dracula-bg flex items-center justify-center transition-opacity duration-700">
+        <div class="flex flex-col items-center gap-6">
+            <div class="relative">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-dracula-purple via-dracula-pink to-dracula-cyan animate-pulse py-2 font-['JetBrains_Mono'] uppercase">
+                    WILLIAM ACHE
+                </h1>
+                <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dracula-purple to-transparent animate-expand-line"></div>
+            </div>
+            <div class="flex items-center gap-3 mt-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#bd93f9] animate-bounce" style="animation-delay: 0.1s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#8be9fd] animate-bounce" style="animation-delay: 0.2s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#50fa7b] animate-bounce" style="animation-delay: 0.3s"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#ff79c6] animate-bounce" style="animation-delay: 0.4s"></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Ambient Background Effects -->
     <div class="bg-glow w-[500px] h-[500px] bg-dracula-purple/10 top-[-200px] left-[-200px] animate-pulse-slow"></div>
@@ -98,7 +115,7 @@
                 <!-- Info -->
                 <h1 class="text-3xl font-bold text-dracula-fg mb-3 text-center tracking-tight">William Ache</h1>
                 <div class="px-4 py-1.5 bg-dracula-card/50 rounded-xl border border-dracula-comment/50 mb-5 shadow-inner w-full flex justify-center">
-                    <span class="text-sm font-semibold text-dracula-cyan uppercase tracking-wider text-center" data-translate="Desarrollador Web">Desarrollador Web • +7 Años</span>
+                    <span class="text-sm font-semibold text-dracula-cyan uppercase tracking-wider text-center" data-translate="Desarrollador Web">Desarrollador Full-Stack • +7 Años</span>
                 </div>
 
                 <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-dracula-comment to-transparent mb-5 opacity-30"></div>
@@ -140,11 +157,11 @@
 
                 <!-- Socials -->
                 <div class="flex gap-4 mb-4">
-                    <a href="https://www.linkedin.com/in/william-ache/" target="_blank" class="w-10 h-10 rounded-full bg-dracula-card/50 flex items-center justify-center text-dracula-fg/70 hover:text-dracula-cyan hover:bg-dracula-card transition-all border border-dracula-comment/30 shadow-lg cursor-pointer">
+                    <a href="https://www.linkedin.com/in/william-ache/" target="_blank" aria-label="LinkedIn" class="w-10 h-10 rounded-full bg-dracula-card/50 flex items-center justify-center text-dracula-fg/70 hover:text-dracula-cyan hover:bg-dracula-card transition-all border border-dracula-comment/30 shadow-lg cursor-pointer">
                         <i class="bi bi-linkedin text-lg"></i>
                     </a>
-                    <a href="https://williamache.com.ve/" target="_blank" class="w-10 h-10 rounded-full bg-dracula-card/50 flex items-center justify-center text-dracula-fg/70 hover:text-dracula-cyan hover:bg-dracula-card transition-all border border-dracula-comment/30 shadow-lg cursor-pointer">
-                        <i class="bi bi-globe text-lg"></i>
+                    <a href="https://github.com/wydex28" target="_blank" aria-label="GitHub" class="w-10 h-10 rounded-full bg-dracula-card/50 flex items-center justify-center text-dracula-fg/70 hover:text-dracula-cyan hover:bg-dracula-card transition-all border border-dracula-comment/30 shadow-lg cursor-pointer">
+                        <i class="bi bi-github text-lg"></i>
                     </a>
                 </div>
 
@@ -188,6 +205,7 @@
                             <!-- language switcher from lang.js -->
                         </div>
                         
+
                         <!-- Theme Toggle Switch -->
                         <button id="theme-toggle" title="Cambiar Tema / Switch Theme" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
                             <span id="theme-toggle-dot" class="inline-block w-4 h-4 transform bg-dracula-purple rounded-full transition-all duration-500 translate-x-1 shadow-lg flex items-center justify-center">
@@ -212,7 +230,7 @@
                     
                     <div class="text-dracula-fg/90 leading-relaxed mb-12 text-lg space-y-4">
                         <p>
-                            Desarrollador web con más de <span class="text-dracula-pink font-semibold" data-years-from="2018-01-01">+8 años</span> de experiencia en la construcción de aplicaciones y sistemas robustos. Especializado en el ecosistema <strong class="text-dracula-cyan">Laravel</strong> y bases de datos relacionales (MySQL), con sólidos conocimientos en frontend (jQuery, Tailwind CSS, Bootstrap).
+                            Desarrollador Full-Stack con más de <span class="text-dracula-pink font-semibold" data-years-from="2018-01-01">+8 años</span> de experiencia en la construcción de aplicaciones y sistemas robustos. Especializado en el ecosistema <strong class="text-dracula-cyan">Laravel</strong> y bases de datos relacionales (MySQL), con sólidos conocimientos en frontend (jQuery, Tailwind CSS, Bootstrap).
                         </p>
                         <p>
                             Enfocado en integrar herramientas y bibliotecas que agilizan los tiempos de desarrollo y elevan la experiencia del usuario (UX). Mi objetivo es crear soluciones escalables, estéticamente impactantes y de alto rendimiento.
@@ -277,17 +295,18 @@
                         <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
                     </header>
 
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-12 h-12 rounded-xl bg-dracula-card/50 flex items-center justify-center shadow-lg border border-dracula-comment/30">
-                            <i class="bi bi-briefcase text-2xl text-dracula-cyan"></i>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-xl bg-dracula-card/50 flex items-center justify-center shadow-lg border border-dracula-comment/30 relative z-10">
+                                <i class="bi bi-briefcase text-2xl text-dracula-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dracula-fg">Trayectoria Laboral</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-dracula-fg">Trayectoria Laboral</h3>
-                    </div>
 
-                    <div class="timeline-line pl-8 mb-16 ml-6 space-y-10">
-                        <!-- Job 1 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-purple rounded-full -left-[41px] top-1.5 shadow-[0_0_10px_rgba(189,147,249,0.6)]"></div>
+                        <div class="timeline-line pl-8 mb-16 space-y-10 -mt-8 pt-8">
+                            <!-- Job 1 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2" data-years-from="2022-02-01">+4 años</span></h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="https://itoeste.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Software Factory | IT OESTE <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -302,9 +321,9 @@
                             </ul>
                         </div>
 
-                        <!-- Job 2 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-bg rounded-full -left-[41px] top-1.5 border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors"></div>
+                            <!-- Job 2 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack / PM <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año y 2 meses</span></h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="https://valdusoft.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Valdusoft Desarrollo web <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -319,9 +338,9 @@
                             </ul>
                         </div>
 
-                        <!-- Job 3 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-bg rounded-full -left-[41px] top-1.5 border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors"></div>
+                            <!-- Job 3 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año</span></h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="https://www.facebook.com/StoreSwamer/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Swamer Store <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -336,9 +355,9 @@
                             </ul>
                         </div>
 
-                        <!-- Job 4 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-bg rounded-full -left-[41px] top-1.5 border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors"></div>
+                            <!-- Job 4 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Becario de Desarrollo / Soporte IT <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">2 años y 1 mes</span></h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="https://maprotel.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Maprotel C.A <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -354,17 +373,18 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-12 h-12 rounded-xl bg-dracula-card/50 flex items-center justify-center shadow-lg border border-dracula-comment/30">
-                            <i class="bi bi-book text-2xl text-dracula-cyan"></i>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-xl bg-dracula-card/50 flex items-center justify-center shadow-lg border border-dracula-comment/30 relative z-10">
+                                <i class="bi bi-book text-2xl text-dracula-cyan"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dracula-fg">Educación</h3>
                         </div>
-                        <h3 class="text-2xl font-bold text-dracula-fg">Educación</h3>
-                    </div>
 
-                    <div class="timeline-line pl-8 ml-6 space-y-10">
-                        <!-- Edu 1 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-bg rounded-full -left-[41px] top-1.5 border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors"></div>
+                        <div class="timeline-line pl-8 space-y-10 -mt-8 pt-8">
+                            <!-- Edu 1 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Ingeniería de Sistemas <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">+3 años</span></h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="http://www.unasec.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Universidad Nacional Abierta (U.N.A) <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -376,9 +396,9 @@
                             </p>
                         </div>
                         
-                        <!-- Edu 2 -->
-                        <div class="relative group">
-                            <div class="absolute w-4 h-4 bg-dracula-bg rounded-full -left-[41px] top-1.5 border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors"></div>
+                            <!-- Edu 2 -->
+                            <div class="relative group">
+                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
                             <h4 class="text-xl font-bold text-dracula-fg mb-1">Bachillerato en Ciencias</h4>
                             <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
                                 <a href="https://www.instagram.com/uencarlosmanuelarrieta/?hl=es" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">U.E.N Carlos Manuel Arrieta <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
@@ -390,7 +410,8 @@
                             </p>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
                 <!-- SKILLS SECTION -->
                 <section id="skills" class="section-page">
@@ -788,32 +809,20 @@
                         <li><button class="cert-filter-btn active cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-purple text-dracula-bg shadow-lg shadow-dracula-purple/20 transition-all" data-filter="all" data-translate="Todos">Todos</button></li>
                         <li><button class="cert-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="web" data-translate="Desarrollo Web">Desarrollo Web</button></li>
                         <li><button class="cert-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="ia" data-translate="IA & Datos">IA & Datos</button></li>
+                        <li><button class="cert-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="soft" data-translate="Habilidades">Habilidades</button></li>
                     </ul>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Cert 1 -->
-                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(189,147,249,0.2)]" data-category="web">
-                            <div class="aspect-[4/3] relative overflow-hidden">
-                                <img src="https://placehold.co/600x450/282a36/bd93f9?text=Full+Stack+Laravel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Certificado">
-                                <div class="absolute inset-0 bg-gradient-to-t from-dracula-bg/90 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-purple/10 backdrop-blur-[2px]">
-                                    <div class="w-12 h-12 rounded-full bg-dracula-fg flex items-center justify-center text-dracula-purple shadow-xl">
-                                        <i class="bi bi-zoom-in text-xl"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-6 border-t border-dracula-comment/20">
-                                <div class="text-[10px] text-dracula-purple uppercase font-bold tracking-widest mb-2" data-translate="Desarrollo Web">Desarrollo Web</div>
-                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-purple transition-colors">Master en PHP, Laravel y MySQL</h3>
-                            </div>
-                        </div>
-
-                        <!-- Cert 2 -->
-                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(139,233,253,0.2)]" data-category="ia">
-                            <div class="aspect-[4/3] relative overflow-hidden">
-                                <img src="https://placehold.co/600x450/282a36/8be9fd?text=IA+Fundamentals" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Certificado">
-                                <div class="absolute inset-0 bg-gradient-to-t from-dracula-bg/90 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-cyan/10 backdrop-blur-[2px]">
+                        <!-- Cert Real: IA The Big School -->
+                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(139,233,253,0.2)]" 
+                             data-category="ia" 
+                             data-title="Iniciación al Desarrollo con IA" 
+                             data-src="./assets/docs/certificates/curso-iniciacion-desarrollo-ia.pdf"
+                             data-link="https://thebigschool.com/">
+                            <div class="aspect-[4/3] relative overflow-hidden bg-white">
+                                <iframe src="./assets/docs/certificates/curso-iniciacion-desarrollo-ia.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-none pointer-events-none origin-top scale-[1.01]" scrolling="no"></iframe>
+                                <div class="absolute inset-0 bg-dracula-bg/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-cyan/10 backdrop-blur-[2px] z-20">
                                     <div class="w-12 h-12 rounded-full bg-dracula-fg flex items-center justify-center text-dracula-cyan shadow-xl">
                                         <i class="bi bi-zoom-in text-xl"></i>
                                     </div>
@@ -821,24 +830,74 @@
                             </div>
                             <div class="p-6 border-t border-dracula-comment/20">
                                 <div class="text-[10px] text-dracula-cyan uppercase font-bold tracking-widest mb-2" data-translate="IA & Datos">IA & Datos</div>
-                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-cyan transition-colors">Inteligencia Artificial Aplicada a Negocios</h3>
+                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-cyan transition-colors">Iniciación al Desarrollo con IA</h3>
+                                <p class="text-[11px] text-dracula-comment mt-2">The Big School</p>
                             </div>
                         </div>
 
-                        <!-- Cert 3 -->
-                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(255,121,198,0.2)]" data-category="web">
-                            <div class="aspect-[4/3] relative overflow-hidden">
-                                <img src="https://placehold.co/600x450/282a36/ff79c6?text=React+Pro" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Certificado">
-                                <div class="absolute inset-0 bg-gradient-to-t from-dracula-bg/90 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-pink/10 backdrop-blur-[2px]">
+                        <!-- Cert Real: Programación Básica -->
+                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(189,147,249,0.2)]" 
+                             data-category="web" 
+                             data-title="Programación Básica" 
+                             data-src="./assets/docs/certificates/diploma-basico-programacion.pdf"
+                             data-link="https://platzi.com/">
+                            <div class="aspect-[4/3] relative overflow-hidden bg-white">
+                                <iframe src="./assets/docs/certificates/diploma-basico-programacion.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-none pointer-events-none origin-top scale-[1.01]" scrolling="no"></iframe>
+                                <div class="absolute inset-0 bg-dracula-bg/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-purple/10 backdrop-blur-[2px] z-20">
+                                    <div class="w-12 h-12 rounded-full bg-dracula-fg flex items-center justify-center text-dracula-purple shadow-xl">
+                                        <i class="bi bi-zoom-in text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-dracula-comment/20">
+                                <div class="text-[10px] text-dracula-purple uppercase font-bold tracking-widest mb-2" data-translate="Desarrollo Web">Desarrollo Web</div>
+                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-purple transition-colors">Programación Básica</h3>
+                                <p class="text-[11px] text-dracula-comment mt-2">Platzi</p>
+                            </div>
+                        </div>
+
+                        <!-- Cert Real: Marca Personal -->
+                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(255,121,198,0.2)]" 
+                             data-category="soft" 
+                             data-title="Marca Personal" 
+                             data-src="./assets/docs/certificates/diploma-marca-personal-2018.pdf"
+                             data-link="https://platzi.com/">
+                            <div class="aspect-[4/3] relative overflow-hidden bg-white">
+                                <iframe src="./assets/docs/certificates/diploma-marca-personal-2018.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-none pointer-events-none origin-top scale-[1.01]" scrolling="no"></iframe>
+                                <div class="absolute inset-0 bg-dracula-bg/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-pink/10 backdrop-blur-[2px] z-20">
                                     <div class="w-12 h-12 rounded-full bg-dracula-fg flex items-center justify-center text-dracula-pink shadow-xl">
                                         <i class="bi bi-zoom-in text-xl"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="p-6 border-t border-dracula-comment/20">
-                                <div class="text-[10px] text-dracula-pink uppercase font-bold tracking-widest mb-2" data-translate="Desarrollo Web">Desarrollo Web</div>
-                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-pink transition-colors">React Avanzado y Patrones de Diseño</h3>
+                                <div class="text-[10px] text-dracula-pink uppercase font-bold tracking-widest mb-2" data-translate="Habilidades">Habilidades</div>
+                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-pink transition-colors">Marca Personal</h3>
+                                <p class="text-[11px] text-dracula-comment mt-2">Platzi</p>
+                            </div>
+                        </div>
+
+                        <!-- Cert Real: Estrategias Inglés -->
+                        <div class="cert-item group relative rounded-2xl overflow-hidden glass-card cursor-pointer transition-all duration-500 hover:shadow-[0_10px_30px_rgba(80,250,123,0.2)]" 
+                             data-category="soft" 
+                             data-title="Estrategias para Aprender Inglés" 
+                             data-src="./assets/docs/certificates/diploma-estrategias-ingles-2022.pdf"
+                             data-link="https://platzi.com/">
+                            <div class="aspect-[4/3] relative overflow-hidden bg-white">
+                                <iframe src="./assets/docs/certificates/diploma-estrategias-ingles-2022.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-none pointer-events-none origin-top scale-[1.01]" scrolling="no"></iframe>
+                                <div class="absolute inset-0 bg-dracula-bg/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-dracula-green/10 backdrop-blur-[2px] z-20">
+                                    <div class="w-12 h-12 rounded-full bg-dracula-fg flex items-center justify-center text-dracula-green shadow-xl">
+                                        <i class="bi bi-zoom-in text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6 border-t border-dracula-comment/20">
+                                <div class="text-[10px] text-dracula-green uppercase font-bold tracking-widest mb-2" data-translate="Habilidades">Habilidades</div>
+                                <h3 class="text-lg font-bold text-dracula-fg leading-tight group-hover:text-dracula-green transition-colors">Estrategias Inglés</h3>
+                                <p class="text-[11px] text-dracula-comment mt-2">Platzi</p>
                             </div>
                         </div>
                     </div>
@@ -921,6 +980,215 @@
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="container mx-auto px-4 py-8 max-w-[1400px] relative z-10">
+        <div class="glass rounded-3xl p-8 border border-dracula-comment/20 flex flex-col md:flex-row items-center justify-between gap-8 text-sm">
+            <div class="flex flex-col gap-2 text-center md:text-left">
+                <p class="text-dracula-fg font-medium"><span data-translate="Creado por">Creado por</span> William Ache (2024 - <span data-translate="Actualidad">Actualidad</span>). <span data-translate="Sin derechos reservados">Sin derechos reservados.</span></p>
+                <p class="text-dracula-comment text-xs flex items-center justify-center md:justify-start gap-1.5 mt-1">
+                    <i class="bi bi-code-slash text-dracula-cyan"></i> 
+                    <span data-translate="Inspirado en">Inspirado en</span> 
+                    <a href="https://github.com/codewithsadee/vcard-personal-portfolio" target="_blank" class="text-dracula-cyan hover:text-dracula-pink transition-colors font-semibold border-b border-dracula-cyan/30">vCard Template</a>
+                    <span data-translate="y adaptado">y adaptado a mi estilo personal</span>
+                </p>
+
+                <div class="flex flex-col md:flex-row items-center gap-4 mt-4">
+                    <div class="flex items-center gap-2 px-3 py-1 bg-dracula-card/30 rounded-full border border-dracula-comment/20 text-[10px]">
+                        <i class="bi bi-palette-fill text-dracula-purple"></i>
+                        <span class="text-dracula-fg/60">Theme: <a href="https://draculatheme.com/" target="_blank" class="text-dracula-purple hover:text-dracula-pink transition-colors font-bold">Dracula HC</a></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] text-dracula-comment">
+                        <i class="bi bi-balloon-heart-fill text-dracula-pink animate-bounce"></i>
+                        <span data-translate="Hecho con pasión">Hecho con pasión</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Social Links & Quick Actions -->
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com/wydex28" target="_blank" class="w-10 h-10 rounded-xl bg-dracula-card/50 flex items-center justify-center text-dracula-fg/60 hover:text-dracula-purple hover:bg-dracula-card transition-all border border-dracula-comment/20 shadow-lg" title="GitHub">
+                        <i class="bi bi-github text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/williamache" target="_blank" class="w-10 h-10 rounded-xl bg-dracula-card/50 flex items-center justify-center text-dracula-fg/60 hover:text-dracula-cyan hover:bg-dracula-card transition-all border border-dracula-comment/20 shadow-lg" title="LinkedIn">
+                        <i class="bi bi-linkedin text-xl"></i>
+                    </a>
+                </div>
+                <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-dracula-green">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-dracula-green"></span>
+                    </span>
+                    <span data-translate="Disponible para proyectos">Disponible para contrataciones y proyectos</span>
+                </div>
+
+                <!-- Dynamic Stats -->
+                <div class="flex flex-wrap items-center justify-center gap-4 mt-4">
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold">
+                            <span data-translate="Mi Hora">Mi Hora</span> (Venezuela)
+                        </span>
+                        <div class="flex items-center gap-2 text-[10px] text-dracula-purple font-mono bg-dracula-purple/5 px-2 py-1 rounded-lg border border-dracula-purple/20">
+                            <span id="my-time">--:--:--</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold">
+                            <span data-translate="Tu Hora">Tu Hora</span> (<span id="visitor-country">Local</span>)
+                        </span>
+                        <div class="flex items-center gap-2 text-[10px] text-dracula-cyan font-mono bg-dracula-cyan/5 px-2 py-1 rounded-lg border border-dracula-cyan/20">
+                            <span id="visitor-time">--:--:--</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold" data-translate="Clima">Clima</span>
+                        <div class="flex items-center gap-2 text-[10px] text-dracula-yellow font-mono bg-dracula-yellow/5 px-2 py-1 rounded-lg border border-dracula-yellow/20">
+                            <i id="weather-icon" class="bi bi-sun-fill"></i>
+                            <span id="weather-temp">--°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Bitcoin Price -->
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold">Bitcoin (BTC)</span>
+                        <div id="btc-widget" class="flex flex-col items-center gap-0.5 bg-dracula-card/30 px-2 py-1 rounded-lg border border-dracula-comment/20 transition-all duration-500">
+                            <div class="flex items-center gap-1.5">
+                                <i class="bi bi-currency-bitcoin text-dracula-yellow text-sm"></i>
+                                <span id="btc-price" class="text-[12px] text-dracula-fg font-bold font-mono">--.--- USD</span>
+                            </div>
+                            <div id="btc-change-container" class="flex items-center gap-1 text-[9px] font-mono text-dracula-comment">
+                                <span id="btc-change">--- (---%)</span>
+                                <i id="btc-icon" class="bi bi-dash"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1">
+                        <span class="text-[8px] uppercase tracking-tighter text-dracula-comment font-bold" data-translate="Visitas">Visitas</span>
+                        <div class="flex items-center gap-2 text-[10px] text-dracula-green font-mono bg-dracula-green/5 px-2 py-1 rounded-lg border border-dracula-green/20">
+                            <span id="visitor-count">0000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:items-end gap-4">
+                <button id="open-inspiration" class="group flex items-center gap-3 px-6 py-3 bg-dracula-card/30 hover:bg-dracula-purple/20 border border-dracula-comment/20 hover:border-dracula-purple/50 rounded-2xl transition-all shadow-lg">
+                    <div class="w-10 h-10 rounded-xl bg-dracula-purple/20 flex items-center justify-center text-dracula-purple group-hover:scale-110 transition-transform">
+                        <i class="bi bi-lightbulb-fill text-xl"></i>
+                    </div>
+                    <div class="flex flex-col items-start">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-dracula-purple/60" data-translate="Inspiración & Educación">Inspiración & Educación</span>
+                        <span class="text-xs text-dracula-fg/70" data-translate="Ver fuentes y recursos">Ver fuentes y recursos</span>
+                    </div>
+                </button>
+
+
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Floating Accessibility Menu -->
+    <!-- Floating Actions -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <!-- Floating Options (hidden by default) -->
+        <div id="a11y-menu" class="flex flex-col gap-3 opacity-0 invisible translate-y-4 transition-all duration-300">
+            <!-- Color Blindness Toggle -->
+            <button id="colorblind-toggle" title="Filtro Daltonismo / Color Blindness Filter" class="w-12 h-12 rounded-full bg-dracula-card border border-dracula-pink/30 text-dracula-pink flex flex-col items-center justify-center shadow-[0_0_15px_rgba(255,121,198,0.3)] hover:scale-110 hover:bg-dracula-pink hover:text-dracula-bg transition-all">
+                <i class="bi bi-eye text-lg pointer-events-none"></i>
+                <span id="colorblind-level-text" class="text-[9px] font-bold leading-none mt-0.5">Off</span>
+            </button>
+
+            <!-- High Contrast Toggle -->
+            <button id="contrast-toggle" title="Alto Contraste / High Contrast" class="w-12 h-12 rounded-full bg-dracula-card border border-dracula-yellow/30 text-dracula-yellow flex items-center justify-center shadow-[0_0_15px_rgba(241,250,140,0.3)] hover:scale-110 hover:bg-dracula-yellow hover:text-dracula-bg transition-all">
+                <i id="contrast-icon" class="bi bi-circle-half text-xl pointer-events-none"></i>
+            </button>
+
+            <!-- Zoom Toggle -->
+            <button id="zoom-toggle" title="Aumentar Tamaño / Increase Size" class="w-12 h-12 rounded-full bg-dracula-card border border-dracula-cyan/30 text-dracula-cyan flex flex-col items-center justify-center shadow-[0_0_15px_rgba(139,233,253,0.3)] hover:scale-110 hover:bg-dracula-cyan hover:text-dracula-bg transition-all">
+                <i class="bi bi-zoom-in text-lg pointer-events-none"></i>
+                <span id="zoom-level-text" class="text-[9px] font-bold leading-none mt-0.5">X1</span>
+            </button>
+            
+            <!-- Voice Toggle -->
+            <button id="voice-toggle" title="Accesibilidad por Voz / Voice Accessibility" class="w-12 h-12 rounded-full bg-dracula-card border border-dracula-purple/30 text-dracula-purple flex items-center justify-center shadow-[0_0_15px_rgba(189,147,249,0.3)] hover:scale-110 hover:bg-dracula-purple hover:text-dracula-bg transition-all">
+                <i id="voice-toggle-icon" class="bi bi-volume-mute-fill text-xl pointer-events-none"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <!-- Back to Top Button -->
+            <button id="back-to-top" title="Subir / Back to Top" class="group w-12 h-12 rounded-full bg-dracula-card border border-dracula-pink/30 text-dracula-pink flex items-center justify-center shadow-[0_0_15px_rgba(255,121,198,0.3)] hover:scale-110 hover:bg-dracula-pink hover:text-dracula-bg transition-all opacity-0 invisible translate-y-4">
+                <i class="bi bi-arrow-up-short text-3xl pointer-events-none group-hover:animate-bounce-short"></i>
+            </button>
+            
+            <!-- Main FAB -->
+            <button id="a11y-fab" class="w-14 h-14 rounded-full bg-gradient-to-r from-dracula-purple to-dracula-pink text-dracula-bg flex items-center justify-center shadow-[0_0_20px_rgba(189,147,249,0.4)] hover:shadow-[0_0_25px_rgba(189,147,249,0.6)] hover:scale-105 transition-all focus:outline-none">
+                <i class="bi bi-universal-access-circle text-3xl pointer-events-none"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Certificado -->
+    <div id="cert-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="absolute inset-0 bg-dracula-bg/90 backdrop-blur-md cert-modal-close"></div>
+        <div class="relative w-full max-w-4xl p-4 md:p-8 transform translate-y-10 transition-all duration-300" id="cert-modal-window">
+            <button class="absolute -top-12 right-0 text-dracula-fg hover:text-dracula-pink transition-colors text-3xl cert-modal-close">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-dracula-comment/30">
+                <div id="cert-modal-content" class="aspect-[16/9] w-full bg-dracula-card flex items-center justify-center">
+                    <!-- PDF or Image injected here -->
+                </div>
+                <div class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-dracula-bg/50">
+                    <div>
+                        <h3 id="cert-modal-title" class="text-2xl font-bold text-dracula-fg mb-1"></h3>
+                        <p id="cert-modal-category" class="text-sm text-dracula-pink font-semibold uppercase tracking-wider"></p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a id="cert-modal-link" href="#" target="_blank" class="px-6 py-2.5 bg-dracula-purple text-dracula-bg rounded-xl font-bold hover:bg-dracula-pink transition-all flex items-center gap-2">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                            <span data-translate="Ver Fuente">Ver Fuente</span>
+                        </a>
+                        <a id="cert-modal-download" href="#" target="_blank" class="px-6 py-2.5 border border-dracula-comment/30 text-dracula-fg rounded-xl font-bold hover:bg-dracula-card transition-all flex items-center gap-2">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                            <span data-translate="Abrir PDF">Abrir PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Inspiración -->
+    <div id="inspiration-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="absolute inset-0 bg-dracula-bg/95 backdrop-blur-xl inspiration-modal-close"></div>
+        <div class="relative w-full max-w-5xl h-[80vh] m-4 p-4 md:p-8 transform translate-y-10 transition-all duration-300 flex flex-col" id="inspiration-modal-window">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h3 class="text-3xl font-bold text-dracula-fg" data-translate="Inspiración & Educación">Inspiración & Educación</h3>
+                    <p class="text-dracula-comment mt-1" data-translate="Fuentes que impulsaron este proyecto">Fuentes que impulsaron este proyecto</p>
+                </div>
+                <button class="w-12 h-12 rounded-xl bg-dracula-card/50 text-dracula-fg hover:text-dracula-pink transition-all flex items-center justify-center border border-dracula-comment/20 inspiration-modal-close">
+                    <i class="bi bi-x-lg text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="inspiration-grid">
+                    <!-- Cards will be injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

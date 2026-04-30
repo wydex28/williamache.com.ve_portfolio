@@ -126,20 +126,13 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
 /* Timeline Line custom style */
 .timeline-line {
     position: relative;
+    border-left: 2px solid rgba(98, 114, 164, 0.3);
+    margin-left: 1.5rem; /* Exactly 24px, matching the center of a 12w (48px) icon */
 }
+
+/* We remove the ::before since we use border-left now for better alignment with dots */
 .timeline-line::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(to bottom, 
-        rgba(98, 114, 164, 0.4) 0%, 
-        rgba(98, 114, 164, 0.4) 85%, 
-        transparent 100%
-    );
-    border-radius: 2px;
+    display: none;
 }
 
 /* Ambient Glow background */
@@ -199,12 +192,55 @@ body.light-theme .bubble-arrow {
 
 /* Switch Animation Styles */
 #theme-toggle.active {
-    background-color: #f1fa8c; /* Yellow */
+    background: linear-gradient(to right, #bd93f9, #ff79c6);
+    border-color: rgba(248, 248, 242, 0.2) !important;
 }
 #theme-toggle.active #theme-toggle-dot {
     transform: translateX(20px);
-    background-color: #ffb86c; /* Orange */
+    background-color: #f8f8f2; /* White/Off-white */
+    box-shadow: 0 0 10px rgba(255, 121, 198, 0.5);
 }
 #theme-toggle.active #theme-toggle-icon {
-    color: #282a36;
+    color: #ff79c6; /* Pink icon on white dot */
+}
+
+/* Voice Accessibility Toggle Styles */
+#voice-toggle.active {
+    background-color: #bd93f9 !important; /* Change to purple to match the theme */
+    border-color: #bd93f9 !important;
+}
+#voice-toggle.active i {
+    color: #282a36 !important; /* Dracula BG for contrast */
+}
+
+/* Accessibility: Keyboard Focus Indicator */
+*:focus-visible {
+    outline: 3px solid #ff79c6 !important; /* Dracula Pink */
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 5px rgba(255, 121, 198, 0.3) !important;
+    transition: outline-offset 0.1s ease-in-out;
+}
+
+/* Animations */
+@keyframes expand-line {
+    0%, 100% { transform: scaleX(0); opacity: 0; }
+    50% { transform: scaleX(0.8); opacity: 1; }
+}
+
+.animate-expand-line {
+    animation: expand-line 2s ease-in-out infinite;
+}
+
+@keyframes bounce-short {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.animate-bounce-short {
+    animation: bounce-short 0.5s ease-in-out infinite;
+}
+
+/* Dynamic Stats Badges */
+#my-time, #visitor-time, #weather-temp, #visitor-count {
+    letter-spacing: 1px;
 }
