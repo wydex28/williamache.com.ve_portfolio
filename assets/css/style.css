@@ -489,12 +489,72 @@ body.pure-glass-mode .glass-card {
     animation: ripple-effect 0.4s ease-out;
 }
 
-/* Custom Text Cursor */
-p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate] {
+/* Custom Text Cursor (Only for non-clickable text) */
+p:not(a *):not(button *), 
+span:not(a *):not(button *):not(.nav-link), 
+h1:not(a *):not(button *), 
+h2:not(a *):not(button *), 
+h3:not(a *):not(button *), 
+h4:not(a *):not(button *), 
+h5:not(a *):not(button *), 
+h6:not(a *):not(button *), 
+[data-translate]:not(a *):not(button *):not(.nav-link),
+input, textarea {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'><path fill='%2350fa7b' d='M8 2v20M4 2h8M4 22h8' stroke='%2350fa7b' stroke-width='1.5'/></svg>") 8 12, text !important;
 }
+
 
 /* Cursor Modes Glow */
 #cursor-glow.pointer-mode > div:first-child { background-color: #8be9fd !important; box-shadow: 0 0 15px #8be9fd !important; }
 #cursor-glow.text-mode > div:first-child { background-color: #50fa7b !important; box-shadow: 0 0 15px #50fa7b !important; }
+
+/* Neon Badge Styles */
+.badge-neon-purple {
+    background-color: rgba(189, 147, 249, 0.1) !important;
+    color: #bd93f9 !important;
+    border: 1px solid rgba(189, 147, 249, 0.4) !important;
+    text-shadow: 0 0 8px rgba(189, 147, 249, 0.5);
+    box-shadow: 0 0 12px rgba(189, 147, 249, 0.1);
+    font-weight: 700;
+    letter-spacing: 0.025em;
+}
+
+/* Skill Item Click Indicator */
+.skill-item .glass-card::after {
+    content: '\F341';
+    font-family: 'bootstrap-icons' !important;
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    font-size: 0.85rem;
+    color: #6272a4;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.skill-item:hover .glass-card::after {
+    opacity: 1;
+    transform: scale(1.2);
+    color: #8be9fd;
+}
+
+/* Sticky Sidebar Fix for Desktop */
+@media (min-width: 1024px) {
+    .sidebar-sticky {
+        position: sticky !important;
+        top: 30px !important;
+        z-index: 50;
+    }
+}
+
+/* Base Cursor Styles */
+#cursor-glow { position: fixed; width: 300px; height: 300px; background: radial-gradient(circle, rgba(189,147,249,0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: background 0.3s ease; }
+#cursor-dot { position: fixed; width: 8px; height: 8px; background: #bd93f9; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease; }
+.cursor-click { transform: translate(-50%, -50%) scale(0.8) !important; background: #ff79c6 !important; }
+#click-ripple { position: fixed; width: 20px; height: 20px; background: rgba(189, 147, 249, 0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%) scale(0); display: none; }
+.ripple-anim { animation: ripple 0.6s ease-out forwards; }
+@keyframes ripple { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
+#cursor-glow.pointer-mode { background: radial-gradient(circle, rgba(139,233,253,0.2) 0%, transparent 70%); }
+#cursor-glow.text-mode { background: radial-gradient(circle, rgba(80,250,123,0.15) 0%, transparent 70%); }
 
