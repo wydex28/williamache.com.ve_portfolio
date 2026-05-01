@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dracula-bg: #282a36;
+  --dracula-fg: #f8f8f2;
+  --dracula-selection: #44475a;
+  --dracula-comment: #6272a4;
+  --dracula-cyan: #8be9fd;
+  --dracula-green: #50fa7b;
+  --dracula-orange: #ffb86c;
+  --dracula-pink: #ff79c6;
+  --dracula-purple: #bd93f9;
+  --dracula-red: #ff5555;
+  --dracula-yellow: #f1fa8c;
+  --dracula-card: #1e1f29;
+}
+
+.light-theme {
+  --dracula-bg: #f8f8f2;
+  --dracula-fg: #282a36;
+  --dracula-selection: #e6e6e6;
+  --dracula-comment: #44475a;
+  --dracula-cyan: #008080;
+  --dracula-green: #228b22;
+  --dracula-orange: #ff8c00;
+  --dracula-pink: #ff1493;
+  --dracula-purple: #6a0dad;
+  --dracula-red: #d00000;
+  --dracula-yellow: #8b8b00;
+  --dracula-card: #ffffff;
+}
+
+@layer base {
+  body {
+    background-color: var(--dracula-bg);
+    color: var(--dracula-fg);
+    @apply font-sans;
+    cursor:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23bd93f9' stroke='%23f8f8f2' stroke-width='1' d='M4 4l14 6-7 2-3 8z'/></svg>")
+        4 4,
+      auto;
+  }
+}
+
+a,
+button,
+[role="button"],
+.nav-link,
+.cursor-pointer {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff79c6' stroke='%23f8f8f2' stroke-width='1.5' d='M9 11.5V6a2 2 0 0 1 4 0v5.5a2 2 0 0 0 4 0V9a2 2 0 0 1 4 0v7.5c0 4.14-3.36 7.5-7.5 7.5S6 20.64 6 16.5V11a2 2 0 0 1 4 0v.5z'/></svg>")
+      9 6,
+    pointer !important;
+}
+
+@layer components {
+  .glass {
+    background-color: rgba(var(--dracula-bg), 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--dracula-comment), 0.2);
+  }
+  .glass-card {
+    background-color: rgba(var(--dracula-card), 0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--dracula-comment), 0.2);
+  }
+  .bg-glow {
+    @apply fixed rounded-full pointer-events-none blur-[120px] z-0;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #282a36;
+}
+::-webkit-scrollbar-thumb {
+  background: #44475a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bd93f9;
+}
+
+/* Animations */
+@keyframes expandLine {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.animate-expand-line {
+  animation: expandLine 1s ease-out forwards;
+}
+
+@keyframes bounceShort {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-bounce-short {
+  animation: bounceShort 1s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Custom Scrollbar overrides for Light Theme */
+.light-theme ::-webkit-scrollbar-track {
+  background: var(--dracula-bg);
+}
+.light-theme ::-webkit-scrollbar-thumb {
+  background: var(--dracula-selection);
+}
+.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--dracula-purple);
+}
