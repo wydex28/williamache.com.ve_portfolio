@@ -1,0 +1,19 @@
+# Next.js build output
+.next/
+
+# Dependencies
+node_modules/
+
+# Legacy modules/backup
+legacy_backup/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# Next.js type definitions
+next-env.d.ts
