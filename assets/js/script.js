@@ -186,6 +186,10 @@ $(function () {
      ====================== */
   $(".nav-link").on("click", function () {
     const target = $(this).data("target");
+    const $currentSection = $(".section-page.active");
+    const $newSection = $("#" + target);
+
+    if ($currentSection.attr('id') === target) return;
 
     // Update Navbar visually
     $(".nav-link")
@@ -196,25 +200,53 @@ $(function () {
       .addClass("active text-dracula-fg")
       .removeClass("text-dracula-fg/60");
 
-    // Toggle Sections with smooth transition
-    $(".section-page").removeClass("active");
-    $("#" + target).addClass("active");
+    // Desactivar temporalmente los links para evitar clics múltiples durante la animación
+    $(".nav-link").css("pointer-events", "none");
 
-    // Fix for Leaflet Map loading issue when section is hidden
-    if (target === "contact" && window.mapAragua) {
-        setTimeout(() => {
-            window.mapAragua.invalidateSize();
-        }, 100);
-    }
+    // Animate OUT current section elements
+    gsap.to($currentSection.find("> *"), {
+        y: -15,
+        opacity: 0,
+        stagger: 0.03,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+            $currentSection.removeClass("active");
+            
+            // Prepare new section (reset positions before showing)
+            gsap.set($newSection.find("> *"), { y: 20, opacity: 0 });
+            $newSection.addClass("active");
 
-    // Scroll slightly to top on mobile
-    if (window.innerWidth < 1024) {
-      const scrollTarget = $(".glass.rounded-3xl").last()[0];
-      lenis.scrollTo(scrollTarget, {
-        offset: -20,
-        duration: 1.2
-      });
-    }
+            // Animate IN new section elements with stagger
+            gsap.to($newSection.find("> *"), {
+                y: 0,
+                opacity: 1,
+                stagger: 0.06,
+                duration: 0.4,
+                ease: "power3.out",
+                clearProps: "y,opacity",
+                onComplete: () => {
+                    $(".nav-link").css("pointer-events", "");
+                }
+            });
+
+            // Fix for Leaflet Map
+            if (target === "contact" && window.mapAragua) {
+                setTimeout(() => {
+                    window.mapAragua.invalidateSize();
+                }, 150);
+            }
+
+            // Scroll slightly to top on mobile using Lenis
+            if (window.innerWidth < 1024) {
+                const scrollTarget = $(".glass.rounded-3xl").last()[0];
+                lenis.scrollTo(scrollTarget, {
+                    offset: -20,
+                    duration: 1.2
+                });
+            }
+        }
+    });
   });
 
 

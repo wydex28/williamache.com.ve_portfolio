@@ -85,7 +85,6 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
 }
 .section-page.active {
     display: block;
-    animation: fadeIn 0.5s ease-out forwards;
 }
 
 /* Speech Bubble */
