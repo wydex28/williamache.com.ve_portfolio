@@ -1568,35 +1568,94 @@ $(function () {
   });
 
   /** =====================
-   *  Full-Footer Linux Terminal Simulator
+   *  Virtual File System & Terminal Logic
    ====================== */
   const $footerStandard = $('#footer-standard-view');
   const $footerTerminal = $('#footer-terminal-view');
   const $terminalInput = $('#full-terminal-input');
   const $terminalOutput = $('#full-terminal-output');
-  const $footerWrapper = $('#footer-inner-wrapper');
+  
+  let currentPath = "/";
+  const virtualFS = {
+    "/": {
+        "assets": { type: "dir" },
+        "index.html": { type: "file", content: "<!-- William Ache Portfolio v2.4 -->\n<!DOCTYPE html>\n<html lang='es'>\n<head>..." },
+        ".gitignore": { type: "file", content: "node_modules/\n.next/\n.env\n*.log" },
+        "README.md": { type: "file", content: "# William Ache Portfolio\nImmersive Cyberpunk Experience built with GSAP & Vanilla JS." }
+    },
+    "/assets": {
+        "css": { type: "dir" },
+        "js": { type: "dir" },
+        "images": { type: "dir" },
+        "ideas.txt": { type: "file", content: "- Add Linux Terminal Easter Egg [DONE]\n- Improve Scrollytelling [DONE]\n- Fix Scroll Propagation [DONE]" }
+    },
+    "/assets/js": {
+        "script.js": { type: "file", content: "/** Main Logic */\n$(document).ready(() => {\n  initPortfolio();\n});" },
+        "lang.js": { type: "file", content: "const translations = {\n  es: { ... },\n  en: { ... }\n};" }
+    },
+    "/assets/css": {
+        "style.css": { type: "file", content: ":root {\n  --dracula-bg: #282a36;\n  --dracula-purple: #bd93f9;\n}" }
+    }
+  };
 
   const terminalCommands = {
     help: () => `
       <div class="space-y-1 opacity-80">
-        <p><span class="text-dracula-cyan">bio</span> - Show developer biography</p>
-        <p><span class="text-dracula-cyan">projects</span> - List featured projects</p>
-        <p><span class="text-dracula-cyan">skills</span> - Display tech stack</p>
+        <p><span class="text-dracula-cyan">ls / dir</span> - List directory contents</p>
+        <p><span class="text-dracula-cyan">cd [dir]</span> - Change directory</p>
+        <p><span class="text-dracula-cyan">cat / nano / vi [file]</span> - Read file content</p>
+        <p><span class="text-dracula-cyan">pwd</span> - Print working directory</p>
         <p><span class="text-dracula-cyan">clear</span> - Clear terminal screen</p>
         <p><span class="text-dracula-cyan">exit</span> - Close terminal</p>
       </div>`,
-    bio: () => `
-      <div class="text-dracula-fg/80">
-        <p><span class="text-dracula-purple">William Ache:</span> Full-Stack Developer with +8 years of experience.</p>
-        <p>Specialized in SaaS architecture, Web3 integrations, and high-performance automation.</p>
-      </div>`,
-    projects: () => `
-      <div class="text-dracula-yellow/80">
-        <p>• <span class="font-bold">Wydex SaaS:</span> Real Estate Automation</p>
-        <p>• <span class="font-bold">Villi App:</span> Personal OS Core</p>
-        <p>• <span class="font-bold">Portfolio v2:</span> The Cyberpunk Experience</p>
-      </div>`,
-    skills: () => `<p class="text-dracula-green/80">Node.js, React, Next.js, Laravel, MongoDB, PostgreSQL, Docker, Linux (Artix/Arch).</p>`,
+    pwd: () => `<p class="text-dracula-fg/60">${currentPath}</p>`,
+    ls: () => {
+        const items = virtualFS[currentPath];
+        if (!items) return "Error: Path not found.";
+        return `<div class="flex flex-wrap gap-x-6">` + 
+            Object.keys(items).map(key => {
+                const isDir = items[key].type === "dir";
+                return `<span class="${isDir ? 'text-dracula-purple font-bold' : 'text-dracula-fg'}">${key}${isDir ? '/' : ''}</span>`;
+            }).join('') + `</div>`;
+    },
+    dir: () => terminalCommands.ls(),
+    cd: (args) => {
+        const target = args[0];
+        if (!target || target === "~") { currentPath = "/"; return ""; }
+        if (target === "..") {
+            if (currentPath === "/") return "";
+            const parts = currentPath.split('/').filter(p => p);
+            parts.pop();
+            currentPath = "/" + parts.join('/');
+            return "";
+        }
+        
+        // Simple relative path support
+        const normalizedTarget = currentPath === "/" ? `/${target}` : `${currentPath}/${target}`;
+        if (virtualFS[normalizedTarget]) {
+            currentPath = normalizedTarget;
+            return "";
+        } else {
+            const items = virtualFS[currentPath];
+            if (items && items[target] && items[target].type === "dir") {
+                currentPath = normalizedTarget;
+                return "";
+            }
+        }
+        return `<span class="text-dracula-red">cd: no such directory: ${target}</span>`;
+    },
+    cat: (args) => {
+        const file = args[0];
+        if (!file) return "Usage: cat [filename]";
+        const items = virtualFS[currentPath];
+        if (items && items[file]) {
+            if (items[file].type === "dir") return `cat: ${file}: Is a directory`;
+            return `<pre class="text-dracula-comment whitespace-pre-wrap mt-2 p-2 bg-black/40 rounded border border-white/5">${items[file].content}</pre>`;
+        }
+        return `cat: ${file}: No such file`;
+    },
+    nano: (args) => terminalCommands.cat(args),
+    vi: (args) => terminalCommands.cat(args),
     clear: () => { $terminalOutput.empty(); return ""; }
   };
 
@@ -1657,23 +1716,31 @@ $(function () {
 
   $terminalInput.on('keydown', function(e) {
     if (e.key === 'Enter') {
-        const input = $(this).val().toLowerCase().trim();
-        if (!input) return;
+        const fullInput = $(this).val().trim();
+        if (!fullInput) return;
+        
+        const args = fullInput.split(' ');
+        const cmd = args.shift().toLowerCase();
 
-        $terminalOutput.append(`<div><span class="text-dracula-cyan font-bold">william-ache@portfolio:~$</span> ${input}</div>`);
+        $terminalOutput.append(`<div><span class="text-dracula-cyan font-bold">william-ache@portfolio:~$</span> ${fullInput}</div>`);
 
-        if (input === 'exit') {
+        if (cmd === 'exit') {
             toggleFullTerminal(false);
-        } else if (terminalCommands[input]) {
-            const result = terminalCommands[input]();
+        } else if (terminalCommands[cmd]) {
+            const result = terminalCommands[cmd](args);
             if (result) $terminalOutput.append(`<div class="mt-1 mb-2">${result}</div>`);
         } else {
-            $terminalOutput.append(`<div class="text-dracula-red mb-2">> Error: Command '${input}' unrecognized.</div>`);
+            $terminalOutput.append(`<div class="text-dracula-red mb-2">> Error: Command '${cmd}' unrecognized.</div>`);
         }
 
         $(this).val('');
         $('#full-terminal-body').scrollTop($('#full-terminal-body')[0].scrollHeight);
     }
+  });
+
+  // Prevent scroll propagation to the main page
+  $('#full-terminal-body').on('wheel mousewheel DOMMouseScroll', function(e) {
+      e.stopPropagation();
   });
 
   // Keep focus on input when clicking anywhere in the terminal
