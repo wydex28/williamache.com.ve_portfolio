@@ -1,0 +1,2 @@
+acomodar el efecto de glitch para que sea en mas parte del sistema y que el loader lo tenga por defecto
+

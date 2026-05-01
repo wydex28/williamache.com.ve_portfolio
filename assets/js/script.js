@@ -3,8 +3,8 @@ $(function () {
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
+    orientation: "vertical",
+    gestureOrientation: "vertical",
     smoothWheel: true,
     wheelMultiplier: 1,
     smoothTouch: false,
@@ -20,83 +20,97 @@ $(function () {
   requestAnimationFrame(raf);
 
   // Global definitions for accessibility
-  const colorBlindNames = ["Normal", "Protanopia (Rojo)", "Deuteranopia (Verde)", "Tritanopia (Azul)"];
-  const colorBlindEnNames = ["Normal", "Protanopia (Red)", "Deuteranopia (Green)", "Tritanopia (Blue)"];
+  const colorBlindNames = [
+    "Normal",
+    "Protanopia (Rojo)",
+    "Deuteranopia (Verde)",
+    "Tritanopia (Azul)",
+  ];
+  const colorBlindEnNames = [
+    "Normal",
+    "Protanopia (Red)",
+    "Deuteranopia (Green)",
+    "Tritanopia (Blue)",
+  ];
 
   // Preloader Logic
-  const $preloader = $('#preloader');
-  $(window).on('load', function() {
+  const $preloader = $("#preloader");
+  $(window).on("load", function () {
     setTimeout(() => {
-      $preloader.addClass('opacity-0');
+      $preloader.addClass("opacity-0");
       setTimeout(() => {
-        $preloader.addClass('invisible');
+        $preloader.addClass("invisible");
       }, 700);
-    }, 2000); 
+    }, 2000);
   });
 
   // Avatar Switcher Logic
   let currentAvatarIndex = 1;
   const totalAvatars = 80;
-  const $avatar = $('#avatar');
-  const $avatarContainer = $('#avatar-container');
-  const $avatarBubble = $('#avatar-bubble');
+  const $avatar = $("#avatar");
+  const $avatarContainer = $("#avatar-container");
+  const $avatarBubble = $("#avatar-bubble");
 
-  $avatarContainer.on('click', function() {
+  $avatarContainer.on("click", function () {
     currentAvatarIndex++;
     if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 1;
-    
+
     // Check extension: 34 is png, others are webp
-    const ext = (currentAvatarIndex === 34) ? 'png' : 'webp';
+    const ext = currentAvatarIndex === 34 ? "png" : "webp";
     const newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
-    
+
     // Smooth and organic transition effect
     $avatar.css({
-        'opacity': '0.3',
-        'transform': 'scale(0.8) rotate(-5deg)',
-        'filter': 'blur(8px)',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+      opacity: "0.3",
+      transform: "scale(0.8) rotate(-5deg)",
+      filter: "blur(8px)",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
     });
-    
+
     const img = new Image();
     img.src = newSrc;
     img.onload = () => {
-      $avatar.attr('src', newSrc);
+      $avatar.attr("src", newSrc);
       setTimeout(() => {
-          $avatar.css({
-              'opacity': '1',
-              'transform': 'scale(1) rotate(0deg)',
-              'filter': 'blur(0px)',
-              'transition': 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' // Elastic/Springy effect
-          });
+        $avatar.css({
+          opacity: "1",
+          transform: "scale(1) rotate(0deg)",
+          filter: "blur(0px)",
+          transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)", // Elastic/Springy effect
+        });
       }, 50);
     };
 
     // Hide bubble permanently on click
-    $avatarBubble.removeClass('active');
+    $avatarBubble.removeClass("active");
   });
 
   // Show help bubble after 1.5s and keep it active
   setTimeout(() => {
     if (currentAvatarIndex === 1) {
-        $avatarBubble.addClass('active');
+      $avatarBubble.addClass("active");
     }
   }, 1500);
 
   // Back to Top Logic
-  const $backToTop = $('#back-to-top');
+  const $backToTop = $("#back-to-top");
   let isShattering = false;
   let shatterStartY = 0;
 
-  $(window).on('scroll', function() {
+  $(window).on("scroll", function () {
     const currentScroll = $(this).scrollTop();
-    
+
     // Normal visibility logic
     if (currentScroll > 400 && !isShattering) {
-      $backToTop.removeClass('invisible opacity-0 translate-y-4').addClass('visible opacity-100 translate-y-0');
+      $backToTop
+        .removeClass("invisible opacity-0 translate-y-4")
+        .addClass("visible opacity-100 translate-y-0");
     } else if (currentScroll <= 400 && !isShattering) {
-      $backToTop.addClass('opacity-0 translate-y-4').removeClass('opacity-100 translate-y-0');
-      setTimeout(() => { 
-        if ($backToTop.hasClass('opacity-0')) $backToTop.addClass('invisible'); 
+      $backToTop
+        .addClass("opacity-0 translate-y-4")
+        .removeClass("opacity-100 translate-y-0");
+      setTimeout(() => {
+        if ($backToTop.hasClass("opacity-0")) $backToTop.addClass("invisible");
       }, 300);
     }
 
@@ -106,58 +120,71 @@ $(function () {
       let progress = currentScroll / shatterStartY;
       if (progress < 0) progress = 0;
       if (progress > 1) progress = 1;
-      
-      $backToTop[0].style.setProperty('--shatter', progress);
+
+      $backToTop[0].style.setProperty("--shatter", progress);
 
       // Once it reaches top, hide it and remove shattering state
       if (currentScroll <= 10) {
         isShattering = false;
-        $backToTop.removeClass('shattering').addClass('opacity-0 translate-y-4 invisible').removeClass('opacity-100 translate-y-0');
-        $backToTop[0].style.removeProperty('--shatter');
+        $backToTop
+          .removeClass("shattering")
+          .addClass("opacity-0 translate-y-4 invisible")
+          .removeClass("opacity-100 translate-y-0");
+        $backToTop[0].style.removeProperty("--shatter");
       }
     }
   });
 
-  $backToTop.on('click', function() {
+  $backToTop.on("click", function () {
     if (isShattering) return;
     isShattering = true;
     shatterStartY = $(window).scrollTop();
-    
-    $backToTop.addClass('shattering').css('pointer-events', 'none');
-    $backToTop[0].style.setProperty('--shatter', '1');
-    
+
+    $backToTop.addClass("shattering").css("pointer-events", "none");
+    $backToTop[0].style.setProperty("--shatter", "1");
+
     void $backToTop[0].offsetWidth;
 
     lenis.scrollTo(0, {
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       onComplete: () => {
-        $backToTop.css('pointer-events', '');
-      }
+        $backToTop.css("pointer-events", "");
+      },
     });
   });
 
   // Global Accessibility State
   let isNormalContrast = false; // High contrast is default
   let colorBlindMode = 0;
-  const colorBlindFilters = ['', 'url(#daltonismo-rg)', 'url(#daltonismo-by)', 'grayscale(100%)'];
+  const colorBlindFilters = [
+    "",
+    "url(#daltonismo-rg)",
+    "url(#daltonismo-by)",
+    "grayscale(100%)",
+  ];
 
   function updateHtmlFilter() {
-    let filterString = '';
-    if (!isNormalContrast) filterString += 'contrast(130%) saturate(130%) brightness(90%) ';
+    let filterString = "";
+    if (!isNormalContrast)
+      filterString += "contrast(130%) saturate(130%) brightness(90%) ";
     if (colorBlindMode > 0) filterString += colorBlindFilters[colorBlindMode];
-    $('html').css('filter', filterString.trim() || 'none');
+    $("html").css("filter", filterString.trim() || "none");
   }
 
   function syncContrastUI() {
-    const $btn = $('#contrast-toggle');
-    const $icon = $btn.find('i');
+    const $btn = $("#contrast-toggle");
+    const $icon = $btn.find("i");
     if (isNormalContrast) {
-        $btn.addClass('bg-dracula-yellow text-dracula-bg').removeClass('text-dracula-yellow bg-dracula-card');
-        $icon.removeClass('bi-circle-half').addClass('bi-circle-fill');
+      $btn
+        .addClass("bg-dracula-yellow text-dracula-bg")
+        .removeClass("text-dracula-yellow bg-dracula-card");
+      $icon.removeClass("bi-circle-half").addClass("bi-circle-fill");
     } else {
-        $btn.removeClass('bg-dracula-yellow text-dracula-bg').addClass('text-dracula-yellow bg-dracula-card');
-        $icon.removeClass('bi-circle-fill').addClass('bi-circle-half');
+      $btn
+        .removeClass("bg-dracula-yellow text-dracula-bg")
+        .addClass("text-dracula-yellow bg-dracula-card");
+      $icon.removeClass("bi-circle-fill").addClass("bi-circle-half");
     }
   }
 
@@ -167,7 +194,8 @@ $(function () {
 
   // Title Marquee Effect
   function initTitleMarquee() {
-    let titleText = "William Ache | Desarrollador Full-Stack | Laravel • PHP • JavaScript • React • MySQL | ";
+    let titleText =
+      "William Ache | Desarrollador Full-Stack | Laravel • PHP • JavaScript • React • MySQL | ";
     setInterval(() => {
       titleText = titleText.substring(1) + titleText.substring(0, 1);
       document.title = titleText;
@@ -176,9 +204,9 @@ $(function () {
   initTitleMarquee();
 
   // Pure Glass Mode Toggle
-  $('#glass-mode-toggle').on('click', function() {
-      $(this).toggleClass('active');
-      $('body').toggleClass('pure-glass-mode');
+  $("#glass-mode-toggle").on("click", function () {
+    $(this).toggleClass("active");
+    $("body").toggleClass("pure-glass-mode");
   });
 
   /** =====================
@@ -188,34 +216,34 @@ $(function () {
 
   function updateNavIndicator($el, isInitial = false) {
     if (!$el || !$el.length) return;
-    
+
     const width = $el.outerWidth();
     const height = $el.outerHeight();
     const left = $el.position().left;
     const top = $el.position().top;
 
     if (isInitial) {
-        gsap.set($navIndicator, { width, height, left, top, opacity: 1 });
+      gsap.set($navIndicator, { width, height, left, top, opacity: 1 });
     } else {
-        // "Loading" pulse effect while moving (Faster)
-        gsap.to($navIndicator, {
-            left: left,
-            top: top,
-            width: width,
-            height: height,
-            duration: 0.25,
-            ease: "power2.out",
-            opacity: 1,
-            onStart: () => {
-                // Faster pulse glow
-                gsap.to($navIndicator, {
-                    boxShadow: "0 0 25px #bd93f9, inset 0 0 12px #bd93f9",
-                    duration: 0.1,
-                    repeat: 1,
-                    yoyo: true
-                });
-            }
-        });
+      // "Loading" pulse effect while moving (Faster)
+      gsap.to($navIndicator, {
+        left: left,
+        top: top,
+        width: width,
+        height: height,
+        duration: 0.25,
+        ease: "power2.out",
+        opacity: 1,
+        onStart: () => {
+          // Faster pulse glow
+          gsap.to($navIndicator, {
+            boxShadow: "0 0 25px #bd93f9, inset 0 0 12px #bd93f9",
+            duration: 0.1,
+            repeat: 1,
+            yoyo: true,
+          });
+        },
+      });
     }
   }
 
@@ -227,7 +255,7 @@ $(function () {
     const $currentSection = $(".section-page.active");
     const $newSection = $("#" + target);
 
-    if ($currentSection.attr('id') === target) return;
+    if ($currentSection.attr("id") === target) return;
 
     // Update Indicator
     updateNavIndicator($(this));
@@ -246,82 +274,81 @@ $(function () {
 
     // Animate OUT current section elements
     gsap.to($currentSection.find("> *"), {
-        y: -15,
-        opacity: 0,
-        stagger: 0.03,
-        duration: 0.2,
-        ease: "power2.in",
-        onComplete: () => {
-            $currentSection.removeClass("active");
-            
-            // Prepare new section (reset positions before showing)
-            gsap.set($newSection.find("> *"), { y: 20, opacity: 0 });
-            $newSection.addClass("active");
+      y: -15,
+      opacity: 0,
+      stagger: 0.03,
+      duration: 0.2,
+      ease: "power2.in",
+      onComplete: () => {
+        $currentSection.removeClass("active");
 
-            // Animate IN new section elements with stagger
-            gsap.to($newSection.find("> *"), {
-                y: 0,
-                opacity: 1,
-                stagger: 0.06,
-                duration: 0.4,
-                ease: "power3.out",
-                clearProps: "y,opacity",
-                onComplete: () => {
-                    $(".nav-link").css("pointer-events", "");
-                }
-            });
+        // Prepare new section (reset positions before showing)
+        gsap.set($newSection.find("> *"), { y: 20, opacity: 0 });
+        $newSection.addClass("active");
 
-            // Fix for Leaflet Map
-            if (target === "contact" && window.mapAragua) {
-                setTimeout(() => {
-                    window.mapAragua.invalidateSize();
-                }, 150);
-            }
+        // Animate IN new section elements with stagger
+        gsap.to($newSection.find("> *"), {
+          y: 0,
+          opacity: 1,
+          stagger: 0.06,
+          duration: 0.4,
+          ease: "power3.out",
+          clearProps: "y,opacity",
+          onComplete: () => {
+            $(".nav-link").css("pointer-events", "");
+          },
+        });
 
-            // Scroll slightly to top on mobile using Lenis
-            if (window.innerWidth < 1024) {
-                const scrollTarget = $(".glass.rounded-3xl").last()[0];
-                lenis.scrollTo(scrollTarget, {
-                    offset: -20,
-                    duration: 1.2
-                });
-            }
-
-            // Trigger re-init of scroll reveals for the new section
-            $(document).trigger('sectionChanged');
+        // Fix for Leaflet Map
+        if (target === "contact" && window.mapAragua) {
+          setTimeout(() => {
+            window.mapAragua.invalidateSize();
+          }, 150);
         }
+
+        // Scroll slightly to top on mobile using Lenis
+        if (window.innerWidth < 1024) {
+          const scrollTarget = $(".glass.rounded-3xl").last()[0];
+          lenis.scrollTo(scrollTarget, {
+            offset: -20,
+            duration: 1.2,
+          });
+        }
+
+        // Trigger re-init of scroll reveals for the new section
+        $(document).trigger("sectionChanged");
+      },
     });
   });
-
-
 
   /** =====================
    *  3D Tilt Effect for Cards
    ====================== */
-  $(document).on('mousemove', '.glass-card, .badge-neon-purple', function(e) {
+  $(document).on("mousemove", ".glass-card, .badge-neon-purple", function (e) {
     const $card = $(this);
     const rect = this.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    
+
     const rotateX = ((y - centerY) / centerY) * -10;
     const rotateY = ((x - centerX) / centerX) * 10;
-    
+
     $card.css({
-      'transform': `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
-      'transition': 'none',
-      'z-index': '50'
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
+      transition: "none",
+      "z-index": "50",
     });
   });
 
-  $(document).on('mouseleave', '.glass-card, .badge-neon-purple', function() {
+  $(document).on("mouseleave", ".glass-card, .badge-neon-purple", function () {
     $(this).css({
-      'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
-      'transition': 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
-      'z-index': ''
+      transform:
+        "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      transition: "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
+      "z-index": "",
     });
   });
 
@@ -493,9 +520,9 @@ $(function () {
         .removeClass("bi-moon-stars-fill text-dracula-bg")
         .addClass("bi-sun-fill text-dracula-fg");
       localStorage.setItem("theme", "light");
-      
+
       // Sincronizar con el botón de Contraste (activarlo en modo claro)
-      isNormalContrast = true; 
+      isNormalContrast = true;
       syncContrastUI();
       updateHtmlFilter();
     } else {
@@ -531,10 +558,14 @@ $(function () {
     $body.toggleClass("neon-off");
 
     if ($neonBtn.hasClass("active")) {
-      $neonIcon.removeClass("bi-lightning-slash-fill").addClass("bi-lightning-charge-fill");
+      $neonIcon
+        .removeClass("bi-lightning-slash-fill")
+        .addClass("bi-lightning-charge-fill");
       localStorage.setItem("neon", "on");
     } else {
-      $neonIcon.removeClass("bi-lightning-charge-fill").addClass("bi-lightning-slash-fill");
+      $neonIcon
+        .removeClass("bi-lightning-charge-fill")
+        .addClass("bi-lightning-slash-fill");
       localStorage.setItem("neon", "off");
     }
   });
@@ -543,7 +574,9 @@ $(function () {
   if (localStorage.getItem("neon") === "off") {
     $neonBtn.removeClass("active");
     $body.addClass("neon-off");
-    $neonIcon.removeClass("bi-lightning-charge-fill").addClass("bi-lightning-slash-fill");
+    $neonIcon
+      .removeClass("bi-lightning-charge-fill")
+      .addClass("bi-lightning-slash-fill");
   } else {
     $neonBtn.addClass("active");
     $body.removeClass("neon-off");
@@ -793,7 +826,11 @@ $(function () {
         .addClass("text-dracula-cyan bg-dracula-card");
       $(this).find("i").removeClass("bi-zoom-out").addClass("bi-zoom-in");
       if (voiceEnabled) {
-        speak(currentLang === "es" ? "Tamaño original restaurado" : "Original size restored");
+        speak(
+          currentLang === "es"
+            ? "Tamaño original restaurado"
+            : "Original size restored",
+        );
       }
     }
   });
@@ -801,52 +838,83 @@ $(function () {
   // Accessibility Click Handlers
   updateHtmlFilter(); // Initial call
 
-  $('#contrast-toggle').on('click', function(e) {
+  $("#contrast-toggle").on("click", function (e) {
     e.stopPropagation();
     isNormalContrast = !isNormalContrast;
     updateHtmlFilter();
     syncContrastUI();
-    
+
     if (isNormalContrast) {
-        if (voiceEnabled) speak(currentLang === 'es' ? 'Contraste normal activado' : 'Normal contrast enabled');
+      if (voiceEnabled)
+        speak(
+          currentLang === "es"
+            ? "Contraste normal activado"
+            : "Normal contrast enabled",
+        );
     } else {
-        if (voiceEnabled) speak(currentLang === 'es' ? 'Alto contraste restaurado' : 'High contrast restored');
+      if (voiceEnabled)
+        speak(
+          currentLang === "es"
+            ? "Alto contraste restaurado"
+            : "High contrast restored",
+        );
     }
   });
 
   // Color Blindness Toggle
   // Color Blindness Toggle
-  
-  const $colorblindToggle = $('#colorblind-toggle');
-  const $colorblindLevelText = $('#colorblind-level-text');
-  
-  $colorblindToggle.on('click', function(e) {
+
+  const $colorblindToggle = $("#colorblind-toggle");
+  const $colorblindLevelText = $("#colorblind-level-text");
+
+  $colorblindToggle.on("click", function (e) {
     e.stopPropagation();
     colorBlindMode = (colorBlindMode + 1) % 4;
     updateHtmlFilter();
-    
-    const modeName = currentLang === 'es' ? colorBlindNames[colorBlindMode] : colorBlindEnNames[colorBlindMode];
-    $colorblindLevelText.text(colorBlindMode === 0 ? 'Off' : modeName.split('/')[0]); // Short text for button
-    
+
+    const modeName =
+      currentLang === "es"
+        ? colorBlindNames[colorBlindMode]
+        : colorBlindEnNames[colorBlindMode];
+    $colorblindLevelText.text(
+      colorBlindMode === 0 ? "Off" : modeName.split("/")[0],
+    ); // Short text for button
+
     if (colorBlindMode > 0) {
-        $(this).addClass('bg-dracula-pink text-dracula-bg').removeClass('text-dracula-pink bg-dracula-card');
-        if (voiceEnabled) speak(currentLang === 'es' ? 'Filtro de daltonismo: ' + modeName : 'Color blindness filter: ' + modeName);
+      $(this)
+        .addClass("bg-dracula-pink text-dracula-bg")
+        .removeClass("text-dracula-pink bg-dracula-card");
+      if (voiceEnabled)
+        speak(
+          currentLang === "es"
+            ? "Filtro de daltonismo: " + modeName
+            : "Color blindness filter: " + modeName,
+        );
     } else {
-        $(this).removeClass('bg-dracula-pink text-dracula-bg').addClass('text-dracula-pink bg-dracula-card');
-        if (voiceEnabled) speak(currentLang === 'es' ? 'Filtros visuales desactivados' : 'Visual filters disabled');
+      $(this)
+        .removeClass("bg-dracula-pink text-dracula-bg")
+        .addClass("text-dracula-pink bg-dracula-card");
+      if (voiceEnabled)
+        speak(
+          currentLang === "es"
+            ? "Filtros visuales desactivados"
+            : "Visual filters disabled",
+        );
     }
   });
 
   // Make interactive items accessible via Keyboard
-  $('.cert-item, .portfolio-item').attr({
-      'tabindex': '0',
-      'role': 'button'
-  }).on('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          $(this).trigger('click');
+  $(".cert-item, .portfolio-item")
+    .attr({
+      tabindex: "0",
+      role: "button",
+    })
+    .on("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        $(this).trigger("click");
       }
-  });
+    });
 
   /** =====================
      *  Certificates Modal Logic
@@ -880,10 +948,14 @@ $(function () {
     }
 
     // Handle Tilt Sensor
-    $("#cert-tilt-sensor").removeClass("pointer-events-none").addClass("pointer-events-auto opacity-0");
-    $("#cert-tilt-sensor").off("click").on("click", function() {
+    $("#cert-tilt-sensor")
+      .removeClass("pointer-events-none")
+      .addClass("pointer-events-auto opacity-0");
+    $("#cert-tilt-sensor")
+      .off("click")
+      .on("click", function () {
         $(this).addClass("pointer-events-none opacity-0");
-    });
+      });
 
     $certModal
       .removeClass("invisible opacity-0")
@@ -913,30 +985,122 @@ $(function () {
    *  Inspiration Modal Logic
    ====================== */
   const inspirationSources = [
-    { name: "Alpaca Tech", handle: "@alpacatech", url: "https://www.youtube.com/@alpacatech" },
-    { name: "Ben Cord", handle: "@bencord", url: "https://www.youtube.com/@bencord" },
-    { name: "BettaTech", handle: "@BettaTech", url: "https://www.youtube.com/@BettaTech" },
-    { name: "CodersFree", handle: "@CodersFree", url: "https://www.youtube.com/@CodersFree" },
-    { name: "Código Facilito", handle: "@codigofacilito", url: "https://www.youtube.com/@codigofacilito" },
-    { name: "DominiCode", handle: "@DominiCode", url: "https://www.youtube.com/@DominiCode" },
-    { name: "Fazt Code", handle: "@FaztCode", url: "https://www.youtube.com/@FaztCode" },
-    { name: "Fazt Tech", handle: "@FaztTech", url: "https://www.youtube.com/@FaztTech" },
-    { name: "Fernando Herrera", handle: "@fernando_her85", url: "https://www.youtube.com/@fernando_her85" },
-    { name: "Gentleman Programming", handle: "@gentlemanprogramming", url: "https://www.youtube.com/@gentlemanprogramming" },
+    {
+      name: "Alpaca Tech",
+      handle: "@alpacatech",
+      url: "https://www.youtube.com/@alpacatech",
+    },
+    {
+      name: "Ben Cord",
+      handle: "@bencord",
+      url: "https://www.youtube.com/@bencord",
+    },
+    {
+      name: "BettaTech",
+      handle: "@BettaTech",
+      url: "https://www.youtube.com/@BettaTech",
+    },
+    {
+      name: "CodersFree",
+      handle: "@CodersFree",
+      url: "https://www.youtube.com/@CodersFree",
+    },
+    {
+      name: "Código Facilito",
+      handle: "@codigofacilito",
+      url: "https://www.youtube.com/@codigofacilito",
+    },
+    {
+      name: "DominiCode",
+      handle: "@DominiCode",
+      url: "https://www.youtube.com/@DominiCode",
+    },
+    {
+      name: "Fazt Code",
+      handle: "@FaztCode",
+      url: "https://www.youtube.com/@FaztCode",
+    },
+    {
+      name: "Fazt Tech",
+      handle: "@FaztTech",
+      url: "https://www.youtube.com/@FaztTech",
+    },
+    {
+      name: "Fernando Herrera",
+      handle: "@fernando_her85",
+      url: "https://www.youtube.com/@fernando_her85",
+    },
+    {
+      name: "Gentleman Programming",
+      handle: "@gentlemanprogramming",
+      url: "https://www.youtube.com/@gentlemanprogramming",
+    },
     { name: "Hixec", handle: "@Hixec", url: "https://www.youtube.com/@Hixec" },
-    { name: "HolaMundo", handle: "@HolaMundoDev", url: "https://www.youtube.com/@HolaMundoDev" },
-    { name: "Jose David", handle: "@jose-david", url: "https://www.youtube.com/@jose-david" },
-    { name: "La Geekipedia de Ernesto", handle: "@LaGeekipediaDeErnesto", url: "https://www.youtube.com/@LaGeekipediaDeErnesto" },
-    { name: "midudev", handle: "@midudev", url: "https://www.youtube.com/@midudev" },
-    { name: "MoureDev", handle: "@mouredev", url: "https://www.youtube.com/@mouredev" },
-    { name: "Píldoras Informáticas", handle: "@pildorasinformaticas", url: "https://www.youtube.com/@pildorasinformaticas" },
-    { name: "Platzi", handle: "@Platzi", url: "https://www.youtube.com/@Platzi" },
-    { name: "Programador X", handle: "@ProgramadorX", url: "https://www.youtube.com/@ProgramadorX" },
-    { name: "SoyDalto", handle: "@soydalto", url: "https://www.youtube.com/@soydalto" },
-    { name: "TodoCode", handle: "@TodoCode", url: "https://www.youtube.com/@TodoCode" },
-    { name: "Valen Werle", handle: "@ValenWerle", url: "https://www.youtube.com/@ValenWerle" },
-    { name: "Victor Robles", handle: "@victorroblesweb", url: "https://www.youtube.com/@victorroblesweb" },
-    { name: "Vida Programador", handle: "@vidaprogramador", url: "https://www.youtube.com/@vidaprogramador" }
+    {
+      name: "HolaMundo",
+      handle: "@HolaMundoDev",
+      url: "https://www.youtube.com/@HolaMundoDev",
+    },
+    {
+      name: "Jose David",
+      handle: "@jose-david",
+      url: "https://www.youtube.com/@jose-david",
+    },
+    {
+      name: "La Geekipedia de Ernesto",
+      handle: "@LaGeekipediaDeErnesto",
+      url: "https://www.youtube.com/@LaGeekipediaDeErnesto",
+    },
+    {
+      name: "midudev",
+      handle: "@midudev",
+      url: "https://www.youtube.com/@midudev",
+    },
+    {
+      name: "MoureDev",
+      handle: "@mouredev",
+      url: "https://www.youtube.com/@mouredev",
+    },
+    {
+      name: "Píldoras Informáticas",
+      handle: "@pildorasinformaticas",
+      url: "https://www.youtube.com/@pildorasinformaticas",
+    },
+    {
+      name: "Platzi",
+      handle: "@Platzi",
+      url: "https://www.youtube.com/@Platzi",
+    },
+    {
+      name: "Programador X",
+      handle: "@ProgramadorX",
+      url: "https://www.youtube.com/@ProgramadorX",
+    },
+    {
+      name: "SoyDalto",
+      handle: "@soydalto",
+      url: "https://www.youtube.com/@soydalto",
+    },
+    {
+      name: "TodoCode",
+      handle: "@TodoCode",
+      url: "https://www.youtube.com/@TodoCode",
+    },
+    {
+      name: "Valen Werle",
+      handle: "@ValenWerle",
+      url: "https://www.youtube.com/@ValenWerle",
+    },
+    {
+      name: "Victor Robles",
+      handle: "@victorroblesweb",
+      url: "https://www.youtube.com/@victorroblesweb",
+    },
+    {
+      name: "Vida Programador",
+      handle: "@vidaprogramador",
+      url: "https://www.youtube.com/@vidaprogramador",
+    },
   ];
 
   const $inspirationModal = $("#inspiration-modal");
@@ -945,10 +1109,10 @@ $(function () {
 
   function openInspirationModal() {
     $inspirationGrid.empty();
-    inspirationSources.forEach(source => {
-      const avatarUrl = source.isWeb 
+    inspirationSources.forEach((source) => {
+      const avatarUrl = source.isWeb
         ? `https://unavatar.io/${source.handle}`
-        : `https://unavatar.io/youtube/${source.handle.replace('@', '')}`;
+        : `https://unavatar.io/youtube/${source.handle.replace("@", "")}`;
 
       const card = `
         <a href="${source.url}" target="_blank" class="group/card relative overflow-hidden bg-dracula-card/20 border border-dracula-comment/20 rounded-2xl p-4 hover:border-dracula-purple/50 transition-all hover:-translate-y-1 shadow-lg">
@@ -958,12 +1122,12 @@ $(function () {
               <img src="${avatarUrl}" 
                    alt="${source.name}" 
                    class="w-full h-full object-cover"
-                   onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-dracula-fg/20\'><i class=\'bi ${source.isWeb ? 'bi-grid-fill' : 'bi-youtube'}\'></i></div>';">
+                   onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-dracula-fg/20\'><i class=\'bi ${source.isWeb ? "bi-grid-fill" : "bi-youtube"}\'></i></div>';">
             </div>
             <div class="flex-1 min-w-0">
               <h4 class="font-bold text-dracula-fg group-hover/card:text-dracula-purple transition-colors truncate text-sm">${source.name}</h4>
               <p class="text-[9px] uppercase tracking-wider text-dracula-comment font-bold mt-0.5">
-                ${source.isWeb ? 'Website' : 'YouTube Channel'}
+                ${source.isWeb ? "Website" : "YouTube Channel"}
               </p>
             </div>
           </div>
@@ -973,16 +1137,20 @@ $(function () {
     });
 
     $inspirationModal.removeClass("invisible").addClass("opacity-100");
-    $inspirationModalWindow.removeClass("translate-y-10").addClass("translate-y-0");
-    $('body').css('overflow', 'hidden'); 
+    $inspirationModalWindow
+      .removeClass("translate-y-10")
+      .addClass("translate-y-0");
+    $("body").css("overflow", "hidden");
   }
 
   function closeInspirationModal() {
     $inspirationModal.removeClass("opacity-100").addClass("opacity-0");
-    $inspirationModalWindow.removeClass("translate-y-0").addClass("translate-y-10");
+    $inspirationModalWindow
+      .removeClass("translate-y-0")
+      .addClass("translate-y-10");
     setTimeout(() => {
-        $inspirationModal.addClass("invisible");
-        $('body').css('overflow', ''); 
+      $inspirationModal.addClass("invisible");
+      $("body").css("overflow", "");
     }, 300);
   }
 
@@ -996,25 +1164,25 @@ $(function () {
     // 1. Clocks
     function updateClocks() {
       const now = new Date();
-      
+
       // My Time (VET - America/Caracas)
-      const myTimeStr = now.toLocaleTimeString('en-US', { 
-        timeZone: 'America/Caracas', 
-        hour12: true, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
+      const myTimeStr = now.toLocaleTimeString("en-US", {
+        timeZone: "America/Caracas",
+        hour12: true,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
       });
-      $('#my-time').text(myTimeStr);
+      $("#my-time").text(myTimeStr);
 
       // Visitor Time (Local)
-      const visitorTimeStr = now.toLocaleTimeString('en-US', { 
-        hour12: true, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
+      const visitorTimeStr = now.toLocaleTimeString("en-US", {
+        hour12: true,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
       });
-      $('#visitor-time').text(visitorTimeStr);
+      $("#visitor-time").text(visitorTimeStr);
     }
     setInterval(updateClocks, 1000);
     updateClocks();
@@ -1022,16 +1190,16 @@ $(function () {
     // 1.1 Visitor Location (Geolocation - Localhost Friendly)
     async function fetchVisitorLocation() {
       try {
-        const response = await fetch('https://api.db-ip.com/v2/free/self');
+        const response = await fetch("https://api.db-ip.com/v2/free/self");
         if (!response.ok) throw new Error();
         const data = await response.json();
         if (data.countryCode) {
           const code = data.countryCode.toLowerCase();
-          $('#visitor-flag').addClass(`fi-${code}`);
-          $('#visitor-country').text(data.countryName);
+          $("#visitor-flag").addClass(`fi-${code}`);
+          $("#visitor-country").text(data.countryName);
         }
       } catch (e) {
-        $('#visitor-country').text('Local');
+        $("#visitor-country").text("Local");
       }
     }
     fetchVisitorLocation();
@@ -1039,23 +1207,25 @@ $(function () {
     // 2. Weather (Maracay, Aragua)
     async function fetchWeather() {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.2351&longitude=-67.5911&current_weather=true');
+        const response = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=10.2351&longitude=-67.5911&current_weather=true",
+        );
         const data = await response.json();
         if (data.current_weather) {
           const temp = Math.round(data.current_weather.temperature);
-          $('#weather-temp').text(`${temp}°C`);
-          
+          $("#weather-temp").text(`${temp}°C`);
+
           let code = data.current_weather.weathercode;
-          let icon = 'bi-sun-fill';
-          if (code >= 1 && code <= 3) icon = 'bi-cloud-sun-fill';
-          if (code >= 45 && code <= 48) icon = 'bi-cloud-fog2-fill';
-          if (code >= 51 && code <= 67) icon = 'bi-cloud-drizzle-fill';
-          if (code >= 71 && code <= 86) icon = 'bi-cloud-snow-fill';
-          if (code >= 95) icon = 'bi-cloud-lightning-rain-fill';
-          $('#weather-icon').attr('class', `bi ${icon} animate-pulse`);
+          let icon = "bi-sun-fill";
+          if (code >= 1 && code <= 3) icon = "bi-cloud-sun-fill";
+          if (code >= 45 && code <= 48) icon = "bi-cloud-fog2-fill";
+          if (code >= 51 && code <= 67) icon = "bi-cloud-drizzle-fill";
+          if (code >= 71 && code <= 86) icon = "bi-cloud-snow-fill";
+          if (code >= 95) icon = "bi-cloud-lightning-rain-fill";
+          $("#weather-icon").attr("class", `bi ${icon} animate-pulse`);
         }
       } catch (e) {
-        $('#weather-temp').text('28°C');
+        $("#weather-temp").text("28°C");
       }
     }
     fetchWeather();
@@ -1063,64 +1233,85 @@ $(function () {
     // 3. Bitcoin Price (Real-time Instant - CoinGecko)
     let lastBtcPrice = 0;
     async function fetchBtcPrice() {
-      const $btcIcon = $('#btc-icon');
-      const $btcWidget = $('#btc-widget');
-      
+      const $btcIcon = $("#btc-icon");
+      const $btcWidget = $("#btc-widget");
+
       // Indicador visual de que está consultando
-      $btcIcon.addClass('animate-bounce text-dracula-yellow');
-      setTimeout(() => $btcIcon.removeClass('animate-bounce'), 2000);
+      $btcIcon.addClass("animate-bounce text-dracula-yellow");
+      setTimeout(() => $btcIcon.removeClass("animate-bounce"), 2000);
 
       try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd', {
-          mode: 'cors'
-        });
-        if (!response.ok) throw new Error('API limit');
+        const response = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
+          {
+            mode: "cors",
+          },
+        );
+        if (!response.ok) throw new Error("API limit");
         const data = await response.json();
         const price = data.bitcoin.usd;
-        
-        const $btcPrice = $('#btc-price');
-        const $btcChangeContainer = $('#btc-change-container');
-        const $btcChange = $('#btc-change');
-        
-        $btcPrice.text(`${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`);
-        
+
+        const $btcPrice = $("#btc-price");
+        const $btcChangeContainer = $("#btc-change-container");
+        const $btcChange = $("#btc-change");
+
+        $btcPrice.text(
+          `${price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`,
+        );
+
         if (lastBtcPrice !== 0) {
           const diff = price - lastBtcPrice;
           if (diff !== 0) {
             const diffPercent = (diff / lastBtcPrice) * 100;
-            const sign = diff >= 0 ? '+' : '';
+            const sign = diff >= 0 ? "+" : "";
             $btcChange.text(`${sign}${diffPercent.toFixed(4)}%`);
-            
+
             if (diff > 0) {
-              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-red').addClass('text-dracula-green');
-              $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green animate-bounce');
-              $btcWidget.addClass('ring-1 ring-dracula-green/30');
-              
+              $btcChangeContainer
+                .removeClass("text-dracula-comment text-dracula-red")
+                .addClass("text-dracula-green");
+              $btcIcon.attr(
+                "class",
+                "bi bi-caret-up-fill text-dracula-green animate-bounce",
+              );
+              $btcWidget.addClass("ring-1 ring-dracula-green/30");
+
               setTimeout(() => {
-                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
-                $btcWidget.removeClass('ring-1 ring-dracula-green/30');
+                $btcIcon.attr(
+                  "class",
+                  "bi bi-currency-bitcoin text-dracula-yellow text-sm",
+                );
+                $btcWidget.removeClass("ring-1 ring-dracula-green/30");
               }, 5000);
             } else {
-              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-green').addClass('text-dracula-red');
-              $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red animate-bounce');
-              $btcWidget.addClass('ring-1 ring-dracula-red/30');
-              
+              $btcChangeContainer
+                .removeClass("text-dracula-comment text-dracula-green")
+                .addClass("text-dracula-red");
+              $btcIcon.attr(
+                "class",
+                "bi bi-caret-down-fill text-dracula-red animate-bounce",
+              );
+              $btcWidget.addClass("ring-1 ring-dracula-red/30");
+
               setTimeout(() => {
-                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
-                $btcWidget.removeClass('ring-1 ring-dracula-red/30');
+                $btcIcon.attr(
+                  "class",
+                  "bi bi-currency-bitcoin text-dracula-yellow text-sm",
+                );
+                $btcWidget.removeClass("ring-1 ring-dracula-red/30");
               }, 5000);
             }
           }
         } else {
-          $btcChange.text('Live');
+          $btcChange.text("Live");
         }
-        
+
         lastBtcPrice = price;
       } catch (e) {
         // Fallback silencioso si hay bloqueo de CORS o error de red
         if (lastBtcPrice === 0) {
-          $('#btc-price').text('95,450.00 USD');
-          $('#btc-change').text('Live');
+          $("#btc-price").text("95,450.00 USD");
+          $("#btc-change").text("Live");
         }
       }
     }
@@ -1130,9 +1321,9 @@ $(function () {
     // 4. Visitor Counter (Hybrid Real System)
     function updateCounter() {
       // Base de visitas reales simulada con persistencia
-      let baseVisits = 2540; 
-      let savedVisits = localStorage.getItem('portfolio_total_visits');
-      
+      let baseVisits = 2540;
+      let savedVisits = localStorage.getItem("portfolio_total_visits");
+
       if (!savedVisits) {
         savedVisits = baseVisits;
       } else {
@@ -1140,18 +1331,20 @@ $(function () {
       }
 
       // Incrementar por sesión
-      if (!sessionStorage.getItem('visit_counted')) {
+      if (!sessionStorage.getItem("visit_counted")) {
         savedVisits += 1;
-        sessionStorage.setItem('visit_counted', 'true');
+        sessionStorage.setItem("visit_counted", "true");
       }
 
       // Simular tráfico global (pequeño incremento aleatorio basado en el tiempo)
       const now = new Date();
-      const globalFactor = Math.floor((now.getTime() - 1714500000000) / 1000000); 
+      const globalFactor = Math.floor(
+        (now.getTime() - 1714500000000) / 1000000,
+      );
       const totalVisits = savedVisits + globalFactor;
 
-      localStorage.setItem('portfolio_total_visits', savedVisits);
-      $('#visitor-count').text(totalVisits.toString().padStart(5, '0'));
+      localStorage.setItem("portfolio_total_visits", savedVisits);
+      $("#visitor-count").text(totalVisits.toString().padStart(5, "0"));
     }
     updateCounter();
     setInterval(updateCounter, 60000); // Actualizar cada minuto
@@ -1160,97 +1353,125 @@ $(function () {
   updateDynamicStats();
 
   // Cursor Glow Effect
-  const $cursorGlow = $('#cursor-glow');
-  $(document).on('mousemove', function(e) {
+  const $cursorGlow = $("#cursor-glow");
+  $(document).on("mousemove", function (e) {
     $cursorGlow.css({
-      top: e.clientY + 'px',
-      left: e.clientX + 'px',
-      opacity: 1
+      top: e.clientY + "px",
+      left: e.clientX + "px",
+      opacity: 1,
     });
   });
 
-  $(document).on('mouseleave', function() {
-    $cursorGlow.css('opacity', 0);
+  $(document).on("mouseleave", function () {
+    $cursorGlow.css("opacity", 0);
   });
 
-  $(document).on('mousedown', function() {
-    $cursorGlow.find('.cursor-ripple').removeClass('animate');
-    void $cursorGlow.find('.cursor-ripple')[0].offsetWidth; 
-    $cursorGlow.find('.cursor-ripple').addClass('animate');
-    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(0.85)');
+  $(document).on("mousedown", function () {
+    $cursorGlow.find(".cursor-ripple").removeClass("animate");
+    void $cursorGlow.find(".cursor-ripple")[0].offsetWidth;
+    $cursorGlow.find(".cursor-ripple").addClass("animate");
+    $cursorGlow.css("transform", "translate(-50%, -50%) scale(0.85)");
   });
 
-  $(document).on('mouseup', function() {
-    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(1)');
+  $(document).on("mouseup", function () {
+    $cursorGlow.css("transform", "translate(-50%, -50%) scale(1)");
   });
 
   // Cursor Hover Interactions
-  $(document).on('mouseenter', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn', function() {
-    $cursorGlow.removeClass('text-mode').addClass('pointer-mode');
-  }).on('mouseleave', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn', function() {
-    $cursorGlow.removeClass('pointer-mode');
-  });
+  $(document)
+    .on(
+      "mouseenter",
+      "a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn",
+      function () {
+        $cursorGlow.removeClass("text-mode").addClass("pointer-mode");
+      },
+    )
+    .on(
+      "mouseleave",
+      "a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn",
+      function () {
+        $cursorGlow.removeClass("pointer-mode");
+      },
+    );
 
-  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function(e) {
-    // Si el texto está dentro de un botón o link, no activar modo texto
-    if ($(this).closest('a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn').length) return;
-    $cursorGlow.removeClass('pointer-mode').addClass('text-mode');
-  }).on('mouseleave', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
-    $cursorGlow.removeClass('text-mode');
-  });
+  $(document)
+    .on(
+      "mouseenter",
+      "p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]",
+      function (e) {
+        // Si el texto está dentro de un botón o link, no activar modo texto
+        if (
+          $(this).closest(
+            "a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn",
+          ).length
+        )
+          return;
+        $cursorGlow.removeClass("pointer-mode").addClass("text-mode");
+      },
+    )
+    .on(
+      "mouseleave",
+      "p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]",
+      function () {
+        $cursorGlow.removeClass("text-mode");
+      },
+    );
 
   // Skill Modal Logic
-  const $skillModal = $('#skill-modal');
-  const $skillModalCard = $skillModal.find('.relative');
+  const $skillModal = $("#skill-modal");
+  const $skillModalCard = $skillModal.find(".relative");
 
-  $(document).on('click', '.skill-item', function(e) {
+  $(document).on("click", ".skill-item", function (e) {
     e.preventDefault();
     const $item = $(this);
-    const title = $item.find('h4').text();
-    const icon = $item.find('img').attr('src') || '';
-    const category = $item.find('span[data-translate]').text();
-    const experience = $item.data('experience') || 'He trabajado con esta tecnología en múltiples proyectos, asegurando implementaciones eficientes y escalables según los requerimientos del cliente.';
-    const link = $item.attr('href');
+    const title = $item.find("h4").text();
+    const icon = $item.find("img").attr("src") || "";
+    const category = $item.find("span[data-translate]").text();
+    const experience =
+      $item.data("experience") ||
+      "He trabajado con esta tecnología en múltiples proyectos, asegurando implementaciones eficientes y escalables según los requerimientos del cliente.";
+    const link = $item.attr("href");
 
     // Fill Modal
-    $('#skill-modal-title').text(title);
-    $('#skill-modal-icon').attr('src', icon);
-    $('#skill-modal-category').text(category);
-    $('#skill-modal-experience').text(experience);
-    $('#skill-modal-link').attr('href', link);
+    $("#skill-modal-title").text(title);
+    $("#skill-modal-icon").attr("src", icon);
+    $("#skill-modal-category").text(category);
+    $("#skill-modal-experience").text(experience);
+    $("#skill-modal-link").attr("href", link);
 
     // Show Modal
-    $skillModal.removeClass('invisible').addClass('opacity-100');
-    $skillModalCard.removeClass('scale-95').addClass('scale-100');
-    $('body').addClass('overflow-hidden'); // Prevent scroll
+    $skillModal.removeClass("invisible").addClass("opacity-100");
+    $skillModalCard.removeClass("scale-95").addClass("scale-100");
+    $("body").addClass("overflow-hidden"); // Prevent scroll
   });
 
   function closeSkillModal() {
-    $skillModal.removeClass('opacity-100').addClass('opacity-0');
-    $skillModalCard.removeClass('scale-100').addClass('scale-95');
+    $skillModal.removeClass("opacity-100").addClass("opacity-0");
+    $skillModalCard.removeClass("scale-100").addClass("scale-95");
     setTimeout(() => {
-      $skillModal.addClass('invisible');
-      $('body').removeClass('overflow-hidden');
+      $skillModal.addClass("invisible");
+      $("body").removeClass("overflow-hidden");
     }, 300);
   }
 
-  $('.skill-modal-close').on('click', closeSkillModal);
-  $(document).on('keydown', function(e) {
-    if (e.key === 'Escape' && !$skillModal.hasClass('invisible')) closeSkillModal();
+  $(".skill-modal-close").on("click", closeSkillModal);
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape" && !$skillModal.hasClass("invisible"))
+      closeSkillModal();
   });
 
   /** =====================
    *  Deep Parallax Logic
    ====================== */
-  const $parallaxItems = $('.parallax-item');
-  $(window).on('scroll', function() {
+  const $parallaxItems = $(".parallax-item");
+  $(window).on("scroll", function () {
     const scrolled = $(this).scrollTop();
-    $parallaxItems.each(function() {
-      const speed = $(this).data('speed') || 0.1;
+    $parallaxItems.each(function () {
+      const speed = $(this).data("speed") || 0.1;
       const yPos = -(scrolled * speed);
       $(this).css({
-        'transform': `translateY(${yPos}px)`,
-        'transition': 'transform 0.1s ease-out'
+        transform: `translateY(${yPos}px)`,
+        transition: "transform 0.1s ease-out",
       });
     });
   });
@@ -1261,11 +1482,28 @@ $(function () {
   gsap.registerPlugin(ScrollTrigger);
 
   function initScrollReveals() {
+    // Inject loaders if they don't exist
+    $('.portfolio-item').each(function() {
+        if ($(this).find('.software-loader').length === 0) {
+            $(this).prepend(`
+                <div class="software-loader absolute inset-0 flex flex-col items-center justify-center font-mono text-[9px] p-4 text-dracula-green z-50 pointer-events-none rounded-2xl" style="background: #282a36; opacity: 0; visibility: hidden;">
+                    <div class="w-full max-w-[140px] glitch-infinite">
+                        <div class="loader-line" style="width:0; overflow:hidden;" data-text="> BOOTING_SaaS_CORE..."></div>
+                        <div class="loader-line" style="width:0; overflow:hidden;" data-text="> LOADING_DEPENDENCIES..."></div>
+                        <div class="loader-line text-dracula-cyan" style="width:0; overflow:hidden;" data-text="> [OK] MODULE_READY"></div>
+                    </div>
+                </div>
+            `);
+        }
+    });
+
     // Target common interactive elements
     const revealTargets = ".glass-card, .skill-item, .portfolio-item, .cert-item, .timeline-item, .section-page h2";
     
     gsap.utils.toArray(revealTargets).forEach((el) => {
-      // Create a "System Startup" flicker & reveal timeline
+      // Avoid re-animating if already visible
+      if (gsap.getProperty(el, "opacity") > 0 && !$(el).closest('.section-page').hasClass('active')) return;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
@@ -1274,27 +1512,28 @@ $(function () {
         }
       });
 
-      tl.fromTo(el, 
-        { 
-          opacity: 0, 
-          y: 25, 
-          scale: 0.98,
-          filter: "blur(10px) brightness(1.5)" // "Energy" burst start
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          filter: "blur(0px) brightness(1)",
-          duration: 0.5,
-          ease: "expo.out"
-        }
-      )
-      // Subtle "System Boot" flicker
-      .to(el, { opacity: 0.5, duration: 0.04 }, "-=0.3")
-      .to(el, { opacity: 1, duration: 0.04 })
-      .to(el, { opacity: 0.8, duration: 0.03 })
-      .to(el, { opacity: 1, duration: 0.08 });
+      if ($(el).hasClass('portfolio-item')) {
+          const loader = el.querySelector('.software-loader');
+          const lines = loader.querySelectorAll('.loader-line');
+          const content = el.querySelectorAll('.p-6, img, i, .h-48, .absolute:not(.software-loader)');
+
+          tl.set(loader, { autoAlpha: 1 })
+            .set(content, { opacity: 0 })
+            .to(lines[0], { width: "100%", duration: 0.3, ease: "steps(20)", onStart: () => { lines[0].textContent = lines[0].dataset.text; lines[0].classList.add('active-caret'); } })
+            .to(lines[1], { width: "100%", duration: 0.4, ease: "steps(25)", onStart: () => { lines[1].textContent = lines[1].dataset.text; lines[1].classList.add('active-caret'); } })
+            .to(lines[2], { width: "100%", duration: 0.2, ease: "steps(15)", onStart: () => { lines[2].textContent = lines[2].dataset.text; lines[2].classList.add('active-caret'); } })
+            .to(loader, { opacity: 0, scale: 1.05, duration: 0.3, ease: "power2.in", delay: 0.2, onComplete: () => { loader.style.display = 'none'; } })
+            .to(content, { opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out" }, "-=0.1");
+      } else {
+          tl.fromTo(el, 
+            { opacity: 0, y: 25, scale: 0.98, filter: "blur(10px) brightness(1.5)" },
+            { opacity: 1, y: 0, scale: 1, filter: "blur(0px) brightness(1)", duration: 0.5, ease: "expo.out" }
+          )
+          .to(el, { opacity: 0.5, duration: 0.04 }, "-=0.3")
+          .to(el, { opacity: 1, duration: 0.04 })
+          .to(el, { opacity: 0.8, duration: 0.03 })
+          .to(el, { opacity: 1, duration: 0.08 });
+      }
     });
   }
 
@@ -1302,8 +1541,7 @@ $(function () {
   setTimeout(initScrollReveals, 800);
 
   // Re-run reveals when switching sections
-  $(document).on('sectionChanged', () => {
+  $(document).on("sectionChanged", () => {
     setTimeout(initScrollReveals, 100);
   });
 });
-
