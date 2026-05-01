@@ -1543,5 +1543,83 @@ $(function () {
   // Re-run reveals when switching sections
   $(document).on("sectionChanged", () => {
     setTimeout(initScrollReveals, 100);
+    const activeId = $(".section-page.active").attr('id');
+    if (activeId) updateScrollytelling(activeId);
   });
+
+  /** =====================
+   *  Scrollytelling & Narrative Logic
+   ====================== */
+  const $systemLog = $("#system-log");
+  const $logContent = $("#log-content");
+
+  const scrollyData = {
+    about: {
+        msg: "> LOCATING_PROFILE_DATA... [OK] SUMMARY_READY",
+        color: "#bd93f9"
+    },
+    resume: {
+        msg: "> ANALYZING_EXPERIENCE_MODULES... [STABLE]",
+        color: "#8be9fd"
+    },
+    portfolio: {
+        msg: "> MAPPING_PROJECT_ARCHITECTURE... [SaaS_LOADED]",
+        color: "#ff79c6"
+    },
+    certificates: {
+        msg: "> VERIFYING_CREDENTIALS... [AUTHENTICATED]",
+        color: "#50fa7b"
+    },
+    contact: {
+        msg: "> INITIALIZING_COMMUNICATION_LINK... [READY]",
+        color: "#ffb86c"
+    }
+  };
+
+  function updateScrollytelling(sectionId) {
+    const data = scrollyData[sectionId];
+    if (!data) return;
+
+    // Show log if hidden
+    gsap.to($systemLog, { opacity: 1, duration: 0.5, pointerEvents: "auto" });
+    
+    // Typewriter/Glitch update
+    $logContent.text(data.msg);
+    
+    // Update global neon accent for CSS borders/shadows
+    document.documentElement.style.setProperty('--neon-color', data.color);
+    
+    // Animate log widget color
+    gsap.to($systemLog, { 
+        borderColor: data.color + "55", 
+        color: data.color,
+        boxShadow: `0 0 20px ${data.color}22`,
+        duration: 0.6 
+    });
+
+    // Pulse the log dot
+    gsap.to($systemLog.find('span.rounded-full'), {
+        backgroundColor: data.color,
+        duration: 0.6
+    });
+  }
+
+  // Register ScrollTriggers for section-based scrollytelling
+  $(".section-page").each(function() {
+    const id = $(this).attr('id');
+    ScrollTrigger.create({
+      trigger: this,
+      start: "top 40%",
+      end: "bottom 60%",
+      onEnter: () => updateScrollytelling(id),
+      onEnterBack: () => updateScrollytelling(id)
+    });
+  });
+
+  // Initial call
+  setTimeout(() => {
+    if ($(".section-page.active").length) {
+        updateScrollytelling($(".section-page.active").attr('id'));
+    }
+  }, 1200);
 });
