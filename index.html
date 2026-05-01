@@ -177,7 +177,7 @@
                         <div class="flex flex-col overflow-hidden">
                             <span class="text-[11px] text-dracula-comment uppercase tracking-widest font-semibold mb-1" data-translate="Ubicación">Ubicación</span>
                             <address class="text-sm font-medium text-dracula-fg/90 not-italic hover:text-dracula-pink transition-colors flex items-center gap-2">
-                                Aragua, Venezuela <span class="fi fi-ve rounded-sm"></span>
+                                Aragua, Venezuela
                             </address>
                         </div>
                     </li>
@@ -221,11 +221,10 @@
         <div class="w-full lg:w-2/3 xl:w-3/4 flex flex-col gap-6">
             
             <!-- Navbar -->
-            <nav class="glass rounded-2xl p-2 lg:px-6 lg:py-4 lg:ml-auto w-full lg:w-max shadow-xl border border-dracula-comment/20 z-20">
+            <nav class="glass rounded-2xl p-2 lg:px-10 lg:py-4 w-full shadow-xl border border-dracula-comment/20 z-20">
                 <ul class="flex flex-wrap justify-center lg:justify-end items-center gap-2 lg:gap-6">
                     <li><button class="nav-link active cursor-pointer px-4 py-2 rounded-lg text-dracula-fg font-semibold transition-all duration-300 relative overflow-hidden group" data-target="about" data-translate="Resumen">Resumen</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="resume" data-translate="Experiencia">Experiencia</button></li>
-                    <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="skills" data-translate="Habilidades">Habilidades</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="portfolio" data-translate="Portafolio">Portafolio</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="certificates" data-translate="Certificados">Certificados</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="contact" data-translate="Contacto">Contacto</button></li>
@@ -410,302 +409,264 @@
                             </ul>
                         </div>
                     </div>
+                </div>
 
-                    <div class="relative">
+                    <!-- INTEGRATED SKILLS SECTION (Replacing Education) -->
+                    <div class="relative mt-16 pt-8 border-t border-dracula-comment/20">
                         <div class="flex items-center gap-4 mb-8">
                             <div class="w-12 h-12 rounded-xl bg-dracula-card/50 flex items-center justify-center shadow-lg border border-dracula-comment/30 relative z-10">
-                                <i class="bi bi-book text-2xl text-dracula-cyan"></i>
+                                <i class="bi bi-stack text-2xl text-dracula-cyan"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-dracula-fg">Educación</h3>
+                            <h3 class="text-2xl font-bold text-dracula-fg" data-translate="Habilidades">Habilidades Técnicas</h3>
                         </div>
-
-                        <div class="timeline-line pl-8 space-y-10 -mt-8 pt-8">
-                            <!-- Edu 1 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Ingeniería de Sistemas <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">+3 años</span></h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="http://www.unasec.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Universidad Nacional Abierta (U.N.A) <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Caracas <span class="fi fi-ve rounded-sm"></span> • 2018 - 2020</span>
-                            </div>
-                            <p class="text-dracula-fg/70 text-sm leading-relaxed">
-                                Desarrollo de aplicaciones web, implementación de bases de datos relacionales, metodologías ágiles y gestión de proyectos. Formación en algoritmos, PHP, control de versiones y trabajo colaborativo en la resolución de problemas lógicos y abstractos.
-                            </p>
+    
+                        <!-- Filters -->
+                        <ul class="flex flex-wrap gap-3 mb-10">
+                            <li><button class="skill-filter-btn active cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-purple text-dracula-bg shadow-lg shadow-dracula-purple/20 transition-all" data-filter="all" data-translate="Todos">Todos</button></li>
+                            <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="language" data-translate="Lenguajes">Lenguajes</button></li>
+                            <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="framework" data-translate="Frameworks & Librerías">Frameworks & Librerías</button></li>
+                            <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="tools" data-translate="Herramientas & BD">Herramientas & BD</button></li>
+                            <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="soft" data-translate="Blandas">Blandas</button></li>
+                        </ul>
+    
+                        <!-- Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            
+                            <!-- PHP -->
+                            <a href="https://www.php.net/" target="_blank" class="skill-item block group" data-category="language">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="w-full h-full object-contain" alt="PHP" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">PHP</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- JavaScript -->
+                            <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" class="skill-item block group" data-category="language">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="w-full h-full object-contain" alt="JavaScript" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">JavaScript</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- HTML5 -->
+                            <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="skill-item block group" data-category="language">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="w-full h-full object-contain" alt="HTML5" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">HTML5</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- CSS3 -->
+                            <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="skill-item block group" data-category="language">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="w-full h-full object-contain" alt="CSS3" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">CSS3</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Laravel -->
+                            <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-full h-full object-contain" alt="Laravel" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-pink transition-colors">Laravel</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="PHP Framework">PHP Framework</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Tailwind CSS -->
+                            <a href="https://tailwindcss.com/" target="_blank" class="skill-item block group" data-category="framework">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-full h-full object-contain" alt="Tailwind" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">Tailwind CSS</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="CSS Framework">CSS Framework</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Bootstrap -->
+                            <a href="https://getbootstrap.com/" target="_blank" class="skill-item block group" data-category="framework">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="w-full h-full object-contain" alt="Bootstrap" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">Bootstrap</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="CSS Framework">CSS Framework</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- jQuery -->
+                            <a href="https://jquery.com/" target="_blank" class="skill-item block group" data-category="framework">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" class="w-full h-full object-contain" alt="jQuery" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">jQuery</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="JS Library">JS Library</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- MySQL -->
+                            <a href="https://www.mysql.com/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="w-full h-full object-contain" alt="MySQL" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">MySQL</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Database">Database</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- AWS -->
+                            <a href="https://aws.amazon.com/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-full h-full object-contain" alt="AWS" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors">AWS Cloud</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="DevOps">DevOps</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- DigitalOcean -->
+                            <a href="https://www.digitalocean.com/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg" class="w-full h-full object-contain" alt="DigitalOcean" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">DigitalOcean</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Cloud Hosting">Cloud Hosting</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Figma -->
+                            <a href="https://www.figma.com/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-pink hover:shadow-[0_0_20px_rgba(255,121,198,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" class="w-full h-full object-contain" alt="Figma" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-pink transition-colors">Figma</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="UI / UX Design">UI / UX Design</span>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <!-- Git -->
+                            <a href="https://git-scm.com/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-full h-full object-contain" alt="Git" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors">Git</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Version Control">Version Control</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Cursor IDE -->
+                            <a href="https://cursor.sh/" target="_blank" class="skill-item block group" data-category="tools">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-fg hover:shadow-[0_0_20px_rgba(248,248,242,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <i class="bi bi-robot text-2xl text-dracula-fg"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-fg transition-colors">Cursor / IA</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="AI Tooling">AI Tooling</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Trabajo en Equipo -->
+                            <a href="#" class="skill-item block group" data-category="soft">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <i class="bi bi-people-fill text-2xl text-dracula-fg group-hover:text-dracula-purple transition-colors"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors" data-translate="Trabajo en Equipo">Trabajo en Equipo</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Liderazgo -->
+                            <a href="#" class="skill-item block group" data-category="soft">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <i class="bi bi-star-fill text-2xl text-dracula-fg group-hover:text-dracula-orange transition-colors"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors" data-translate="Liderazgo">Liderazgo</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Resolución de Problemas -->
+                            <a href="#" class="skill-item block group" data-category="soft">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <i class="bi bi-puzzle-fill text-2xl text-dracula-fg group-hover:text-dracula-cyan transition-colors"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors" data-translate="Resolución de Problemas">Resolución de Problemas</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Comunicación -->
+                            <a href="#" class="skill-item block group" data-category="soft">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-green hover:shadow-[0_0_20px_rgba(80,250,123,0.3)]">
+                                    <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                                        <i class="bi bi-chat-dots-fill text-2xl text-dracula-fg group-hover:text-dracula-green transition-colors"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-green transition-colors" data-translate="Comunicación">Comunicación</h4>
+                                        <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
+                                    </div>
+                                </div>
+                            </a>
+    
                         </div>
-                        
-                            <!-- Edu 2 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Bachillerato en Ciencias</h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="https://www.instagram.com/uencarlosmanuelarrieta/?hl=es" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">U.E.N Carlos Manuel Arrieta <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Aragua <span class="fi fi-ve rounded-sm"></span> • 2012 - 2018</span>
-                            </div>
-                            <p class="text-dracula-fg/70 text-sm leading-relaxed">
-                                Destacado dentro de los 20 mejores de toda la institución por desempeño académico y liderazgo colaborativo organizando eventos, fomentando la participación de estudiantes y representando comités estudiantiles con la dirección.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-                <!-- SKILLS SECTION -->
-                <section id="skills" class="section-page">
-                    <header class="mb-10">
-                        <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Habilidades">
-                            Habilidades
-                        </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
-                    </header>
-
-                    <!-- Filters -->
-                    <ul class="flex flex-wrap gap-3 mb-10">
-                        <li><button class="skill-filter-btn active cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-purple text-dracula-bg shadow-lg shadow-dracula-purple/20 transition-all" data-filter="all" data-translate="Todos">Todos</button></li>
-                        <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="language" data-translate="Lenguajes">Lenguajes</button></li>
-                        <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="framework" data-translate="Frameworks & Librerías">Frameworks & Librerías</button></li>
-                        <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="tools" data-translate="Herramientas & BD">Herramientas & BD</button></li>
-                        <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="soft" data-translate="Blandas">Blandas</button></li>
-                    </ul>
-
-                    <!-- Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        
-                        <!-- PHP -->
-                        <a href="https://www.php.net/" target="_blank" class="skill-item block group" data-category="language">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="w-full h-full object-contain" alt="PHP" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">PHP</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- JavaScript -->
-                        <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" class="skill-item block group" data-category="language">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="w-full h-full object-contain" alt="JavaScript" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">JavaScript</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- HTML5 -->
-                        <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="skill-item block group" data-category="language">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="w-full h-full object-contain" alt="HTML5" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">HTML5</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- CSS3 -->
-                        <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="skill-item block group" data-category="language">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="w-full h-full object-contain" alt="CSS3" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">CSS3</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Language">Language</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Laravel -->
-                        <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-full h-full object-contain" alt="Laravel" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-pink transition-colors">Laravel</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="PHP Framework">PHP Framework</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Tailwind CSS -->
-                        <a href="https://tailwindcss.com/" target="_blank" class="skill-item block group" data-category="framework">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-full h-full object-contain" alt="Tailwind" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">Tailwind CSS</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="CSS Framework">CSS Framework</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Bootstrap -->
-                        <a href="https://getbootstrap.com/" target="_blank" class="skill-item block group" data-category="framework">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="w-full h-full object-contain" alt="Bootstrap" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">Bootstrap</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="CSS Framework">CSS Framework</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- jQuery -->
-                        <a href="https://jquery.com/" target="_blank" class="skill-item block group" data-category="framework">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" class="w-full h-full object-contain" alt="jQuery" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors">jQuery</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="JS Library">JS Library</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- MySQL -->
-                        <a href="https://www.mysql.com/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="w-full h-full object-contain" alt="MySQL" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">MySQL</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Database">Database</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- AWS -->
-                        <a href="https://aws.amazon.com/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-full h-full object-contain" alt="AWS" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors">AWS Cloud</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="DevOps">DevOps</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- DigitalOcean -->
-                        <a href="https://www.digitalocean.com/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg" class="w-full h-full object-contain" alt="DigitalOcean" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors">DigitalOcean</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Cloud Hosting">Cloud Hosting</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Figma -->
-                        <a href="https://www.figma.com/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-pink hover:shadow-[0_0_20px_rgba(255,121,198,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" class="w-full h-full object-contain" alt="Figma" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-pink transition-colors">Figma</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="UI / UX Design">UI / UX Design</span>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <!-- Git -->
-                        <a href="https://git-scm.com/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-full h-full object-contain" alt="Git" />
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors">Git</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Version Control">Version Control</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Cursor IDE -->
-                        <a href="https://cursor.sh/" target="_blank" class="skill-item block group" data-category="tools">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-fg hover:shadow-[0_0_20px_rgba(248,248,242,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <i class="bi bi-robot text-2xl text-dracula-fg"></i>
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-fg transition-colors">Cursor / IA</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="AI Tooling">AI Tooling</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Trabajo en Equipo -->
-                        <a href="#" class="skill-item block group" data-category="soft">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <i class="bi bi-people-fill text-2xl text-dracula-fg group-hover:text-dracula-purple transition-colors"></i>
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-purple transition-colors" data-translate="Trabajo en Equipo">Trabajo en Equipo</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Liderazgo -->
-                        <a href="#" class="skill-item block group" data-category="soft">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <i class="bi bi-star-fill text-2xl text-dracula-fg group-hover:text-dracula-orange transition-colors"></i>
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-orange transition-colors" data-translate="Liderazgo">Liderazgo</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Resolución de Problemas -->
-                        <a href="#" class="skill-item block group" data-category="soft">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <i class="bi bi-puzzle-fill text-2xl text-dracula-fg group-hover:text-dracula-cyan transition-colors"></i>
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-cyan transition-colors" data-translate="Resolución de Problemas">Resolución de Problemas</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Comunicación -->
-                        <a href="#" class="skill-item block group" data-category="soft">
-                            <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-green hover:shadow-[0_0_20px_rgba(80,250,123,0.3)]">
-                                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
-                                    <i class="bi bi-chat-dots-fill text-2xl text-dracula-fg group-hover:text-dracula-green transition-colors"></i>
-                                </div>
-                                <div class="flex flex-col">
-                                    <h4 class="text-dracula-fg font-bold text-base leading-tight group-hover:text-dracula-green transition-colors" data-translate="Comunicación">Comunicación</h4>
-                                    <span class="text-dracula-comment text-[11px] font-medium mt-1 uppercase tracking-wider" data-translate="Soft Skill">Habilidad Blanda</span>
-                                </div>
-                            </div>
-                        </a>
-
                     </div>
                 </section>
 

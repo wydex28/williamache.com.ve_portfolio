@@ -852,14 +852,24 @@ $(function () {
             
             if (diff > 0) {
               $btcChangeContainer.removeClass('text-dracula-comment text-dracula-red').addClass('text-dracula-green');
-              $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green');
+              $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green animate-bounce');
               $btcWidget.addClass('ring-1 ring-dracula-green/30');
-              setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-green/30'), 2000);
+              
+              // Volver a poner el logo de Bitcoin después de 5 segundos
+              setTimeout(() => {
+                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
+                $btcWidget.removeClass('ring-1 ring-dracula-green/30');
+              }, 5000);
             } else {
               $btcChangeContainer.removeClass('text-dracula-comment text-dracula-green').addClass('text-dracula-red');
-              $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red');
+              $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red animate-bounce');
               $btcWidget.addClass('ring-1 ring-dracula-red/30');
-              setTimeout(() => $btcWidget.removeClass('ring-1 ring-dracula-red/30'), 2000);
+              
+              // Volver a poner el logo de Bitcoin después de 5 segundos
+              setTimeout(() => {
+                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
+                $btcWidget.removeClass('ring-1 ring-dracula-red/30');
+              }, 5000);
             }
           }
         } else {
