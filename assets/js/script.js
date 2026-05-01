@@ -1542,8 +1542,28 @@ $(function () {
 
   // Re-run reveals when switching sections
   $(document).on("sectionChanged", () => {
-    setTimeout(initScrollReveals, 100);
     const activeId = $(".section-page.active").attr('id');
+    
+    // Specifically reset portfolio items when entering the portfolio section
+    if (activeId === 'portfolio') {
+        $('.portfolio-item').each(function() {
+            const $item = $(this);
+            const $loader = $item.find('.software-loader');
+            const $content = $item.find('.p-6, img, i, .h-48, .absolute:not(.software-loader)');
+            
+            // Reset components state
+            gsap.set($loader, { autoAlpha: 0, display: 'flex' });
+            gsap.set($content, { opacity: 0 });
+            $loader.find('.loader-line').css({ width: 0 }).text('').removeClass('active-caret');
+            
+            // Kill existing triggers for portfolio items to allow fresh ones
+            ScrollTrigger.getAll().forEach(st => {
+                if (st.trigger === this) st.kill();
+            });
+        });
+    }
+
+    setTimeout(initScrollReveals, 100);
     if (activeId) updateScrollytelling(activeId);
   });
 
