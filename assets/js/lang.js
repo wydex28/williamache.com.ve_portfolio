@@ -161,14 +161,14 @@ function updateLanguageSelector() {
 
   if (currentLang === "es") {
     langSelector.innerHTML = `
-      <a href="#" class="language-link group relative w-8 h-8 rounded-full overflow-hidden hover:scale-110 transition-transform" data-lang="en" title="Change to English">
-        <img src="./assets/images/flags/united-states.svg" alt="English" class="w-full h-full object-cover" />
+      <a href="#" class="language-link group relative w-8 h-8 rounded-full flex items-center justify-center bg-dracula-card hover:scale-110 transition-transform border border-dracula-comment/30" data-lang="en" title="Change to English">
+        <span class="fi fi-us rounded-sm text-lg"></span>
       </a>
     `;
   } else {
     langSelector.innerHTML = `
-      <a href="#" class="language-link group relative w-8 h-8 rounded-full overflow-hidden hover:scale-110 transition-transform" data-lang="es" title="Cambiar a Español">
-        <img src="./assets/images/flags/spain.svg" alt="Español" class="w-full h-full object-cover" />
+      <a href="#" class="language-link group relative w-8 h-8 rounded-full flex items-center justify-center bg-dracula-card hover:scale-110 transition-transform border border-dracula-comment/30" data-lang="es" title="Cambiar a Español">
+        <span class="fi fi-es rounded-sm text-lg"></span>
       </a>
     `;
   }

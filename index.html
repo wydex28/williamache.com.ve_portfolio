@@ -7,7 +7,19 @@
     <meta name="description" content="Portafolio de William Ache, Desarrollador Web Full-Stack especializado en Laravel, PHP, y arquitecturas robustas.">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/png" />
+
+    <!-- Silence Development Warnings -->
+    <script>
+        console.warn = (function(oldWarn) {
+            return function(msg) {
+                if (typeof msg === 'string' && (msg.includes('cdn.tailwindcss.com') || msg.includes('UNSUPPORTED_OS'))) {
+                    return;
+                }
+                oldWarn.apply(console, arguments);
+            };
+        })(console.warn);
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,6 +124,10 @@
         <!-- Large Ambient Glow -->
         <div class="absolute w-56 h-56 bg-dracula-purple/10 rounded-full blur-[40px]"></div>
     </div>
+
+    <!-- Network Background Canvas -->
+    <canvas id="network-canvas" class="fixed inset-0 pointer-events-none z-[-1] opacity-60"></canvas>
+
     <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[200] bg-dracula-bg flex items-center justify-center transition-opacity duration-700">
         <div class="flex flex-col items-center gap-6">
@@ -284,7 +300,7 @@
                     
                     <div class="text-dracula-fg/90 leading-relaxed mb-12 text-lg space-y-4">
                         <p>
-                            Desarrollador Full-Stack con más de <span class="text-dracula-pink font-semibold" data-years-from="2018-01-01">+8 años</span> de experiencia en la construcción de aplicaciones y sistemas robustos. Especializado en el ecosistema <strong class="text-dracula-cyan">Laravel</strong> y bases de datos relacionales (MySQL), con sólidos conocimientos en frontend (jQuery, Tailwind CSS, Bootstrap).
+                            Desarrollador Full-Stack con más de <span class="badge-neon-purple" data-years-from="2018-01-01">+8 años</span> de experiencia en la construcción de aplicaciones y sistemas robustos. Especializado en el ecosistema <strong class="text-dracula-cyan">Laravel</strong> y bases de datos relacionales (MySQL), con sólidos conocimientos en frontend (jQuery, Tailwind CSS, Bootstrap).
                         </p>
                         <p>
                             Enfocado en integrar herramientas y bibliotecas que agilizan los tiempos de desarrollo y elevan la experiencia del usuario (UX). Mi objetivo es crear soluciones escalables, estéticamente impactantes y de alto rendimiento.
@@ -374,7 +390,7 @@
                                 </div>
                             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                 <div>
-                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2" data-years-from="2022-02-01">+4 años</span></h4>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="badge-neon-purple ml-2" data-years-from="2022-02-01">+4 años</span></h4>
                                     <a href="https://itoeste.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Software Factory | IT OESTE <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
                                 </div>
                                 <div class="md:text-right shrink-0">
@@ -426,7 +442,7 @@
                                 </div>
                             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                 <div>
-                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack / PM <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año y 2 meses</span></h4>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack / PM <span class="badge-neon-purple ml-2">1 año y 2 meses</span></h4>
                                     <a href="https://valdusoft.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Valdusoft Desarrollo web <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
                                 </div>
                                 <div class="md:text-right shrink-0">
@@ -478,7 +494,7 @@
                                 </div>
                             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                 <div>
-                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año</span></h4>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="badge-neon-purple ml-2">1 año</span></h4>
                                     <a href="https://www.facebook.com/StoreSwamer/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Swamer Store <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
                                 </div>
                                 <div class="md:text-right shrink-0">
@@ -530,7 +546,7 @@
                                 </div>
                             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                                 <div>
-                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Becario de Desarrollo / Soporte IT <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">2 años y 1 mes</span></h4>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Becario de Desarrollo / Soporte IT <span class="badge-neon-purple ml-2">2 años y 1 mes</span></h4>
                                     <a href="https://maprotel.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Maprotel C.A <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
                                 </div>
                                 <div class="md:text-right shrink-0">
@@ -593,13 +609,21 @@
                             <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="tools" data-translate="Herramientas & BD">Herramientas & BD</button></li>
                             <li><button class="skill-filter-btn cursor-pointer px-5 py-2 rounded-full text-sm font-semibold bg-dracula-card/80 text-dracula-fg/70 hover:text-dracula-fg border border-dracula-comment/50 transition-all" data-filter="soft" data-translate="Blandas">Blandas</button></li>
                         </ul>
+                        <!-- Interactivity Hint -->
+                        <div class="flex items-center gap-2 text-dracula-comment text-xs mb-4 opacity-70 animate-pulse">
+                            <i class="bi bi-eye"></i>
+                            <span data-translate="Click para ver más">Haz click para ver documentación oficial</span>
+                        </div>
     
                         <!-- Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             
                             <!-- PHP -->
-                            <a href="https://www.php.net/" target="_blank" class="skill-item block group" data-category="language">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                            <a href="https://www.php.net/" target="_blank" class="skill-item block group" data-category="language" data-experience="Mi lenguaje base para el backend. Lo he utilizado para construir sistemas complejos, desde arquitecturas monolíticas hasta microservicios, optimizando siempre el rendimiento y la seguridad del lado del servidor.">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" class="w-full h-full object-contain" alt="PHP" />
                                     </div>
@@ -611,8 +635,11 @@
                             </a>
     
                             <!-- JavaScript -->
-                            <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" class="skill-item block group" data-category="language">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                            <a href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" class="skill-item block group" data-category="language" data-experience="Dominio avanzado para crear interfaces dinámicas y reactivas. Lo utilizo para manipular el DOM, gestionar peticiones asíncronas y desarrollar lógica de negocio compleja en el cliente.">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" class="w-full h-full object-contain" alt="JavaScript" />
                                     </div>
@@ -625,7 +652,10 @@
     
                             <!-- HTML5 -->
                             <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank" class="skill-item block group" data-category="language">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" class="w-full h-full object-contain" alt="HTML5" />
                                     </div>
@@ -650,7 +680,7 @@
                             </a>
     
                             <!-- Laravel -->
-                            <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework">
+                            <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework" data-experience="Mi framework favorito y especialidad. He desarrollado sistemas administrativos completos, APIs RESTful y plataformas e-commerce utilizando Eloquent, Blade, y sistemas de colas para procesos en segundo plano.">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-full h-full object-contain" alt="Laravel" />
@@ -665,6 +695,9 @@
                             <!-- Tailwind CSS -->
                             <a href="https://tailwindcss.com/" target="_blank" class="skill-item block group" data-category="framework">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-cyan/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-full h-full object-contain" alt="Tailwind" />
                                     </div>
@@ -702,8 +735,11 @@
                             </a>
     
                             <!-- MySQL -->
-                            <a href="https://www.mysql.com/" target="_blank" class="skill-item block group" data-category="tools">
+                            <a href="https://www.mysql.com/" target="_blank" class="skill-item block group" data-category="tools" data-experience="Gestión y diseño de bases de datos relacionales. Experto en normalización, optimización de consultas complejas y mantenimiento de la integridad referencial en entornos de producción.">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-cyan/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="w-full h-full object-contain" alt="MySQL" />
                                     </div>
@@ -715,8 +751,11 @@
                             </a>
     
                             <!-- AWS -->
-                            <a href="https://aws.amazon.com/" target="_blank" class="skill-item block group" data-category="tools">
+                            <a href="https://aws.amazon.com/" target="_blank" class="skill-item block group" data-category="tools" data-experience="Experiencia configurando instancias EC2, buckets de S3 y gestión de dominios. Capacidad para desplegar y escalar aplicaciones Laravel en la nube de Amazon de forma segura.">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-orange/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-full h-full object-contain" alt="AWS" />
                                     </div>
@@ -730,6 +769,9 @@
                             <!-- DigitalOcean -->
                             <a href="https://www.digitalocean.com/" target="_blank" class="skill-item block group" data-category="tools">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-cyan/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg" class="w-full h-full object-contain" alt="DigitalOcean" />
                                     </div>
@@ -742,7 +784,10 @@
     
                             <!-- Figma -->
                             <a href="https://www.figma.com/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-pink hover:shadow-[0_0_20px_rgba(255,121,198,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-pink hover:shadow-[0_0_20px_rgba(255,121,198,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-pink/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" class="w-full h-full object-contain" alt="Figma" />
                                     </div>
@@ -768,7 +813,10 @@
     
                             <!-- Cursor IDE -->
                             <a href="https://cursor.sh/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-fg hover:shadow-[0_0_20px_rgba(248,248,242,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-fg hover:shadow-[0_0_20px_rgba(248,248,242,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-fg/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <i class="bi bi-robot text-2xl text-dracula-fg"></i>
                                     </div>
@@ -781,7 +829,10 @@
     
                             <!-- Trabajo en Equipo -->
                             <a href="#" class="skill-item block group" data-category="soft">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <i class="bi bi-people-fill text-2xl text-dracula-fg group-hover:text-dracula-purple transition-colors"></i>
                                     </div>
@@ -794,7 +845,10 @@
     
                             <!-- Liderazgo -->
                             <a href="#" class="skill-item block group" data-category="soft">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-orange/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <i class="bi bi-star-fill text-2xl text-dracula-fg group-hover:text-dracula-orange transition-colors"></i>
                                     </div>
@@ -807,7 +861,10 @@
     
                             <!-- Resolución de Problemas -->
                             <a href="#" class="skill-item block group" data-category="soft">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-cyan/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <i class="bi bi-puzzle-fill text-2xl text-dracula-fg group-hover:text-dracula-cyan transition-colors"></i>
                                     </div>
@@ -820,7 +877,10 @@
     
                             <!-- Comunicación -->
                             <a href="#" class="skill-item block group" data-category="soft">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-green hover:shadow-[0_0_20px_rgba(80,250,123,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-green hover:shadow-[0_0_20px_rgba(80,250,123,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-green/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <i class="bi bi-chat-dots-fill text-2xl text-dracula-fg group-hover:text-dracula-green transition-colors"></i>
                                     </div>
@@ -1378,9 +1438,52 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./assets/js/lang.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/network.js"></script>
 
     <!-- Leaflet JS initialization -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Skill Detail Modal -->
+    <div id="skill-modal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 opacity-0 invisible transition-all duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-dracula-bg/80 backdrop-blur-md skill-modal-close"></div>
+        
+        <!-- Modal Card -->
+        <div class="relative w-full max-w-lg bg-dracula-card border border-dracula-comment/30 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transform scale-95 transition-transform duration-300">
+            <!-- Header Glow -->
+            <div id="skill-modal-glow" class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-dracula-purple via-dracula-cyan to-dracula-pink"></div>
+            
+            <div class="p-8">
+                <div class="flex items-center gap-5 mb-6">
+                    <div class="w-16 h-16 bg-dracula-bg rounded-2xl p-3 flex items-center justify-center shadow-inner">
+                        <img id="skill-modal-icon" src="" alt="Skill Icon" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h3 id="skill-modal-title" class="text-3xl font-bold text-dracula-fg"></h3>
+                        <p id="skill-modal-category" class="text-dracula-comment text-sm uppercase tracking-widest font-semibold mt-1"></p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 mb-8">
+                    <h4 class="text-dracula-purple font-bold flex items-center gap-2">
+                        <i class="bi bi-rocket-takeoff"></i>
+                        Mi Experiencia
+                    </h4>
+                    <p id="skill-modal-experience" class="text-dracula-fg/80 leading-relaxed text-base text-justify"></p>
+                </div>
+                
+                <div class="flex gap-4">
+                    <a id="skill-modal-link" href="" target="_blank" class="flex-1 py-3.5 bg-dracula-purple text-dracula-bg rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-dracula-pink transition-all shadow-lg shadow-dracula-purple/20">
+                        Sitio Oficial
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                    <button class="px-6 py-3.5 bg-dracula-bg/50 text-dracula-fg border border-dracula-comment/30 rounded-xl font-bold hover:bg-dracula-red/20 hover:border-dracula-red/50 transition-all skill-modal-close">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Aragua State Center (approx Maracay)

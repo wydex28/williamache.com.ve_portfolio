@@ -143,6 +143,16 @@ $(function () {
   syncContrastUI();
   updateHtmlFilter();
 
+  // Title Marquee Effect
+  function initTitleMarquee() {
+    let titleText = "William Ache | Desarrollador Full-Stack | Laravel • PHP • JavaScript • React • MySQL | ";
+    setInterval(() => {
+      titleText = titleText.substring(1) + titleText.substring(0, 1);
+      document.title = titleText;
+    }, 250);
+  }
+  initTitleMarquee();
+
   // Pure Glass Mode Toggle
   $('#glass-mode-toggle').on('click', function() {
       $(this).toggleClass('active');
@@ -189,7 +199,7 @@ $(function () {
   /** =====================
    *  3D Tilt Effect for Cards
    ====================== */
-  $(document).on('mousemove', '.glass-card', function(e) {
+  $(document).on('mousemove', '.glass-card, .badge-neon-purple', function(e) {
     const $card = $(this);
     const rect = this.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -208,7 +218,7 @@ $(function () {
     });
   });
 
-  $(document).on('mouseleave', '.glass-card', function() {
+  $(document).on('mouseleave', '.glass-card, .badge-neon-purple', function() {
     $(this).css({
       'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
       'transition': 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
@@ -926,7 +936,10 @@ $(function () {
       setTimeout(() => $btcIcon.removeClass('animate-bounce'), 2000);
 
       try {
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd', {
+          mode: 'cors'
+        });
+        if (!response.ok) throw new Error('API limit');
         const data = await response.json();
         const price = data.bitcoin.usd;
         
@@ -948,7 +961,6 @@ $(function () {
               $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green animate-bounce');
               $btcWidget.addClass('ring-1 ring-dracula-green/30');
               
-              // Volver a poner el logo de Bitcoin después de 5 segundos
               setTimeout(() => {
                 $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
                 $btcWidget.removeClass('ring-1 ring-dracula-green/30');
@@ -958,7 +970,6 @@ $(function () {
               $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red animate-bounce');
               $btcWidget.addClass('ring-1 ring-dracula-red/30');
               
-              // Volver a poner el logo de Bitcoin después de 5 segundos
               setTimeout(() => {
                 $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
                 $btcWidget.removeClass('ring-1 ring-dracula-red/30');
@@ -971,11 +982,15 @@ $(function () {
         
         lastBtcPrice = price;
       } catch (e) {
-        $('#btc-price').text('76,400.00 USD');
+        // Fallback silencioso si hay bloqueo de CORS o error de red
+        if (lastBtcPrice === 0) {
+          $('#btc-price').text('95,450.00 USD');
+          $('#btc-change').text('Live');
+        }
       }
     }
     fetchBtcPrice();
-    setInterval(fetchBtcPrice, 20000); // 20s: El punto dulce para CoinGecko
+    setInterval(fetchBtcPrice, 60000); // 60s: Evitar error 429 (Too Many Requests)
 
     // 4. Visitor Counter (Hybrid Real System)
     function updateCounter() {
@@ -1035,16 +1050,58 @@ $(function () {
   });
 
   // Cursor Hover Interactions
-  $(document).on('mouseenter', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
-    $cursorGlow.addClass('pointer-mode');
-  }).on('mouseleave', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
+  $(document).on('mouseenter', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn', function() {
+    $cursorGlow.removeClass('text-mode').addClass('pointer-mode');
+  }).on('mouseleave', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn', function() {
     $cursorGlow.removeClass('pointer-mode');
   });
 
-  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
-    $cursorGlow.addClass('text-mode');
+  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function(e) {
+    // Si el texto está dentro de un botón o link, no activar modo texto
+    if ($(this).closest('a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item, .skill-filter-btn').length) return;
+    $cursorGlow.removeClass('pointer-mode').addClass('text-mode');
   }).on('mouseleave', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
     $cursorGlow.removeClass('text-mode');
+  });
+
+  // Skill Modal Logic
+  const $skillModal = $('#skill-modal');
+  const $skillModalCard = $skillModal.find('.relative');
+
+  $(document).on('click', '.skill-item', function(e) {
+    e.preventDefault();
+    const $item = $(this);
+    const title = $item.find('h4').text();
+    const icon = $item.find('img').attr('src') || '';
+    const category = $item.find('span[data-translate]').text();
+    const experience = $item.data('experience') || 'He trabajado con esta tecnología en múltiples proyectos, asegurando implementaciones eficientes y escalables según los requerimientos del cliente.';
+    const link = $item.attr('href');
+
+    // Fill Modal
+    $('#skill-modal-title').text(title);
+    $('#skill-modal-icon').attr('src', icon);
+    $('#skill-modal-category').text(category);
+    $('#skill-modal-experience').text(experience);
+    $('#skill-modal-link').attr('href', link);
+
+    // Show Modal
+    $skillModal.removeClass('invisible').addClass('opacity-100');
+    $skillModalCard.removeClass('scale-95').addClass('scale-100');
+    $('body').addClass('overflow-hidden'); // Prevent scroll
+  });
+
+  function closeSkillModal() {
+    $skillModal.removeClass('opacity-100').addClass('opacity-0');
+    $skillModalCard.removeClass('scale-100').addClass('scale-95');
+    setTimeout(() => {
+      $skillModal.addClass('invisible');
+      $('body').removeClass('overflow-hidden');
+    }, 300);
+  }
+
+  $('.skill-modal-close').on('click', closeSkillModal);
+  $(document).on('keydown', function(e) {
+    if (e.key === 'Escape' && !$skillModal.hasClass('invisible')) closeSkillModal();
   });
 
   /** =====================
