@@ -1568,104 +1568,86 @@ $(function () {
   });
 
   /** =====================
-   *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)
-   ====================== 
-  const $systemLog = $("#system-log");
-  const $logContent = $("#log-content");
-  const $logFull = $("#log-full");
-  const $logIcon = $("#log-icon");
-  let logMinimizeTimeout;
-  let currentLogSection = "";
+   *  Full-Footer Linux Terminal Simulator
+   ====================== */
+  const $footerStandard = $('#footer-standard-view');
+  const $footerTerminal = $('#footer-terminal-view');
+  const $terminalInput = $('#full-terminal-input');
+  const $terminalOutput = $('#full-terminal-output');
+  const $footerWrapper = $('#footer-inner-wrapper');
 
-  const scrollyData = {
-    about: {
-        msg: "> LOCATING_PROFILE_DATA... [OK] SUMMARY_READY",
-        color: "#bd93f9"
-    },
-    resume: {
-        msg: "> ANALYZING_EXPERIENCE_MODULES... [STABLE]",
-        color: "#8be9fd"
-    },
-    portfolio: {
-        msg: "> MAPPING_PROJECT_ARCHITECTURE... [SaaS_LOADED]",
-        color: "#ff79c6"
-    },
-    certificates: {
-        msg: "> VERIFYING_CREDENTIALS... [AUTHENTICATED]",
-        color: "#50fa7b"
-    },
-    contact: {
-        msg: "> INITIALIZING_COMMUNICATION_LINK... [READY]",
-        color: "#ffb86c"
-    }
+  const terminalCommands = {
+    help: () => `
+      <div class="space-y-1 opacity-80">
+        <p><span class="text-dracula-cyan">bio</span> - Show developer biography</p>
+        <p><span class="text-dracula-cyan">projects</span> - List featured projects</p>
+        <p><span class="text-dracula-cyan">skills</span> - Display tech stack</p>
+        <p><span class="text-dracula-cyan">clear</span> - Clear terminal screen</p>
+        <p><span class="text-dracula-cyan">exit</span> - Close terminal</p>
+      </div>`,
+    bio: () => `
+      <div class="text-dracula-fg/80">
+        <p><span class="text-dracula-purple">William Ache:</span> Full-Stack Developer with +8 years of experience.</p>
+        <p>Specialized in SaaS architecture, Web3 integrations, and high-performance automation.</p>
+      </div>`,
+    projects: () => `
+      <div class="text-dracula-yellow/80">
+        <p>• <span class="font-bold">Wydex SaaS:</span> Real Estate Automation</p>
+        <p>• <span class="font-bold">Villi App:</span> Personal OS Core</p>
+        <p>• <span class="font-bold">Portfolio v2:</span> The Cyberpunk Experience</p>
+      </div>`,
+    skills: () => `<p class="text-dracula-green/80">Node.js, React, Next.js, Laravel, MongoDB, PostgreSQL, Docker, Linux (Artix/Arch).</p>`,
+    clear: () => { $terminalOutput.empty(); return ""; }
   };
 
-  function minimizeLog() {
-    $systemLog.addClass('minimized');
-    $logFull.fadeOut(300, () => {
-        $logIcon.fadeIn(300).css('display', 'flex');
-    });
-    gsap.to($systemLog, { width: "42px", height: "42px", padding: "8px", duration: 0.5, ease: "power2.inOut" });
+  function toggleFullTerminal(show) {
+    if (show) {
+        // Glitch Out Standard Footer
+        const glitchTl = gsap.timeline();
+        glitchTl.to($footerStandard, { x: 2, skewX: 2, duration: 0.05, repeat: 5, yoyo: true })
+                .to($footerStandard, { opacity: 0, scale: 1.05, duration: 0.2, ease: "power4.in" })
+                .set($footerStandard, { hidden: true, display: 'none' })
+                .set($footerTerminal, { display: 'flex', opacity: 0, scale: 0.95 })
+                .to($footerTerminal, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.2)" })
+                .call(() => $terminalInput.focus());
+    } else {
+        gsap.to($footerTerminal, { 
+            opacity: 0, scale: 0.98, duration: 0.3, 
+            onComplete: () => {
+                $footerTerminal.css('display', 'none');
+                $footerStandard.css('display', 'flex');
+                gsap.fromTo($footerStandard, { opacity: 0, scale: 1.02 }, { opacity: 1, scale: 1, duration: 0.5 });
+            }
+        });
+    }
   }
 
-  function expandLog() {
-    $systemLog.removeClass('minimized');
-    $logIcon.fadeOut(300, () => {
-        $logFull.fadeIn(300);
-    });
-    gsap.to($systemLog, { width: "auto", height: "auto", padding: "12px", duration: 0.5, ease: "power2.inOut" });
-  }
+  $('#open-terminal').on('click', () => toggleFullTerminal(true));
+  $('#close-full-terminal').on('click', () => toggleFullTerminal(false));
 
-  function updateScrollytelling(sectionId) {
-    if (sectionId === currentLogSection) return; // Prevent reopening if we are already in this section
-    currentLogSection = sectionId;
+  $terminalInput.on('keydown', function(e) {
+    if (e.key === 'Enter') {
+        const input = $(this).val().toLowerCase().trim();
+        if (!input) return;
 
-    const data = scrollyData[sectionId];
-    if (!data) return;
+        $terminalOutput.append(`<div><span class="text-dracula-pink font-bold">$</span> ${input}</div>`);
 
-    expandLog();
-    clearTimeout(logMinimizeTimeout);
-    gsap.to($systemLog, { opacity: 1, duration: 0.5 });
-    $logContent.text(data.msg);
-    document.documentElement.style.setProperty('--neon-color', data.color);
-    gsap.to($systemLog, { 
-        borderColor: data.color + "55", 
-        color: data.color,
-        boxShadow: `0 0 20px ${data.color}22`,
-        duration: 0.6 
-    });
-    gsap.to($systemLog.find('span.rounded-full'), {
-        backgroundColor: data.color,
-        duration: 0.6
-    });
-    logMinimizeTimeout = setTimeout(minimizeLog, 3000);
-  }
+        if (input === 'exit') {
+            toggleFullTerminal(false);
+        } else if (terminalCommands[input]) {
+            const result = terminalCommands[input]();
+            if (result) $terminalOutput.append(`<div class="mt-1 mb-2">${result}</div>`);
+        } else {
+            $terminalOutput.append(`<div class="text-dracula-red mb-2">> Error: Command '${input}' unrecognized.</div>`);
+        }
 
-  $systemLog.on('click', () => {
-      if ($systemLog.hasClass('minimized')) {
-          expandLog();
-          clearTimeout(logMinimizeTimeout);
-          logMinimizeTimeout = setTimeout(minimizeLog, 8000); 
-      } else {
-          minimizeLog();
-          clearTimeout(logMinimizeTimeout);
-      }
+        $(this).val('');
+        $('#full-terminal-body').scrollTop($('#full-terminal-body')[0].scrollHeight);
+    }
   });
 
-  $(".section-page").each(function() {
-    const id = $(this).attr('id');
-    ScrollTrigger.create({
-      trigger: this,
-      start: "top 40%",
-      end: "bottom 60%",
-      onEnter: () => updateScrollytelling(id),
-      onEnterBack: () => updateScrollytelling(id)
-    });
-  });
-
-  setTimeout(() => {
-    const activeId = $(".section-page.active").attr('id');
-    if (activeId) updateScrollytelling(activeId);
-  }, 1200);
-  */
+  /** =====================
+   *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)
+   ====================== */
+  /* (Existing commented code...) */
 });
