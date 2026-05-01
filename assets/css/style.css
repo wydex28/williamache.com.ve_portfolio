@@ -301,6 +301,26 @@ header i[class*="text-dracula-"] {
     animation: neon-pulse 3s infinite ease-in-out;
 }
 
+.text-neon-cyan {
+    color: #8be9fd !important;
+    text-shadow: 0 0 8px rgba(139, 233, 253, 0.6), 0 0 15px rgba(139, 233, 253, 0.3) !important;
+}
+
+.text-neon-purple {
+    color: #bd93f9 !important;
+    text-shadow: 0 0 8px rgba(189, 147, 249, 0.6), 0 0 15px rgba(189, 147, 249, 0.3) !important;
+}
+
+.text-neon-pink {
+    color: #ff79c6 !important;
+    text-shadow: 0 0 8px rgba(255, 121, 198, 0.6), 0 0 15px rgba(255, 121, 198, 0.3) !important;
+}
+
+.text-neon-green {
+    color: #50fa7b !important;
+    text-shadow: 0 0 8px rgba(80, 250, 123, 0.6), 0 0 15px rgba(80, 250, 123, 0.3) !important;
+}
+
 /* Social Buttons Neon Hover */
 a[title="GitHub"]:hover, a[title="LinkedIn"]:hover {
     box-shadow: 0 0 15px currentColor !important;

@@ -1,4 +1,8 @@
 $(function () {
+  // Global definitions for accessibility
+  const colorBlindNames = ["Normal", "Protanopia (Rojo)", "Deuteranopia (Verde)", "Tritanopia (Azul)"];
+  const colorBlindEnNames = ["Normal", "Protanopia (Red)", "Deuteranopia (Green)", "Tritanopia (Blue)"];
+
   // Preloader Logic
   const $preloader = $('#preloader');
   $(window).on('load', function() {
