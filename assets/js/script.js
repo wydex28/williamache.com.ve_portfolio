@@ -70,6 +70,13 @@ $(function () {
     $(".section-page").removeClass("active");
     $("#" + target).addClass("active");
 
+    // Fix for Leaflet Map loading issue when section is hidden
+    if (target === "contact" && window.mapAragua) {
+        setTimeout(() => {
+            window.mapAragua.invalidateSize();
+        }, 100);
+    }
+
     // Scroll slightly to top on mobile
     if (window.innerWidth < 1024) {
       window.scrollTo({
