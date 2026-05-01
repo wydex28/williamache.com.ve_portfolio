@@ -1,4 +1,24 @@
 $(function () {
+  // Initialize Lenis Smooth Scroll
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+
   // Global definitions for accessibility
   const colorBlindNames = ["Normal", "Protanopia (Rojo)", "Deuteranopia (Verde)", "Tritanopia (Azul)"];
   const colorBlindEnNames = ["Normal", "Protanopia (Red)", "Deuteranopia (Green)", "Tritanopia (Blue)"];
@@ -103,19 +123,17 @@ $(function () {
     isShattering = true;
     shatterStartY = $(window).scrollTop();
     
-    // Desactivar scroll-smooth temporalmente para evitar conflictos con la animación de jQuery
-    $('html').css('scroll-behavior', 'auto');
-    
     $backToTop.addClass('shattering').css('pointer-events', 'none');
     $backToTop[0].style.setProperty('--shatter', '1');
     
-    // Forzar un pequeño reflow para asegurar que el estado visual se aplique antes del scroll
     void $backToTop[0].offsetWidth;
 
-    $('html, body').stop().animate({ scrollTop: 0 }, 1000, 'swing', function() {
-      // Al terminar, restaurar scroll-behavior y estado
-      $('html').css('scroll-behavior', '');
-      $backToTop.css('pointer-events', '');
+    lenis.scrollTo(0, {
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      onComplete: () => {
+        $backToTop.css('pointer-events', '');
+      }
     });
   });
 
@@ -191,9 +209,10 @@ $(function () {
 
     // Scroll slightly to top on mobile
     if (window.innerWidth < 1024) {
-      window.scrollTo({
-        top: $(".glass.rounded-3xl").last().offset().top - 20,
-        behavior: "smooth",
+      const scrollTarget = $(".glass.rounded-3xl").last()[0];
+      lenis.scrollTo(scrollTarget, {
+        offset: -20,
+        duration: 1.2
       });
     }
   });
