@@ -1,125 +1,1050 @@
-// Silenciar advertencias de CDN/Play en consola antes de que ocurran
-(function() {
-  const originalWarn = console.warn;
-  console.warn = function(...args) {
-    if (args[0] && typeof args[0] === 'string' && (args[0].includes('cdn.tailwindcss.com') || args[0].includes('Tailwind CSS in production'))) return;
-    originalWarn.apply(console, args);
-  };
-})();
-
 $(function () {
   // Preloader Logic
   const $preloader = $('#preloader');
   $(window).on('load', function() {
     setTimeout(() => {
       $preloader.addClass('opacity-0');
-      setTimeout(() => $preloader.remove(), 500);
-    }, 500);
+      setTimeout(() => {
+        $preloader.addClass('invisible');
+      }, 700);
+    }, 2000); 
   });
 
-  // Scrolling Title Logic
-  let docTitle = document.title + "          ";
-  setInterval(() => {
-    docTitle = docTitle.substring(1) + docTitle.substring(0, 1);
-    document.title = docTitle;
-  }, 100);
+  // Avatar Switcher Logic
+  let currentAvatarIndex = 1;
+  const totalAvatars = 80;
+  const $avatar = $('#avatar');
+  const $avatarContainer = $('#avatar-container');
+  const $avatarBubble = $('#avatar-bubble');
+
+  $avatarContainer.on('click', function() {
+    currentAvatarIndex++;
+    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 1;
+    
+    // Check extension: 34 is png, others are webp
+    const ext = (currentAvatarIndex === 34) ? 'png' : 'webp';
+    const newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
+    
+    // Smooth and organic transition effect
+    $avatar.css({
+        'opacity': '0.3',
+        'transform': 'scale(0.8) rotate(-5deg)',
+        'filter': 'blur(8px)',
+        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+    });
+    
+    const img = new Image();
+    img.src = newSrc;
+    img.onload = () => {
+      $avatar.attr('src', newSrc);
+      setTimeout(() => {
+          $avatar.css({
+              'opacity': '1',
+              'transform': 'scale(1) rotate(0deg)',
+              'filter': 'blur(0px)',
+              'transition': 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' // Elastic/Springy effect
+          });
+      }, 50);
+    };
+
+    // Hide bubble permanently on click
+    $avatarBubble.removeClass('active');
+  });
+
+  // Show help bubble after 1.5s and keep it active
+  setTimeout(() => {
+    if (currentAvatarIndex === 1) {
+        $avatarBubble.addClass('active');
+    }
+  }, 1500);
+
+  // Back to Top Logic
+  const $backToTop = $('#back-to-top');
+  let isShattering = false;
+  let shatterStartY = 0;
+
+  $(window).on('scroll', function() {
+    const currentScroll = $(this).scrollTop();
+    
+    // Normal visibility logic
+    if (currentScroll > 400 && !isShattering) {
+      $backToTop.removeClass('invisible opacity-0 translate-y-4').addClass('visible opacity-100 translate-y-0');
+    } else if (currentScroll <= 400 && !isShattering) {
+      $backToTop.addClass('opacity-0 translate-y-4').removeClass('opacity-100 translate-y-0');
+      setTimeout(() => { 
+        if ($backToTop.hasClass('opacity-0')) $backToTop.addClass('invisible'); 
+      }, 300);
+    }
+
+    // Shattering/Reassembling logic
+    if (isShattering) {
+      // progress goes from 1 (broken at start) to 0 (assembled at top)
+      let progress = currentScroll / shatterStartY;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+      
+      $backToTop[0].style.setProperty('--shatter', progress);
+
+      // Once it reaches top, hide it and remove shattering state
+      if (currentScroll <= 10) {
+        isShattering = false;
+        $backToTop.removeClass('shattering').addClass('opacity-0 translate-y-4 invisible').removeClass('opacity-100 translate-y-0');
+        $backToTop[0].style.removeProperty('--shatter');
+      }
+    }
+  });
+
+  $backToTop.on('click', function() {
+    if (isShattering) return;
+    isShattering = true;
+    shatterStartY = $(window).scrollTop();
+    
+    // Desactivar scroll-smooth temporalmente para evitar conflictos con la animación de jQuery
+    $('html').css('scroll-behavior', 'auto');
+    
+    $backToTop.addClass('shattering').css('pointer-events', 'none');
+    $backToTop[0].style.setProperty('--shatter', '1');
+    
+    // Forzar un pequeño reflow para asegurar que el estado visual se aplique antes del scroll
+    void $backToTop[0].offsetWidth;
+
+    $('html, body').stop().animate({ scrollTop: 0 }, 1000, 'swing', function() {
+      // Al terminar, restaurar scroll-behavior y estado
+      $('html').css('scroll-behavior', '');
+      $backToTop.css('pointer-events', '');
+    });
+  });
+
+  // Global Accessibility State
+  let isNormalContrast = false; // High contrast is default
+  let colorBlindMode = 0;
+  const colorBlindFilters = ['', 'url(#daltonismo-rg)', 'url(#daltonismo-by)', 'grayscale(100%)'];
+
+  function updateHtmlFilter() {
+    let filterString = '';
+    if (!isNormalContrast) filterString += 'contrast(130%) saturate(130%) brightness(90%) ';
+    if (colorBlindMode > 0) filterString += colorBlindFilters[colorBlindMode];
+    $('html').css('filter', filterString.trim() || 'none');
+  }
+
+  function syncContrastUI() {
+    const $btn = $('#contrast-toggle');
+    const $icon = $btn.find('i');
+    if (isNormalContrast) {
+        $btn.addClass('bg-dracula-yellow text-dracula-bg').removeClass('text-dracula-yellow bg-dracula-card');
+        $icon.removeClass('bi-circle-half').addClass('bi-circle-fill');
+    } else {
+        $btn.removeClass('bg-dracula-yellow text-dracula-bg').addClass('text-dracula-yellow bg-dracula-card');
+        $icon.removeClass('bi-circle-fill').addClass('bi-circle-half');
+    }
+  }
+
+  // Initialize UI State
+  syncContrastUI();
+  updateHtmlFilter();
+
+  // Pure Glass Mode Toggle
+  $('#glass-mode-toggle').on('click', function() {
+      $(this).toggleClass('active');
+      $('body').toggleClass('pure-glass-mode');
+  });
 
   /** =====================
-   *  Cursor Customization
+     *  Navigation System
+     ====================== */
+  $(".nav-link").on("click", function () {
+    const target = $(this).data("target");
+
+    // Update Navbar visually
+    $(".nav-link")
+      .removeClass("active text-dracula-fg")
+      .addClass("text-dracula-fg/60");
+
+    $(this)
+      .addClass("active text-dracula-fg")
+      .removeClass("text-dracula-fg/60");
+
+    // Toggle Sections with smooth transition
+    $(".section-page").removeClass("active");
+    $("#" + target).addClass("active");
+
+    // Fix for Leaflet Map loading issue when section is hidden
+    if (target === "contact" && window.mapAragua) {
+        setTimeout(() => {
+            window.mapAragua.invalidateSize();
+        }, 100);
+    }
+
+    // Scroll slightly to top on mobile
+    if (window.innerWidth < 1024) {
+      window.scrollTo({
+        top: $(".glass.rounded-3xl").last().offset().top - 20,
+        behavior: "smooth",
+      });
+    }
+  });
+
+
+
+  /** =====================
+   *  3D Tilt Effect for Cards
    ====================== */
+  $(document).on('mousemove', '.glass-card', function(e) {
+    const $card = $(this);
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    $card.css({
+      'transform': `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
+      'transition': 'none',
+      'z-index': '50'
+    });
+  });
+
+  $(document).on('mouseleave', '.glass-card', function() {
+    $(this).css({
+      'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+      'transition': 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+      'z-index': ''
+    });
+  });
+
+  $(".filter-btn").on("click", function () {
+    const filter = $(this).data("filter");
+
+    $(".filter-btn")
+      .removeClass(
+        "active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20",
+      )
+      .addClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50",
+      )
+      .css("border", "");
+
+    $(this)
+      .addClass(
+        "active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20",
+      )
+      .removeClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50",
+      );
+
+    if (filter === "all") {
+      $(".portfolio-item").fadeIn(400);
+    } else {
+      $(".portfolio-item").hide();
+      $(`.portfolio-item[data-category="${filter}"]`).fadeIn(400);
+    }
+  });
+
+  /** =====================
+     *  Skills Filter
+     ====================== */
+  $(".skill-filter-btn").on("click", function () {
+    const filter = $(this).data("filter");
+
+    $(".skill-filter-btn")
+      .removeClass(
+        "active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20",
+      )
+      .addClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50",
+      )
+      .css("border", "");
+
+    $(this)
+      .addClass(
+        "active bg-dracula-purple text-dracula-bg shadow-dracula-purple/20",
+      )
+      .removeClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border border-dracula-comment/50",
+      );
+
+    if (filter === "all") {
+      $(".skill-item").fadeIn(400);
+    } else {
+      $(".skill-item").hide();
+      $(`.skill-item[data-category="${filter}"]`).fadeIn(400);
+    }
+  });
+
+  /** =====================
+     *  Contact Data Decoder
+     ====================== */
+  const rawEmail = "d2lsbGlhbTI4YWNoZUBnbWFpbC5jb20=";
+  const rawPhone = "KzU4NDEyMTMwNTQyMA==";
+
+  $("#contact-li-email").on("click", function (e) {
+    const $link = $("#contact-email");
+    const mail = atob(rawEmail);
+    if ($link.data("revealed")) {
+      window.location.href = `mailto:${mail}`;
+    } else {
+      $link.text(mail);
+      $link.data("revealed", true);
+      $link.removeAttr("data-translate");
+    }
+  });
+
+  $("#contact-li-phone").on("click", function (e) {
+    const $link = $("#contact-phone");
+    const phone = atob(rawPhone);
+    if ($link.data("revealed")) {
+      window.location.href = `tel:${phone}`;
+    } else {
+      $link.text("+58 (412) 130 5420");
+      $link.data("revealed", true);
+      $link.removeAttr("data-translate");
+    }
+  });
+
+  $("#contact-li-location").on("click", function () {
+    window.open(
+      "https://www.google.com/maps/place/Aragua,+Venezuela/",
+      "_blank",
+    );
+  });
+
+  /** =====================
+     *  Contact Form AJAX
+     ====================== */
+  $("#contact-form").on("submit", function (e) {
+    e.preventDefault();
+    const $form = $(this);
+    const $btn = $form.find('button[type="submit"]');
+    const $btnSpan = $btn.find("span");
+    const originalText = $btnSpan.text();
+
+    $btn.prop("disabled", true).addClass("opacity-70 cursor-not-allowed");
+    $btnSpan.text(currentLang === "es" ? "Enviando..." : "Sending...");
+
+    $.ajax({
+      url: $form.attr("action"),
+      method: "POST",
+      data: $form.serialize(),
+      dataType: "json",
+      success: function () {
+        $btnSpan.text(
+          currentLang === "es" ? "¡Mensaje Enviado!" : "Message Sent!",
+        );
+        $btn
+          .removeClass("from-dracula-purple to-dracula-pink")
+          .addClass("bg-dracula-green text-dracula-bg");
+        $form[0].reset();
+        setTimeout(() => {
+          $btn
+            .prop("disabled", false)
+            .removeClass(
+              "opacity-70 cursor-not-allowed bg-dracula-green text-dracula-bg",
+            )
+            .addClass("from-dracula-purple to-dracula-pink");
+          $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+        }, 5000);
+      },
+      error: function () {
+        $btnSpan.text(
+          currentLang === "es" ? "Error al enviar" : "Error sending",
+        );
+        $btn
+          .removeClass("from-dracula-purple to-dracula-pink")
+          .addClass("bg-dracula-red text-dracula-fg");
+        setTimeout(() => {
+          $btn
+            .prop("disabled", false)
+            .removeClass(
+              "opacity-70 cursor-not-allowed bg-dracula-red text-dracula-fg",
+            )
+            .addClass("from-dracula-purple to-dracula-pink");
+          $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+        }, 3000);
+      },
+    });
+  });
+
+  /** =====================
+     *  Theme Toggle System
+     ====================== */
+  const $themeBtn = $("#theme-toggle");
+  const $themeIcon = $("#theme-toggle-icon");
+  const $body = $("body");
+
+  $themeBtn.on("click", function () {
+    $themeBtn.toggleClass("active");
+    $body.toggleClass("light-theme");
+
+    if ($themeBtn.hasClass("active")) {
+      $themeIcon
+        .removeClass("bi-moon-stars-fill text-dracula-bg")
+        .addClass("bi-sun-fill text-dracula-fg");
+      localStorage.setItem("theme", "light");
+      
+      // Sincronizar con el botón de Contraste (activarlo en modo claro)
+      isNormalContrast = true; 
+      syncContrastUI();
+      updateHtmlFilter();
+    } else {
+      $themeIcon
+        .removeClass("bi-sun-fill text-dracula-fg")
+        .addClass("bi-moon-stars-fill text-dracula-bg");
+      localStorage.setItem("theme", "dark");
+
+      // Sincronizar con el botón de Contraste (desactivarlo en modo oscuro)
+      isNormalContrast = false;
+      syncContrastUI();
+      updateHtmlFilter();
+    }
+  });
+
+  // Persistence Check
+  if (localStorage.getItem("theme") === "light") {
+    $themeBtn.addClass("active");
+    $body.addClass("light-theme");
+    $themeIcon
+      .removeClass("bi-moon-stars-fill text-dracula-bg")
+      .addClass("bi-sun-fill text-dracula-fg");
+  }
+
+  /** =====================
+     *  CV Menu Logic
+     ====================== */
+  const $cvBtn = $("#cv-btn-trigger");
+  const $cvMenu = $("#cv-menu");
+
+  $cvBtn.on("click", function (e) {
+    e.stopPropagation();
+    $cvMenu.toggleClass(
+      "opacity-0 invisible translate-y-3 opacity-100 visible translate-y-0",
+    );
+  });
+
+  $(document).on("click", function () {
+    $cvMenu
+      .addClass("opacity-0 invisible translate-y-3")
+      .removeClass("opacity-100 visible translate-y-0");
+  });
+
+  $cvMenu.on("click", "a", function () {
+    $cvMenu
+      .addClass("opacity-0 invisible translate-y-3")
+      .removeClass("opacity-100 visible translate-y-0");
+  });
+
+  /** =====================
+     *  Dynamic Years Calc
+     ====================== */
+  function updateDynamicYears() {
+    $("[data-years-from]").each(function () {
+      const startDateStr = $(this).data("years-from");
+      const startDate = new Date(startDateStr);
+
+      if (isNaN(startDate.getTime())) return; // Skip if invalid
+
+      const today = new Date();
+      let years = today.getFullYear() - startDate.getFullYear();
+      const monthDiff = today.getMonth() - startDate.getMonth();
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < startDate.getDate())
+      ) {
+        years--;
+      }
+
+      const suffix = currentLang === "es" ? "años" : "years";
+      const prefix = $(this).text().startsWith("+") ? "+" : "";
+      $(this).text(`${prefix}${years} ${suffix}`);
+    });
+
+    // Special case for sidebar title in lang.js
+    const careerStart = new Date("2018-01-01");
+    const today = new Date();
+    let totalYears = today.getFullYear() - careerStart.getFullYear();
+    if (today.getMonth() < careerStart.getMonth()) totalYears--;
+
+    translations.es["Desarrollador Web"] =
+      `Desarrollador Full-Stack • +${totalYears} Años`;
+    translations.en["Desarrollador Web"] =
+      `Full-Stack Developer • +${totalYears} Years`;
+
+    // Refresh sidebar text if it's already rendered
+    const $sidebarTitle = $('[data-translate="Desarrollador Web"]');
+    if ($sidebarTitle.length) {
+      $sidebarTitle.text(translations[currentLang]["Desarrollador Web"]);
+    }
+  }
+
+  // Initial call
+  updateDynamicYears();
+
+  // Re-run on language change to update suffixes
+  $(".language-link").on("click", function () {
+    setTimeout(updateDynamicYears, 50); // Small delay to let lang.js update currentLang
+  });
+
+  /** =====================
+     *  Certificates Filter
+     ====================== */
+  $(".cert-filter-btn").on("click", function () {
+    $(".cert-filter-btn")
+      .removeClass("active bg-dracula-purple text-dracula-bg")
+      .addClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border-dracula-comment/50",
+      );
+    $(this)
+      .addClass("active bg-dracula-purple text-dracula-bg")
+      .removeClass(
+        "bg-dracula-card/80 text-dracula-fg/70 border-dracula-comment/50",
+      );
+
+    const filter = $(this).data("filter");
+    const $items = $(".cert-item");
+
+    if (filter === "all") {
+      $items.fadeIn(400);
+    } else {
+      $items.hide();
+      $items.filter(`[data-category="${filter}"]`).fadeIn(400);
+    }
+  });
+
+  /** =====================
+     *  Voice Accessibility System
+     ====================== */
+  const $voiceBtn = $("#voice-toggle");
+  const $voiceIcon = $("#voice-toggle-icon");
+  let voiceEnabled = false;
+
+  $voiceBtn.on("click", function () {
+    voiceEnabled = !voiceEnabled;
+    $(this).toggleClass("active");
+
+    if (voiceEnabled) {
+      $voiceIcon
+        .removeClass("bi-volume-mute-fill")
+        .addClass("bi-volume-up-fill");
+      const welcome =
+        currentLang === "es"
+          ? "Accesibilidad por voz activada"
+          : "Voice accessibility enabled";
+      speak(welcome);
+    } else {
+      $voiceIcon
+        .removeClass("bi-volume-up-fill")
+        .addClass("bi-volume-mute-fill");
+      window.speechSynthesis.cancel();
+    }
+  });
+
+  function speak(text) {
+    if (!voiceEnabled || !window.speechSynthesis) return;
+
+    window.speechSynthesis.cancel(); // Stop current
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = currentLang === "es" ? "es-ES" : "en-US";
+    utterance.rate = 1.0;
+
+    // Find best voice
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find((v) =>
+      v.lang.startsWith(utterance.lang.split("-")[0]),
+    );
+    if (voice) utterance.voice = voice;
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Attach hover events to important elements
+  $(document).on(
+    "mouseenter",
+    "h1, h2, h3, h4, p, span, li, label, .nav-link, button, a, .skill-item, .portfolio-item, .cert-item",
+    function (e) {
+      if (!voiceEnabled) return;
+
+      // Stop propagation to prevent multiple triggers for nested elements
+      e.stopPropagation();
+
+      const $el = $(this);
+      let text = "";
+
+      if ($el.hasClass("nav-link")) {
+        text =
+          (currentLang === "es" ? "Sección " : "Section ") +
+          $el.text().replace(/\s+/g, " ").trim();
+      } else if ($el.hasClass("skill-item")) {
+        text = $el.find("h4").text().replace(/\s+/g, " ").trim();
+      } else if ($el.hasClass("portfolio-item") || $el.hasClass("cert-item")) {
+        text = $el.find("h3").text().replace(/\s+/g, " ").trim();
+      } else {
+        // Get all text and clean up whitespace/newlines, fallback to aria-label or title
+        text =
+          $el.text().replace(/\s+/g, " ").trim() ||
+          $el.attr("aria-label") ||
+          $el.attr("title") ||
+          "";
+      }
+
+      if (text && text.length > 0 && text.length < 800) {
+        // Allow longer text but avoid reading the whole page by accident
+        speak(text);
+      }
+    },
+  );
+
+  /** =====================
+     *  Floating A11y Menu & Zoom
+     ====================== */
+  const $a11yFab = $("#a11y-fab");
+  const $a11yMenu = $("#a11y-menu");
+  const $zoomToggle = $("#zoom-toggle");
+  let zoomStep = 1;
+  const zoomScales = { 1: 100, 2: 115, 3: 130 };
+  const $zoomLevelText = $("#zoom-level-text");
+
+  // Toggle menu
+  $a11yFab.on("click", function (e) {
+    e.stopPropagation();
+    $a11yMenu.toggleClass(
+      "opacity-0 invisible translate-y-4 opacity-100 visible translate-y-0",
+    );
+  });
+
+  // Close menu when clicking outside
+  $(document).on("click", function (e) {
+    if (!$(e.target).closest(".fixed.bottom-6.right-6").length) {
+      $a11yMenu
+        .removeClass("opacity-100 visible translate-y-0")
+        .addClass("opacity-0 invisible translate-y-4");
+    }
+  });
+
+  // Zoom Toggle (Font Size Scaling X1, X2, X3)
+  $zoomToggle.on("click", function (e) {
+    e.stopPropagation();
+
+    zoomStep++;
+    if (zoomStep > 3) zoomStep = 1;
+
+    const scale = zoomScales[zoomStep];
+    $("html").css("font-size", scale + "%");
+    $zoomLevelText.text("X" + zoomStep);
+
+    if (zoomStep > 1) {
+      $(this)
+        .addClass("bg-dracula-cyan text-dracula-bg")
+        .removeClass("text-dracula-cyan bg-dracula-card");
+      $(this).find("i").removeClass("bi-zoom-in").addClass("bi-zoom-out");
+      if (voiceEnabled) {
+        const msg =
+          currentLang === "es"
+            ? `Aumento nivel ${zoomStep}`
+            : `Zoom level ${zoomStep}`;
+        speak(msg);
+      }
+    } else {
+      $(this)
+        .removeClass("bg-dracula-cyan text-dracula-bg")
+        .addClass("text-dracula-cyan bg-dracula-card");
+      $(this).find("i").removeClass("bi-zoom-out").addClass("bi-zoom-in");
+      if (voiceEnabled) {
+        speak(currentLang === "es" ? "Tamaño original restaurado" : "Original size restored");
+      }
+    }
+  });
+
+  // Accessibility Click Handlers
+  updateHtmlFilter(); // Initial call
+
+  $('#contrast-toggle').on('click', function(e) {
+    e.stopPropagation();
+    isNormalContrast = !isNormalContrast;
+    updateHtmlFilter();
+    syncContrastUI();
+    
+    if (isNormalContrast) {
+        if (voiceEnabled) speak(currentLang === 'es' ? 'Contraste normal activado' : 'Normal contrast enabled');
+    } else {
+        if (voiceEnabled) speak(currentLang === 'es' ? 'Alto contraste restaurado' : 'High contrast restored');
+    }
+  });
+
+  // Color Blindness Toggle
+  // Color Blindness Toggle
+  
+  const $colorblindToggle = $('#colorblind-toggle');
+  const $colorblindLevelText = $('#colorblind-level-text');
+  
+  $colorblindToggle.on('click', function(e) {
+    e.stopPropagation();
+    colorBlindMode = (colorBlindMode + 1) % 4;
+    updateHtmlFilter();
+    
+    const modeName = currentLang === 'es' ? colorBlindNames[colorBlindMode] : colorBlindEnNames[colorBlindMode];
+    $colorblindLevelText.text(colorBlindMode === 0 ? 'Off' : modeName.split('/')[0]); // Short text for button
+    
+    if (colorBlindMode > 0) {
+        $(this).addClass('bg-dracula-pink text-dracula-bg').removeClass('text-dracula-pink bg-dracula-card');
+        if (voiceEnabled) speak(currentLang === 'es' ? 'Filtro de daltonismo: ' + modeName : 'Color blindness filter: ' + modeName);
+    } else {
+        $(this).removeClass('bg-dracula-pink text-dracula-bg').addClass('text-dracula-pink bg-dracula-card');
+        if (voiceEnabled) speak(currentLang === 'es' ? 'Filtros visuales desactivados' : 'Visual filters disabled');
+    }
+  });
+
+  // Make interactive items accessible via Keyboard
+  $('.cert-item, .portfolio-item').attr({
+      'tabindex': '0',
+      'role': 'button'
+  }).on('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          $(this).trigger('click');
+      }
+  });
+
+  /** =====================
+     *  Certificates Modal Logic
+     ====================== */
+  const $certModal = $("#cert-modal");
+  const $certModalWindow = $("#cert-modal-window");
+  const $certModalContent = $("#cert-modal-content");
+  const $certModalTitle = $("#cert-modal-title");
+  const $certModalCategory = $("#cert-modal-category");
+  const $certModalLink = $("#cert-modal-link");
+  const $certModalDownload = $("#cert-modal-download");
+
+  $(".cert-item").on("click", function () {
+    const data = $(this).data();
+    if (!data.src) return;
+
+    $certModalTitle.text(data.title);
+    $certModalCategory.text($(this).find("[data-translate]").first().text());
+    $certModalLink.attr("href", data.link);
+    $certModalDownload.attr("href", data.src);
+
+    $certModalContent.empty();
+    if (data.src.endsWith(".pdf")) {
+      $certModalContent.html(
+        `<iframe src="${data.src}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" class="w-full h-full border-none" scrolling="no"></iframe>`,
+      );
+    } else {
+      $certModalContent.html(
+        `<img src="${data.src}" alt="${data.title}" class="w-full h-full object-contain">`,
+      );
+    }
+
+    $certModal
+      .removeClass("invisible opacity-0")
+      .addClass("visible opacity-100");
+    setTimeout(() => {
+      $certModalWindow.removeClass("translate-y-10").addClass("translate-y-0");
+    }, 10);
+
+    if (voiceEnabled)
+      speak(
+        (currentLang === "es"
+          ? "Abriendo certificado: "
+          : "Opening certificate: ") + data.title,
+      );
+  });
+
+  $(".cert-modal-close").on("click", function () {
+    $certModalWindow.addClass("translate-y-10").removeClass("translate-y-0");
+    setTimeout(() => {
+      $certModal
+        .addClass("invisible opacity-0")
+        .removeClass("visible opacity-100");
+      $certModalContent.empty();
+    }, 300);
+  });
+  /** =====================
+   *  Inspiration Modal Logic
+   ====================== */
+  const inspirationSources = [
+    { name: "Alpaca Tech", handle: "@alpacatech", url: "https://www.youtube.com/@alpacatech" },
+    { name: "Ben Cord", handle: "@bencord", url: "https://www.youtube.com/@bencord" },
+    { name: "BettaTech", handle: "@BettaTech", url: "https://www.youtube.com/@BettaTech" },
+    { name: "CodersFree", handle: "@CodersFree", url: "https://www.youtube.com/@CodersFree" },
+    { name: "Código Facilito", handle: "@codigofacilito", url: "https://www.youtube.com/@codigofacilito" },
+    { name: "DominiCode", handle: "@DominiCode", url: "https://www.youtube.com/@DominiCode" },
+    { name: "Fazt Code", handle: "@FaztCode", url: "https://www.youtube.com/@FaztCode" },
+    { name: "Fazt Tech", handle: "@FaztTech", url: "https://www.youtube.com/@FaztTech" },
+    { name: "Fernando Herrera", handle: "@fernando_her85", url: "https://www.youtube.com/@fernando_her85" },
+    { name: "Gentleman Programming", handle: "@gentlemanprogramming", url: "https://www.youtube.com/@gentlemanprogramming" },
+    { name: "Hixec", handle: "@Hixec", url: "https://www.youtube.com/@Hixec" },
+    { name: "HolaMundo", handle: "@HolaMundoDev", url: "https://www.youtube.com/@HolaMundoDev" },
+    { name: "Jose David", handle: "@jose-david", url: "https://www.youtube.com/@jose-david" },
+    { name: "La Geekipedia de Ernesto", handle: "@LaGeekipediaDeErnesto", url: "https://www.youtube.com/@LaGeekipediaDeErnesto" },
+    { name: "midudev", handle: "@midudev", url: "https://www.youtube.com/@midudev" },
+    { name: "MoureDev", handle: "@mouredev", url: "https://www.youtube.com/@mouredev" },
+    { name: "Píldoras Informáticas", handle: "@pildorasinformaticas", url: "https://www.youtube.com/@pildorasinformaticas" },
+    { name: "Platzi", handle: "@Platzi", url: "https://www.youtube.com/@Platzi" },
+    { name: "Programador X", handle: "@ProgramadorX", url: "https://www.youtube.com/@ProgramadorX" },
+    { name: "SoyDalto", handle: "@soydalto", url: "https://www.youtube.com/@soydalto" },
+    { name: "TodoCode", handle: "@TodoCode", url: "https://www.youtube.com/@TodoCode" },
+    { name: "Valen Werle", handle: "@ValenWerle", url: "https://www.youtube.com/@ValenWerle" },
+    { name: "Victor Robles", handle: "@victorroblesweb", url: "https://www.youtube.com/@victorroblesweb" },
+    { name: "Vida Programador", handle: "@vidaprogramador", url: "https://www.youtube.com/@vidaprogramador" }
+  ];
+
+  const $inspirationModal = $("#inspiration-modal");
+  const $inspirationModalWindow = $("#inspiration-modal-window");
+  const $inspirationGrid = $("#inspiration-grid");
+
+  function openInspirationModal() {
+    $inspirationGrid.empty();
+    inspirationSources.forEach(source => {
+      const avatarUrl = source.isWeb 
+        ? `https://unavatar.io/${source.handle}`
+        : `https://unavatar.io/youtube/${source.handle.replace('@', '')}`;
+
+      const card = `
+        <a href="${source.url}" target="_blank" class="group/card relative overflow-hidden bg-dracula-card/20 border border-dracula-comment/20 rounded-2xl p-4 hover:border-dracula-purple/50 transition-all hover:-translate-y-1 shadow-lg">
+          <div class="absolute inset-0 bg-gradient-to-br from-dracula-purple/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
+          <div class="flex items-center gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-xl bg-dracula-bg/50 overflow-hidden flex-shrink-0 border border-dracula-comment/10 group-hover/card:border-dracula-purple/30 transition-all">
+              <img src="${avatarUrl}" 
+                   alt="${source.name}" 
+                   class="w-full h-full object-cover"
+                   onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-dracula-fg/20\'><i class=\'bi ${source.isWeb ? 'bi-grid-fill' : 'bi-youtube'}\'></i></div>';">
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-bold text-dracula-fg group-hover/card:text-dracula-purple transition-colors truncate text-sm">${source.name}</h4>
+              <p class="text-[9px] uppercase tracking-wider text-dracula-comment font-bold mt-0.5">
+                ${source.isWeb ? 'Website' : 'YouTube Channel'}
+              </p>
+            </div>
+          </div>
+        </a>
+      `;
+      $inspirationGrid.append(card);
+    });
+
+    $inspirationModal.removeClass("invisible").addClass("opacity-100");
+    $inspirationModalWindow.removeClass("translate-y-10").addClass("translate-y-0");
+    $('body').css('overflow', 'hidden'); 
+  }
+
+  function closeInspirationModal() {
+    $inspirationModal.removeClass("opacity-100").addClass("opacity-0");
+    $inspirationModalWindow.removeClass("translate-y-0").addClass("translate-y-10");
+    setTimeout(() => {
+        $inspirationModal.addClass("invisible");
+        $('body').css('overflow', ''); 
+    }, 300);
+  }
+
+  $("#open-inspiration").on("click", openInspirationModal);
+  $(".inspiration-modal-close").on("click", closeInspirationModal);
+
+  /** =====================
+   *  Dynamic Footer Stats
+   ====================== */
+  function updateDynamicStats() {
+    // 1. Clocks
+    function updateClocks() {
+      const now = new Date();
+      
+      // My Time (VET - America/Caracas)
+      const myTimeStr = now.toLocaleTimeString('en-US', { 
+        timeZone: 'America/Caracas', 
+        hour12: true, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+      });
+      $('#my-time').text(myTimeStr);
+
+      // Visitor Time (Local)
+      const visitorTimeStr = now.toLocaleTimeString('en-US', { 
+        hour12: true, 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit' 
+      });
+      $('#visitor-time').text(visitorTimeStr);
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+
+    // 1.1 Visitor Location (Geolocation - Localhost Friendly)
+    async function fetchVisitorLocation() {
+      try {
+        const response = await fetch('https://api.db-ip.com/v2/free/self');
+        if (!response.ok) throw new Error();
+        const data = await response.json();
+        if (data.countryCode) {
+          const code = data.countryCode.toLowerCase();
+          $('#visitor-flag').addClass(`fi-${code}`);
+          $('#visitor-country').text(data.countryName);
+        }
+      } catch (e) {
+        $('#visitor-country').text('Local');
+      }
+    }
+    fetchVisitorLocation();
+
+    // 2. Weather (Maracay, Aragua)
+    async function fetchWeather() {
+      try {
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.2351&longitude=-67.5911&current_weather=true');
+        const data = await response.json();
+        if (data.current_weather) {
+          const temp = Math.round(data.current_weather.temperature);
+          $('#weather-temp').text(`${temp}°C`);
+          
+          let code = data.current_weather.weathercode;
+          let icon = 'bi-sun-fill';
+          if (code >= 1 && code <= 3) icon = 'bi-cloud-sun-fill';
+          if (code >= 45 && code <= 48) icon = 'bi-cloud-fog2-fill';
+          if (code >= 51 && code <= 67) icon = 'bi-cloud-drizzle-fill';
+          if (code >= 71 && code <= 86) icon = 'bi-cloud-snow-fill';
+          if (code >= 95) icon = 'bi-cloud-lightning-rain-fill';
+          $('#weather-icon').attr('class', `bi ${icon} animate-pulse`);
+        }
+      } catch (e) {
+        $('#weather-temp').text('28°C');
+      }
+    }
+    fetchWeather();
+
+    // 3. Bitcoin Price (Real-time Instant - CoinGecko)
+    let lastBtcPrice = 0;
+    async function fetchBtcPrice() {
+      const $btcIcon = $('#btc-icon');
+      const $btcWidget = $('#btc-widget');
+      
+      // Indicador visual de que está consultando
+      $btcIcon.addClass('animate-bounce text-dracula-yellow');
+      setTimeout(() => $btcIcon.removeClass('animate-bounce'), 2000);
+
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+        const data = await response.json();
+        const price = data.bitcoin.usd;
+        
+        const $btcPrice = $('#btc-price');
+        const $btcChangeContainer = $('#btc-change-container');
+        const $btcChange = $('#btc-change');
+        
+        $btcPrice.text(`${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`);
+        
+        if (lastBtcPrice !== 0) {
+          const diff = price - lastBtcPrice;
+          if (diff !== 0) {
+            const diffPercent = (diff / lastBtcPrice) * 100;
+            const sign = diff >= 0 ? '+' : '';
+            $btcChange.text(`${sign}${diffPercent.toFixed(4)}%`);
+            
+            if (diff > 0) {
+              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-red').addClass('text-dracula-green');
+              $btcIcon.attr('class', 'bi bi-caret-up-fill text-dracula-green animate-bounce');
+              $btcWidget.addClass('ring-1 ring-dracula-green/30');
+              
+              // Volver a poner el logo de Bitcoin después de 5 segundos
+              setTimeout(() => {
+                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
+                $btcWidget.removeClass('ring-1 ring-dracula-green/30');
+              }, 5000);
+            } else {
+              $btcChangeContainer.removeClass('text-dracula-comment text-dracula-green').addClass('text-dracula-red');
+              $btcIcon.attr('class', 'bi bi-caret-down-fill text-dracula-red animate-bounce');
+              $btcWidget.addClass('ring-1 ring-dracula-red/30');
+              
+              // Volver a poner el logo de Bitcoin después de 5 segundos
+              setTimeout(() => {
+                $btcIcon.attr('class', 'bi bi-currency-bitcoin text-dracula-yellow text-sm');
+                $btcWidget.removeClass('ring-1 ring-dracula-red/30');
+              }, 5000);
+            }
+          }
+        } else {
+          $btcChange.text('Live');
+        }
+        
+        lastBtcPrice = price;
+      } catch (e) {
+        $('#btc-price').text('76,400.00 USD');
+      }
+    }
+    fetchBtcPrice();
+    setInterval(fetchBtcPrice, 20000); // 20s: El punto dulce para CoinGecko
+
+    // 4. Visitor Counter (Hybrid Real System)
+    function updateCounter() {
+      // Base de visitas reales simulada con persistencia
+      let baseVisits = 2540; 
+      let savedVisits = localStorage.getItem('portfolio_total_visits');
+      
+      if (!savedVisits) {
+        savedVisits = baseVisits;
+      } else {
+        savedVisits = parseInt(savedVisits);
+      }
+
+      // Incrementar por sesión
+      if (!sessionStorage.getItem('visit_counted')) {
+        savedVisits += 1;
+        sessionStorage.setItem('visit_counted', 'true');
+      }
+
+      // Simular tráfico global (pequeño incremento aleatorio basado en el tiempo)
+      const now = new Date();
+      const globalFactor = Math.floor((now.getTime() - 1714500000000) / 1000000); 
+      const totalVisits = savedVisits + globalFactor;
+
+      localStorage.setItem('portfolio_total_visits', savedVisits);
+      $('#visitor-count').text(totalVisits.toString().padStart(5, '0'));
+    }
+    updateCounter();
+    setInterval(updateCounter, 60000); // Actualizar cada minuto
+  }
+
+  updateDynamicStats();
+
+  // Cursor Glow Effect
   const $cursorGlow = $('#cursor-glow');
-  const $cursorDot = $('#cursor-dot');
-  const $clickRipple = $('#click-ripple');
-
   $(document).on('mousemove', function(e) {
-    const x = e.clientX;
-    const y = e.clientY;
-    
-    // Suavizado del brillo
     $cursorGlow.css({
-      'left': x + 'px',
-      'top': y + 'px'
-    });
-    
-    $cursorDot.css({
-      'left': x + 'px',
-      'top': y + 'px'
+      top: e.clientY + 'px',
+      left: e.clientX + 'px',
+      opacity: 1
     });
   });
 
-  // Animación de Click & Ripple
-  $(document).on('mousedown', function(e) {
-    $cursorDot.addClass('cursor-click');
-    
-    // Ripple Effect
-    const x = e.clientX;
-    const y = e.clientY;
-    
-    $clickRipple.css({
-      'left': x + 'px',
-      'top': y + 'px',
-      'display': 'block'
-    }).removeClass('ripple-anim');
-    
-    void $clickRipple[0].offsetWidth; // Reset animation
-    $clickRipple.addClass('ripple-anim');
-  }).on('mouseup', function() {
-    $cursorDot.removeClass('cursor-click');
+  $(document).on('mouseleave', function() {
+    $cursorGlow.css('opacity', 0);
   });
 
-  // Modos del Cursor (Hover)
-  $(document).on('mouseenter', 'a, button, .nav-link, .cursor-pointer', function() {
+  $(document).on('mousedown', function() {
+    $cursorGlow.find('.cursor-ripple').removeClass('animate');
+    void $cursorGlow.find('.cursor-ripple')[0].offsetWidth; 
+    $cursorGlow.find('.cursor-ripple').addClass('animate');
+    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(0.85)');
+  });
+
+  $(document).on('mouseup', function() {
+    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(1)');
+  });
+
+  // Cursor Hover Interactions
+  $(document).on('mouseenter', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
     $cursorGlow.addClass('pointer-mode');
-  }).on('mouseleave', 'a, button, .nav-link, .cursor-pointer', function() {
+  }).on('mouseleave', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
     $cursorGlow.removeClass('pointer-mode');
   });
 
-  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function(e) {
-    if ($(this).closest('a, button, .nav-link, .cursor-pointer').length) return;
+  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
     $cursorGlow.addClass('text-mode');
   }).on('mouseleave', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
     $cursorGlow.removeClass('text-mode');
-  });
-
-  // reCAPTCHA v3 Logic
-  const RECAPTCHA_SITE_KEY = '6Lc6C9QsAAAAANL3GCqm_WXw0BjaTQVcHXkKr2I0';
-
-  // Formulario de Contacto
-  $('#contact-form').on('submit', function(e) {
-    e.preventDefault();
-    const $form = $(this);
-    
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.ready(function() {
-        grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'submit'}).then(function(token) {
-          $('#g-recaptcha-response').val(token);
-          $form[0].submit(); 
-        });
-      });
-    } else {
-      $form[0].submit();
-    }
-  });
-
-  // Descarga de CV con validación invisible
-  $(document).on('click', '#cv-menu a', function(e) {
-    e.preventDefault();
-    const downloadUrl = $(this).attr('href');
-    
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.ready(function() {
-        grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'download_cv'}).then(function(token) {
-          const link = document.createElement('a');
-          link.href = downloadUrl;
-          link.target = '_blank';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        });
-      });
-    } else {
-      window.open(downloadUrl, '_blank');
-    }
   });
 
   /** =====================
@@ -138,3 +1063,4 @@ $(function () {
     });
   });
 });
+
