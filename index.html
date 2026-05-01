@@ -1365,19 +1365,20 @@
             </div>
 
             <!-- Full Footer Terminal View -->
-            <div id="footer-terminal-view" class="absolute inset-0 hidden flex-col bg-[#0d0d0d] rounded-3xl border border-dracula-green/40 shadow-[0_0_50px_rgba(80,250,123,0.1)] overflow-hidden font-mono text-dracula-green transition-all duration-500">
-                <div class="flex items-center justify-between px-6 py-3 bg-[#1a1a1a] border-b border-dracula-green/20">
+            <div id="footer-terminal-view" class="absolute inset-0 hidden flex-col bg-[#0d0d0d]/50 backdrop-blur-md rounded-3xl border border-dracula-green/40 shadow-[0_0_50px_rgba(80,250,123,0.1)] overflow-hidden font-mono text-dracula-green transition-all duration-500">
+                <div class="flex items-center justify-between px-6 py-3 bg-white/5 border-b border-dracula-green/20">
                     <div class="flex items-center gap-3">
                         <i class="bi bi-terminal text-xs opacity-60"></i>
                         <span class="text-xs uppercase font-bold tracking-widest opacity-60">william-ache@linux: ~</span>
                     </div>
-                    <button id="close-full-terminal" class="text-dracula-green hover:text-dracula-red transition-colors p-1">
-                        <i class="bi bi-x-lg text-xl"></i>
-                    </button>
+                    <div class="text-[10px] uppercase opacity-40 font-bold tracking-tighter">
+                        Type 'exit' to terminate session
+                    </div>
                 </div>
                 <div id="full-terminal-body" class="flex-1 p-8 overflow-y-auto custom-scrollbar text-sm leading-relaxed" style="overscroll-behavior: contain;">
-                    <div class="mb-4 text-dracula-comment leading-tight opacity-50 text-xs">
-                        Welcome to William's Core Interface. Type 'help' for available directives.
+                    <div class="mb-4 text-dracula-comment leading-tight opacity-70">
+                        <p class="text-dracula-cyan font-bold mb-1">SYSTEM ONLINE - SESSION START</p>
+                        <p>Welcome to William's Core. Type <span class="text-dracula-green">'help'</span> for directives or <span class="text-dracula-red">'exit'</span> to close terminal.</p>
                     </div>
                     <div id="full-terminal-output" class="space-y-2"></div>
                     <div class="flex items-center gap-2 mt-4">

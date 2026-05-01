@@ -1660,110 +1660,106 @@ $(function () {
   };
 
   function toggleFullTerminal(show) {
-    if (show) {
-        const btnRect = $('#open-terminal')[0].getBoundingClientRect();
-        const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
-        
-        const startX = btnRect.left - footerRect.left;
-        const startY = btnRect.top - footerRect.top;
-        const startW = btnRect.width;
-        const startH = btnRect.height;
+    const btnRect = $('#open-terminal')[0].getBoundingClientRect();
+    const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
+    const startX = btnRect.left - footerRect.left;
+    const startY = btnRect.top - footerRect.top;
+    const startW = btnRect.width;
+    const startH = btnRect.height;
 
-        const tl = gsap.timeline();
-        
-        tl.to($footerStandard, { opacity: 0, duration: 0.2 })
-        .set($footerStandard, { display: 'none' })
-        .set($footerTerminal, { 
-            display: 'flex', 
-            opacity: 1, 
-            clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
-            backgroundColor: '#1a1a1a'
-        })
-        .to($footerTerminal, { 
-            clipPath: `inset(0px 0px 0px 0px round 24px)`,
-            duration: 0.4,
-            ease: "power3.inOut"
-        })
-        .fromTo($('#footer-terminal-view > div'), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 })
-        .set($footerTerminal, { backgroundColor: '#0d0d0d' })
-        .call(() => $terminalInput.focus());
+    const tl = gsap.timeline();
 
-    } else {
-        const btnRect = $('#open-terminal')[0].getBoundingClientRect();
-        const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
-        const startX = btnRect.left - footerRect.left;
-        const startY = btnRect.top - footerRect.top;
-        const startW = btnRect.width;
-        const startH = btnRect.height;
+        if (show) {
+            tl.to($footerStandard, { opacity: 0, duration: 0.1, scale: 0.97, ease: "power2.in" })
+            .set($footerStandard, { display: 'none' })
+            .set($footerTerminal, { 
+                display: 'flex', 
+                opacity: 1, 
+                clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+                backgroundColor: 'rgba(26, 26, 26, 0.4)'
+            })
+            .to($footerTerminal, { 
+                clipPath: `inset(0px 0px 0px 0px round 24px)`,
+                duration: 0.25,
+                backgroundColor: 'rgba(13, 13, 13, 0.5)',
+                ease: "power4.out"
+            })
+            .fromTo($('#footer-terminal-view > div'), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.15, stagger: 0.04, ease: "power2.out" })
+            .call(() => $terminalInput.focus());
 
-        const tlBack = gsap.timeline();
-        
-        tlBack.to($('#footer-terminal-view > div'), { opacity: 0, y: 5, duration: 0.15 })
-        .to($footerTerminal, { 
-            clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
-            duration: 0.35,
-            ease: "power3.inOut"
-        })
-        .to($footerTerminal, { opacity: 0, duration: 0.15 })
-        .set($footerTerminal, { display: 'none' })
-        .set($footerStandard, { display: 'flex', opacity: 0 })
-        .to($footerStandard, { opacity: 1, duration: 0.3 });
+        } else {
+            tl.to($('#footer-terminal-view > div'), { opacity: 0, y: 5, duration: 0.1 })
+            .to($footerTerminal, { 
+                clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+                duration: 0.2,
+                backgroundColor: 'rgba(26, 26, 26, 0.4)',
+                ease: "power4.in"
+            })
+            .to($footerTerminal, { opacity: 0, duration: 0.1 })
+            .set($footerTerminal, { display: 'none' })
+            .set($footerStandard, { display: 'flex', opacity: 0, scale: 0.97 })
+            .to($footerStandard, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" });
+        }
     }
-  }
 
-  $(document).on('click', '#close-full-terminal', () => toggleFullTerminal(false));
-  $('#open-terminal').on('click', () => toggleFullTerminal(true));
+    $('#open-terminal').on('click', () => toggleFullTerminal(true));
 
-  function updatePrompt() {
-    const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
-    $('#terminal-path-label').text(displayPath);
-  }
+    function updatePrompt() {
+        const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
+        $('#terminal-path-label').text(displayPath);
+    }
 
-  $terminalInput.on('keydown', function(e) {
-    if (e.key === 'Tab') {
-        e.preventDefault();
-        const fullInput = $(this).val();
-        const args = fullInput.split(' ');
-        const lastArg = args[args.length - 1];
-        
-        if (lastArg) {
-            const items = virtualFS[currentPath];
-            if (items) {
-                const matches = Object.keys(items).filter(k => k.startsWith(lastArg));
-                if (matches.length === 1) {
-                    args[args.length - 1] = matches[0];
-                    $(this).val(args.join(' '));
+    $terminalInput.on('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const fullInput = $(this).val();
+            const args = fullInput.split(' ');
+            const lastArg = args[args.length - 1];
+            
+            if (lastArg) {
+                const items = virtualFS[currentPath];
+                if (items) {
+                    const matches = Object.keys(items).filter(k => k.startsWith(lastArg));
+                    if (matches.length === 1) {
+                        args[args.length - 1] = matches[0];
+                        $(this).val(args.join(' '));
+                    }
                 }
             }
         }
-    }
 
-    if (e.key === 'Enter') {
-        const fullInput = $(this).val().trim();
-        if (!fullInput) return;
-        
-        const args = fullInput.split(' ');
-        const cmd = args.shift().toLowerCase();
-        const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
+        if (e.key === 'Enter') {
+            const fullInput = $(this).val().trim();
+            if (!fullInput) return;
+            
+            const args = fullInput.split(' ');
+            const cmd = args.shift().toLowerCase();
+            const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
 
-        $terminalOutput.append(`
-            <div class="flex gap-1 font-bold">
-                <span class="text-dracula-cyan">william-ache@portfolio:</span>
-                <span class="text-dracula-purple">${displayPath}</span>
-                <span class="text-dracula-cyan">$</span>
-                <span class="text-dracula-fg ml-1">${fullInput}</span>
-            </div>
-        `);
+            $terminalOutput.append(`
+                <div class="flex gap-1 font-bold">
+                    <span class="text-dracula-cyan">william-ache@portfolio:</span>
+                    <span class="text-dracula-purple">${displayPath}</span>
+                    <span class="text-dracula-cyan">$</span>
+                    <span class="text-dracula-fg ml-1">${fullInput}</span>
+                </div>
+            `);
 
-        if (cmd === 'exit') {
-            toggleFullTerminal(false);
-        } else if (terminalCommands[cmd]) {
-            const result = terminalCommands[cmd](args);
-            if (result) $terminalOutput.append(`<div class="mt-1 mb-2 ml-4">${result}</div>`);
-            if (cmd === 'cd') updatePrompt();
-        } else {
-            $terminalOutput.append(`<div class="text-dracula-red mb-2 ml-4">> Error: Command '${cmd}' unrecognized.</div>`);
-        }
+            if (cmd === 'exit') {
+                toggleFullTerminal(false);
+            } else if (terminalCommands[cmd]) {
+                const result = terminalCommands[cmd](args);
+                if (result) {
+                    const $resultEl = $(`<div class="mt-1 mb-2 ml-4 opacity-0">${result}</div>`);
+                    $terminalOutput.append($resultEl);
+                    gsap.to($resultEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
+                }
+                if (cmd === 'cd') updatePrompt();
+            } else {
+                const $errorEl = $(`<div class="text-dracula-red mb-2 ml-4 opacity-0">> Error: Command '${cmd}' unrecognized.</div>`);
+                $terminalOutput.append($errorEl);
+                gsap.to($errorEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
+            }
 
         $(this).val('');
         $('#full-terminal-body').scrollTop($('#full-terminal-body')[0].scrollHeight);
