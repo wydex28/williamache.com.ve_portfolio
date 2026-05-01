@@ -1652,15 +1652,15 @@ $(function () {
     }
   }
 
+  $(document).on('click', '#close-full-terminal', () => toggleFullTerminal(false));
   $('#open-terminal').on('click', () => toggleFullTerminal(true));
-  $('#close-full-terminal').on('click', () => toggleFullTerminal(false));
 
   $terminalInput.on('keydown', function(e) {
     if (e.key === 'Enter') {
         const input = $(this).val().toLowerCase().trim();
         if (!input) return;
 
-        $terminalOutput.append(`<div><span class="text-dracula-pink font-bold">$</span> ${input}</div>`);
+        $terminalOutput.append(`<div><span class="text-dracula-cyan font-bold">william-ache@portfolio:~$</span> ${input}</div>`);
 
         if (input === 'exit') {
             toggleFullTerminal(false);
@@ -1675,6 +1675,9 @@ $(function () {
         $('#full-terminal-body').scrollTop($('#full-terminal-body')[0].scrollHeight);
     }
   });
+
+  // Keep focus on input when clicking anywhere in the terminal
+  $footerTerminal.on('click', () => $terminalInput.focus());
 
   /** =====================
    *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)
