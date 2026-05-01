@@ -134,7 +134,7 @@
                 <!-- Avatar -->
                 <div class="relative mt-12 mb-4 cursor-pointer group" id="avatar-container">
                     <div class="absolute inset-0 bg-dracula-purple rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
-                    <img id="avatar" src="./assets/images/profile/1.png" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
+                    <img id="avatar" src="./assets/images/profile/1.webp" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
                     
                     <div id="avatar-bubble" class="speech-bubble" data-translate="Haz click en mi">
                         <span>¡Haz click en mi!</span>
@@ -254,7 +254,7 @@
                         <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Sobre Mí">
                             Sobre Mí
                         </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
+                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full meteorite-line"></div>
                     </header>
                     
                     <div class="text-dracula-fg/90 leading-relaxed mb-12 text-lg space-y-4">
@@ -329,7 +329,7 @@
                         <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Experiencia">
                             Experiencia
                         </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
+                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full meteorite-line"></div>
                     </header>
 
                     <div class="relative">
@@ -342,70 +342,210 @@
 
                         <div class="timeline-line pl-8 mb-16 space-y-10 -mt-8 pt-8">
                             <!-- Job 1 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2" data-years-from="2022-02-01">+4 años</span></h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="https://itoeste.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Software Factory | IT OESTE <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Remoto (Buenos Aires) <span class="fi fi-ar rounded-sm"></span> • Feb 2022 - Actualidad</span>
+                            <div class="relative group timeline-item">
+                                <div class="absolute -left-[37px] top-2 flex h-2.5 w-2.5 z-10 transition-transform duration-300 group-hover:scale-150">
+                                    <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-purple opacity-75 seq-ping-item" style="--delay: 0;"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dracula-purple shadow-[0_0_8px_rgba(189,147,249,0.8)]"></span>
+                                </div>
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2" data-years-from="2022-02-01">+4 años</span></h4>
+                                    <a href="https://itoeste.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Software Factory | IT OESTE <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
+                                </div>
+                                <div class="md:text-right shrink-0">
+                                    <div class="text-dracula-fg/60 text-base font-semibold flex items-center md:justify-end gap-2">
+                                        Feb 2022 - Actualidad
+                                    </div>
+                                    <div class="text-dracula-comment text-sm mt-1 flex items-center md:justify-end gap-2">
+                                        Remoto (Buenos Aires) <span class="fi fi-ar rounded-sm"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-2 list-disc ml-4 marker:text-dracula-purple">
-                                <li>Diseño y desarrollo de sitios web corporativos y promocionales, combinando arquitectura de información clara con código limpio y modular altamente escalable.</li>
-                                <li>Creación de sistemas administrativos y paneles de control integrados (dashboards), centralizando la operatividad de los negocios en una sola plataforma.</li>
-                                <li>Desarrollo de módulos complejos para seguimiento de stock e inventario en tiempo real, con disparadores de alertas automáticas de reposición y reportes a medida.</li>
-                                <li>Integración de plataformas web bajo tecnología WebView dentro de aplicaciones móviles tanto en iOS como en Android para asegurar experiencias híbridas fluidas.</li>
+                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-3 list-none pl-0 text-justify">
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-purple opacity-75 seq-ping-item" style="--delay: 1;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-purple"></span>
+                                    </span>
+                                    Diseño y desarrollo de sitios web corporativos y promocionales, combinando arquitectura de información clara con código limpio y modular altamente escalable.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-purple opacity-75 seq-ping-item" style="--delay: 2;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-purple"></span>
+                                    </span>
+                                    Creación de sistemas administrativos y paneles de control integrados (dashboards), centralizando la operatividad de los negocios en una sola plataforma.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-purple opacity-75 seq-ping-item" style="--delay: 3;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-purple"></span>
+                                    </span>
+                                    Desarrollo de módulos complejos para seguimiento de stock e inventario en tiempo real, con disparadores de alertas automáticas de reposición y reportes a medida.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-purple opacity-75 seq-ping-item" style="--delay: 4;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-purple"></span>
+                                    </span>
+                                    Integración de plataformas web bajo tecnología WebView dentro de aplicaciones móviles tanto en iOS como en Android para asegurar experiencias híbridas fluidas.
+                                </li>
                             </ul>
                         </div>
 
                             <!-- Job 2 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack / PM <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año y 2 meses</span></h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="https://valdusoft.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Valdusoft Desarrollo web <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Remoto (Táchira) <span class="fi fi-ve rounded-sm"></span> • Dic 2020 - Ene 2022</span>
+                            <div class="relative group timeline-item">
+                                <div class="absolute -left-[37px] top-2 flex h-2.5 w-2.5 z-10 transition-transform duration-300 group-hover:scale-150">
+                                    <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-pink opacity-75 seq-ping-item" style="--delay: 5;"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dracula-pink shadow-[0_0_8px_rgba(255,121,198,0.8)]"></span>
+                                </div>
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack / PM <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año y 2 meses</span></h4>
+                                    <a href="https://valdusoft.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Valdusoft Desarrollo web <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
+                                </div>
+                                <div class="md:text-right shrink-0">
+                                    <div class="text-dracula-fg/60 text-base font-semibold flex items-center md:justify-end gap-2">
+                                        Dic 2020 - Ene 2022
+                                    </div>
+                                    <div class="text-dracula-comment text-sm mt-1 flex items-center md:justify-end gap-2">
+                                        Remoto (Táchira) <span class="fi fi-ve rounded-sm"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-2 list-disc ml-4 marker:text-dracula-pink">
-                                <li><strong>Director Front-End y Back-End:</strong> Líder técnico integral de la capa visual y del servidor. Encargado de la definición y selección de frameworks, bases de datos y APIs, garantizando que el diseño UI/UX esté perfectamente alineado con la lógica del backend.</li>
-                                <li>Implementación de arquitecturas complejas para venta directa (Páginas Multinivel), estructurando sistemas de afiliación, paneles de socios, seguimiento de comisiones y billeteras de saldo virtual.</li>
-                                <li>Desarrollo de tiendas online (e-commerce) desde cero: catálogos interactivos, carritos, integración de pasarelas de pago y cálculos dinámicos para envíos, con foco en el embudo de conversión.</li>
-                                <li>Coordinación de equipos técnicos (Project Manager) bajo metodologías ágiles como Scrum y Kanban, planificando sprints, asignando tareas, revisando código (Code Reviews), y ejecutando pruebas unitarias y de integración para mantener la calidad.</li>
+                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-3 list-none pl-0 text-justify">
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-pink opacity-75 seq-ping-item" style="--delay: 6;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-pink"></span>
+                                    </span>
+                                    <strong>Director Front-End y Back-End:</strong> Líder técnico integral de la capa visual y del servidor. Encargado de la definición y selección de frameworks, bases de datos y APIs, garantizando que el diseño UI/UX esté perfectamente alineado con la lógica del backend.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-pink opacity-75 seq-ping-item" style="--delay: 7;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-pink"></span>
+                                    </span>
+                                    Implementación de arquitecturas complejas para venta directa (Páginas Multinivel), estructurando sistemas de afiliación, paneles de socios, seguimiento de comisiones y billeteras de saldo virtual.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-pink opacity-75 seq-ping-item" style="--delay: 8;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-pink"></span>
+                                    </span>
+                                    Desarrollo de tiendas online (e-commerce) desde cero: catálogos interactivos, carritos, integración de pasarelas de pago y cálculos dinámicos para envíos, con foco en el embudo de conversión.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-pink opacity-75 seq-ping-item" style="--delay: 9;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-pink"></span>
+                                    </span>
+                                    Coordinación de equipos técnicos (Project Manager) bajo metodologías ágiles como Scrum y Kanban, planificando sprints, asignando tareas, revisando código (Code Reviews), y ejecutando pruebas unitarias y de integración para mantener la calidad.
+                                </li>
                             </ul>
                         </div>
 
                             <!-- Job 3 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año</span></h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="https://www.facebook.com/StoreSwamer/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Swamer Store <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Remoto (Caracas) <span class="fi fi-ve rounded-sm"></span> • Ene 2020 - Dic 2020</span>
+                            <div class="relative group timeline-item">
+                                <div class="absolute -left-[37px] top-2 flex h-2.5 w-2.5 z-10 transition-transform duration-300 group-hover:scale-150">
+                                    <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-cyan opacity-75 seq-ping-item" style="--delay: 10;"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dracula-cyan shadow-[0_0_8px_rgba(139,233,253,0.8)]"></span>
+                                </div>
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Desarrollador Web Full Stack <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">1 año</span></h4>
+                                    <a href="https://www.facebook.com/StoreSwamer/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Swamer Store <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
+                                </div>
+                                <div class="md:text-right shrink-0">
+                                    <div class="text-dracula-fg/60 text-base font-semibold flex items-center md:justify-end gap-2">
+                                        Ene 2020 - Dic 2020
+                                    </div>
+                                    <div class="text-dracula-comment text-sm mt-1 flex items-center md:justify-end gap-2">
+                                        Remoto (Caracas) <span class="fi fi-ve rounded-sm"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-2 list-disc ml-4 marker:text-dracula-cyan">
-                                <li>Desarrollo exhaustivo y despliegue de sistemas administrativos privados para la gestión central y el control métrico de inventario.</li>
-                                <li>Administración de bases de datos: modelado inicial, implementación en entornos producción y mantenimiento continuo tanto en sistemas relacionales (MySQL) como NoSQL.</li>
-                                <li>Diseño de rutinas de optimización de consultas (queries) y calendarización de respaldos periódicos (backups) asegurando disponibilidad continua del rendimiento.</li>
-                                <li>Optimización de procesos internos, análisis de requerimientos para la posterior automatización de flujos con scripts y pipelines CI/CD.</li>
+                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-3 list-none pl-0 text-justify">
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-cyan opacity-75 seq-ping-item" style="--delay: 11;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-cyan"></span>
+                                    </span>
+                                    Desarrollo exhaustivo y despliegue de sistemas administrativos privados para la gestión central y el control métrico de inventario.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-cyan opacity-75 seq-ping-item" style="--delay: 12;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-cyan"></span>
+                                    </span>
+                                    Administración de bases de datos: modelado inicial, implementación en entornos producción y mantenimiento continuo tanto en sistemas relacionales (MySQL) como NoSQL.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-cyan opacity-75 seq-ping-item" style="--delay: 13;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-cyan"></span>
+                                    </span>
+                                    Diseño de rutinas de optimización de consultas (queries) y calendarización de respaldos periódicos (backups) asegurando disponibilidad continua del rendimiento.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-cyan opacity-75 seq-ping-item" style="--delay: 14;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-cyan"></span>
+                                    </span>
+                                    Optimización de procesos internos, análisis de requerimientos para la posterior automatización de flujos con scripts y pipelines CI/CD.
+                                </li>
                             </ul>
                         </div>
 
                             <!-- Job 4 -->
-                            <div class="relative group">
-                                <div class="absolute w-2.5 h-2.5 bg-dracula-comment rounded-full -left-[5.25px] top-2 transition-all duration-300 group-hover:bg-dracula-purple group-hover:scale-125 shadow-[0_0_10px_rgba(189,147,249,0)] group-hover:shadow-[0_0_10px_rgba(189,147,249,0.5)]"></div>
-                            <h4 class="text-xl font-bold text-dracula-fg mb-1">Becario de Desarrollo / Soporte IT <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">2 años y 1 mes</span></h4>
-                            <div class="text-dracula-cyan font-medium mb-4 text-sm flex items-center gap-2">
-                                <a href="https://maprotel.com/" target="_blank" class="hover:text-dracula-pink transition-colors flex items-center">Maprotel C.A <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
-                                <span class="w-1 h-1 bg-dracula-comment rounded-full"></span>
-                                <span class="text-dracula-fg/60 flex items-center gap-2">Presencial (Caracas) <span class="fi fi-ve rounded-sm"></span> • Ene 2018 - Ene 2020</span>
+                            <div class="relative group timeline-item">
+                                <div class="absolute -left-[37px] top-2 flex h-2.5 w-2.5 z-10 transition-transform duration-300 group-hover:scale-150">
+                                    <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75 seq-ping-item" style="--delay: 15;"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dracula-green shadow-[0_0_8px_rgba(80,250,123,0.8)]"></span>
+                                </div>
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-dracula-fg mb-1">Becario de Desarrollo / Soporte IT <span class="text-sm font-normal text-dracula-comment bg-dracula-card px-2 py-0.5 rounded ml-2">2 años y 1 mes</span></h4>
+                                    <a href="https://maprotel.com/" target="_blank" class="text-dracula-cyan font-medium hover:text-dracula-pink transition-colors flex items-center text-sm">Maprotel C.A <i class="bi bi-box-arrow-up-right text-[10px] ml-1.5 opacity-70"></i></a>
+                                </div>
+                                <div class="md:text-right shrink-0">
+                                    <div class="text-dracula-fg/60 text-base font-semibold flex items-center md:justify-end gap-2">
+                                        Ene 2018 - Ene 2020
+                                    </div>
+                                    <div class="text-dracula-comment text-sm mt-1 flex items-center md:justify-end gap-2">
+                                        Presencial (Caracas) <span class="fi fi-ve rounded-sm"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-2 list-disc ml-4 marker:text-dracula-green">
-                                <li>Creación y mantenimiento continuo de sitios web corporativos y de aterrizaje (landing pages).</li>
-                                <li>Desarrollo integral de plataformas de atención telefónica para Call Centers, focalizado en lógicas complejas de enrutamiento de llamadas.</li>
-                                <li>Integración de infraestructura de VoIP con bases de datos internas y recolección de leads mediante formularios dinámicos.</li>
-                                <li>Responsable del mantenimiento y reparación preventiva en sitio de hardware, impresoras, y diagnóstico de la infraestructura de red empresarial.</li>
+                            <ul class="text-dracula-fg/70 text-sm leading-relaxed space-y-3 list-none pl-0 text-justify">
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75 seq-ping-item" style="--delay: 16;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-green"></span>
+                                    </span>
+                                    Creación y mantenimiento continuo de sitios web corporativos y de aterrizaje (landing pages).
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75 seq-ping-item" style="--delay: 17;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-green"></span>
+                                    </span>
+                                    Desarrollo integral de plataformas de atención telefónica para Call Centers, focalizado en lógicas complejas de enrutamiento de llamadas.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75 seq-ping-item" style="--delay: 18;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-green"></span>
+                                    </span>
+                                    Integración de infraestructura de VoIP con bases de datos internas y recolección de leads mediante formularios dinámicos.
+                                </li>
+                                <li class="relative pl-5">
+                                    <span class="absolute left-0 top-[0.4rem] flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-dracula-green opacity-75 seq-ping-item" style="--delay: 19;"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-dracula-green"></span>
+                                    </span>
+                                    Responsable del mantenimiento y reparación preventiva en sitio de hardware, impresoras, y diagnóstico de la infraestructura de red empresarial.
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -473,7 +613,7 @@
     
                             <!-- CSS3 -->
                             <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="skill-item block group" data-category="language">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="w-full h-full object-contain" alt="CSS3" />
                                     </div>
@@ -486,7 +626,7 @@
     
                             <!-- Laravel -->
                             <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-full h-full object-contain" alt="Laravel" />
                                     </div>
@@ -499,7 +639,7 @@
     
                             <!-- Tailwind CSS -->
                             <a href="https://tailwindcss.com/" target="_blank" class="skill-item block group" data-category="framework">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-full h-full object-contain" alt="Tailwind" />
                                     </div>
@@ -512,7 +652,7 @@
     
                             <!-- Bootstrap -->
                             <a href="https://getbootstrap.com/" target="_blank" class="skill-item block group" data-category="framework">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="w-full h-full object-contain" alt="Bootstrap" />
                                     </div>
@@ -525,7 +665,7 @@
     
                             <!-- jQuery -->
                             <a href="https://jquery.com/" target="_blank" class="skill-item block group" data-category="framework">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" class="w-full h-full object-contain" alt="jQuery" />
                                     </div>
@@ -538,7 +678,7 @@
     
                             <!-- MySQL -->
                             <a href="https://www.mysql.com/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" class="w-full h-full object-contain" alt="MySQL" />
                                     </div>
@@ -551,7 +691,7 @@
     
                             <!-- AWS -->
                             <a href="https://aws.amazon.com/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-full h-full object-contain" alt="AWS" />
                                     </div>
@@ -564,7 +704,7 @@
     
                             <!-- DigitalOcean -->
                             <a href="https://www.digitalocean.com/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-cyan hover:shadow-[0_0_20px_rgba(139,233,253,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/digitalocean/digitalocean-original.svg" class="w-full h-full object-contain" alt="DigitalOcean" />
                                     </div>
@@ -590,7 +730,7 @@
                             
                             <!-- Git -->
                             <a href="https://git-scm.com/" target="_blank" class="skill-item block group" data-category="tools">
-                                <div class="glass-card p-4 rounded-xl flex items-center relative overflow-hidden transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-full h-full object-contain" alt="Git" />
                                     </div>
@@ -676,7 +816,7 @@
                         <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Portafolio">
                             Portafolio
                         </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
+                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full meteorite-line"></div>
                     </header>
 
                     <!-- Filters -->
@@ -800,7 +940,7 @@
                         <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Certificados">
                             Certificados
                         </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
+                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full meteorite-line"></div>
                     </header>
 
                     <!-- Filters -->
@@ -908,12 +1048,12 @@
                         <h2 class="text-4xl lg:text-5xl font-bold text-dracula-fg mb-4 flex items-center gap-4" data-translate="Contacto">
                             Contacto
                         </h2>
-                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full"></div>
+                        <div class="h-1.5 w-24 bg-gradient-to-r from-dracula-purple to-transparent rounded-full meteorite-line"></div>
                     </header>
 
                     <!-- Leaflet Map Container -->
                     <div class="relative mb-10 group">
-                        <div id="map-aragua" class="shadow-2xl border border-dracula-comment/20"></div>
+                        <div id="map-aragua" class="shadow-2xl border-4 border-dracula-purple/30 rounded-3xl overflow-hidden"></div>
                         
                         <!-- Floating Info Card (like the Sacramento image) -->
                         <div class="map-info-card animate-fade-in">
@@ -1008,12 +1148,12 @@
                     <span data-translate="y adaptado">y adaptado a mi estilo personal</span>
                 </p>
 
-                <div class="flex flex-col md:flex-row items-center gap-4 mt-4">
+                <div class="flex flex-col items-center md:items-start gap-3 mt-4">
                     <div class="flex items-center gap-2 px-3 py-1 bg-dracula-card/30 rounded-full border border-dracula-comment/20 text-[10px]">
                         <i class="bi bi-palette-fill text-dracula-purple"></i>
-                        <span class="text-dracula-fg/60">Theme: <a href="https://draculatheme.com/" target="_blank" class="text-dracula-purple hover:text-dracula-pink transition-colors font-bold">Dracula HC</a></span>
+                        <span class="text-dracula-fg/60">Tema inspirado en <a href="https://draculatheme.com/" target="_blank" class="text-dracula-purple hover:text-dracula-pink transition-colors font-bold">Dracula Theme</a>, pero mi versión adaptada a alto contraste neón</span>
                     </div>
-                    <div class="flex items-center gap-2 text-[10px] text-dracula-comment">
+                    <div class="flex items-center gap-2 text-[10px] text-dracula-comment ml-1">
                         <i class="bi bi-balloon-heart-fill text-dracula-pink animate-bounce"></i>
                         <span data-translate="Hecho con pasión">Hecho con pasión</span>
                     </div>

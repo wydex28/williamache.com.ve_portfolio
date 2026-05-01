@@ -11,21 +11,7 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff79c6' stroke='%23f8f8f2' stroke-width='1.5' d='M9 11.5V6a2 2 0 0 1 4 0v5.5a2 2 0 0 0 4 0V9a2 2 0 0 1 4 0v7.5c0 4.14-3.36 7.5-7.5 7.5S6 20.64 6 16.5V11a2 2 0 0 1 4 0v.5z'/></svg>") 9 6, pointer !important;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #282a36; /* dracula bg */
-}
-::-webkit-scrollbar-thumb {
-    background: #ff79c6; /* dracula pink */
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #bd93f9; /* dracula purple */
-}
+
 
 /* Hide scrollbar for specific elements */
 .no-scrollbar::-webkit-scrollbar {
@@ -41,6 +27,12 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
     background: rgba(68, 71, 90, 0.3); /* dracula card with opacity */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+}
+
+.glass:hover {
+    box-shadow: 0 0 20px rgba(189, 147, 249, 0.15);
+    border-color: rgba(189, 147, 249, 0.3) !important;
 }
 
 .glass-card {
@@ -48,22 +40,28 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(248, 248, 242, 0.03); /* dracula fg very low opacity */
+    border: 1px solid rgba(248, 248, 242, 0.05);
+    transition: all 0.3s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
-/* Navbar active state underline */
+/* Fix for skill item black box artifact */
+.skill-item .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(68, 71, 90, 0.8) !important;
+}
+
+/* Navbar active state neon border */
+.nav-link.active {
+    border: 1px solid #bd93f9 !important;
+    box-shadow: 0 0 15px rgba(189, 147, 249, 0.4), inset 0 0 8px rgba(189, 147, 249, 0.2) !important;
+    background: rgba(189, 147, 249, 0.1) !important;
+}
+
 .nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 3px;
-    background: #bd93f9; /* dracula purple */
-    border-radius: 3px;
-    box-shadow: 0 -2px 10px rgba(189, 147, 249, 0.5);
-    transition: all 0.3s ease;
+    display: none;
 }
 
 .nav-link:hover::after {
@@ -126,8 +124,24 @@ a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-it
 /* Timeline Line custom style */
 .timeline-line {
     position: relative;
-    border-left: 2px solid rgba(98, 114, 164, 0.3);
-    margin-left: 1.5rem; /* Exactly 24px, matching the center of a 12w (48px) icon */
+    margin-left: 1.5rem;
+    border-left: none; /* Removed global border */
+}
+
+.timeline-item {
+    position: relative;
+}
+
+/* Create line segments that stop at the last dot */
+.timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 13px; /* Alignment with dot center */
+    bottom: -53px; /* Matches space-y-10 (40px) + distance to dot center (13px) */
+    width: 2px;
+    background: rgba(98, 114, 164, 0.3);
+    z-index: 0;
 }
 
 /* We remove the ::before since we use border-left now for better alignment with dots */
@@ -231,6 +245,25 @@ body.light-theme .bubble-arrow {
     animation: expand-line 2s ease-in-out infinite;
 }
 
+/* Particle Shatter / Reassemble for Back to Top */
+#back-to-top.shattering {
+    background: rgba(68, 71, 90, calc(1 - var(--shatter))) !important;
+    border-color: rgba(255, 121, 198, calc(0.3 * (1 - var(--shatter)))) !important;
+    box-shadow: 
+        calc(var(--shatter) *  40px) calc(var(--shatter) * -50px) 0 calc(var(--shatter) * -15px) rgba(255, 121, 198, var(--shatter)),
+        calc(var(--shatter) * -50px) calc(var(--shatter) *  40px) 0 calc(var(--shatter) * -18px) rgba(139, 233, 253, var(--shatter)),
+        calc(var(--shatter) *  50px) calc(var(--shatter) *  50px) 0 calc(var(--shatter) * -12px) rgba(189, 147, 249, var(--shatter)),
+        calc(var(--shatter) * -60px) calc(var(--shatter) * -20px) 0 calc(var(--shatter) * -15px) rgba(80, 250, 123, var(--shatter)),
+        calc(var(--shatter) *  0px)  calc(var(--shatter) * -70px) 0 calc(var(--shatter) * -20px) rgba(241, 250, 140, var(--shatter));
+    transform: rotate(calc(var(--shatter) * 90deg)) !important;
+    transition: none !important; /* Controlado manualmente por scroll */
+}
+#back-to-top.shattering i {
+    opacity: calc(1 - var(--shatter));
+    transform: scale(calc(1 - var(--shatter)));
+    transition: none !important;
+}
+
 @keyframes bounce-short {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
@@ -240,7 +273,193 @@ body.light-theme .bubble-arrow {
     animation: bounce-short 0.5s ease-in-out infinite;
 }
 
-/* Dynamic Stats Badges */
-#my-time, #visitor-time, #weather-temp, #visitor-count {
-    letter-spacing: 1px;
+/* Neon glow for Section Icons */
+header i.text-dracula-cyan, 
+header i.text-dracula-purple,
+header i.text-dracula-pink {
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+/* Neon focus for inputs */
+input:focus, textarea:focus {
+    border-color: #bd93f9 !important;
+    box-shadow: 0 0 12px rgba(189, 147, 249, 0.3) !important;
+    background: rgba(189, 147, 249, 0.05) !important;
+}
+
+/* Skill tags hover effect */
+.skill-item:hover {
+    transform: translateY(-4px);
+}
+/* Neon Pulse Animation */
+@keyframes neon-pulse {
+    0%, 100% { filter: drop-shadow(0 0 2px currentColor); opacity: 1; }
+    50% { filter: drop-shadow(0 0 10px currentColor); opacity: 0.8; }
+}
+
+header i[class*="text-dracula-"] {
+    animation: neon-pulse 3s infinite ease-in-out;
+}
+
+/* Social Buttons Neon Hover */
+a[title="GitHub"]:hover, a[title="LinkedIn"]:hover {
+    box-shadow: 0 0 15px currentColor !important;
+    border-color: currentColor !important;
+    transform: translateY(-3px);
+}
+
+/* FAB Neon Effect */
+#a11y-fab {
+    box-shadow: 0 0 20px rgba(189, 147, 249, 0.4);
+    animation: neon-pulse 4s infinite ease-in-out;
+}
+
+/* Sequential Ping Animation for Timeline */
+@keyframes seq-ping {
+    0% { transform: scale(1); opacity: 0.8; }
+    10% { transform: scale(3); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.seq-ping-item {
+    animation: seq-ping 3s cubic-bezier(0, 0, 0.2, 1) infinite calc(var(--delay) * 0.15s);
+}
+
+/* Neon Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(40, 42, 54, 0.5); /* dracula bg */
+}
+::-webkit-scrollbar-thumb {
+    background: #bd93f9;
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px rgba(189,147,249,0.5), 0 0 10px rgba(189,147,249,0.8);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff79c6;
+    box-shadow: inset 0 0 4px rgba(255,121,198,0.5), 0 0 15px rgba(255,121,198,1);
+}
+
+/* Animated Neon Border for Cards and Main Containers */
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0turn;
+}
+
+@keyframes bg-spin {
+    to { --border-angle: 1turn; }
+}
+
+.glass-card, .glass {
+    position: relative;
+    /* Ensure z-index context for pseudo-elements */
+    z-index: 1;
+}
+
+.glass-card::before, .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* Use 0 instead of -1 to avoid clipping by overflow:hidden */
+    border-radius: inherit;
+    padding: 2px; /* Slightly thicker for better visibility */
+    background: conic-gradient(
+        from var(--border-angle),
+        transparent 60%,
+        var(--neon-color, #bd93f9) 100%
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 10; /* Put it above the background but below content if needed */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glass-card:hover::before, .glass:hover::before {
+    opacity: 1;
+    animation: bg-spin 2s linear infinite; /* Faster rotation (2s instead of 2.5s) */
+}
+
+/* Neon color overrides for specific Tailwind hover classes */
+.hover\:border-dracula-cyan:hover { --neon-color: #8be9fd; }
+.hover\:border-dracula-pink:hover { --neon-color: #ff79c6; }
+.hover\:border-dracula-green:hover { --neon-color: #50fa7b; }
+.hover\:border-dracula-orange:hover { --neon-color: #ffb86c; }
+.hover\:border-dracula-yellow:hover { --neon-color: #f1fa8c; }
+
+/* Meteorite Title Line Animation */
+.meteorite-line {
+    position: relative;
+    overflow: hidden;
+    background: rgba(189, 147, 249, 0.2) !important; /* Base semi-transparent line */
+}
+
+.meteorite-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 40%; /* More compact streak */
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--neon-color, #bd93f9), #fff, var(--neon-color, #bd93f9), transparent);
+    filter: blur(1px);
+    box-shadow: 0 0 15px var(--neon-color, #bd93f9);
+    animation: meteorite 1.2s infinite ease-in; /* Much faster (1.2s) */
+}
+
+@keyframes meteorite {
+    0% { left: -100%; }
+    60%, 100% { left: 150%; }
+}
+
+
+/* Speech Bubble Styles (Chat Cloud) */
+.speech-bubble {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: #bd93f9;
+    color: #282a36;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(189, 147, 249, 0.4);
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #bd93f9;
+}
+
+@keyframes float-bubble {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+.speech-bubble.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+    animation: float-bubble 2s ease-in-out infinite;
 }

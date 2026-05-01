@@ -10,21 +10,109 @@ $(function () {
     }, 2000); 
   });
 
+  // Avatar Switcher Logic
+  let currentAvatarIndex = 1;
+  const totalAvatars = 79;
+  const $avatar = $('#avatar');
+  const $avatarContainer = $('#avatar-container');
+  const $avatarBubble = $('#avatar-bubble');
+
+  $avatarContainer.on('click', function() {
+    currentAvatarIndex++;
+    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 1;
+    
+    // Check extension: 34 is png, others are webp
+    const ext = (currentAvatarIndex === 34) ? 'png' : 'webp';
+    const newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
+    
+    // Smooth and organic transition effect
+    $avatar.css({
+        'opacity': '0.3',
+        'transform': 'scale(0.8) rotate(-5deg)',
+        'filter': 'blur(8px)',
+        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+    });
+    
+    const img = new Image();
+    img.src = newSrc;
+    img.onload = () => {
+      $avatar.attr('src', newSrc);
+      setTimeout(() => {
+          $avatar.css({
+              'opacity': '1',
+              'transform': 'scale(1) rotate(0deg)',
+              'filter': 'blur(0px)',
+              'transition': 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' // Elastic/Springy effect
+          });
+      }, 50);
+    };
+
+    // Hide bubble permanently on click
+    $avatarBubble.removeClass('active');
+  });
+
+  // Show help bubble after 1.5s and keep it active
+  setTimeout(() => {
+    if (currentAvatarIndex === 1) {
+        $avatarBubble.addClass('active');
+    }
+  }, 1500);
+
   // Back to Top Logic
   const $backToTop = $('#back-to-top');
+  let isShattering = false;
+  let shatterStartY = 0;
+
   $(window).on('scroll', function() {
-    if ($(this).scrollTop() > 400) {
+    const currentScroll = $(this).scrollTop();
+    
+    // Normal visibility logic
+    if (currentScroll > 400 && !isShattering) {
       $backToTop.removeClass('invisible opacity-0 translate-y-4').addClass('visible opacity-100 translate-y-0');
-    } else {
+    } else if (currentScroll <= 400 && !isShattering) {
       $backToTop.addClass('opacity-0 translate-y-4').removeClass('opacity-100 translate-y-0');
       setTimeout(() => { 
         if ($backToTop.hasClass('opacity-0')) $backToTop.addClass('invisible'); 
       }, 300);
     }
+
+    // Shattering/Reassembling logic
+    if (isShattering) {
+      // progress goes from 1 (broken at start) to 0 (assembled at top)
+      let progress = currentScroll / shatterStartY;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+      
+      $backToTop[0].style.setProperty('--shatter', progress);
+
+      // Once it reaches top, hide it and remove shattering state
+      if (currentScroll <= 10) {
+        isShattering = false;
+        $backToTop.removeClass('shattering').addClass('opacity-0 translate-y-4 invisible').removeClass('opacity-100 translate-y-0');
+        $backToTop[0].style.removeProperty('--shatter');
+      }
+    }
   });
 
   $backToTop.on('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isShattering) return;
+    isShattering = true;
+    shatterStartY = $(window).scrollTop();
+    
+    // Desactivar scroll-smooth temporalmente para evitar conflictos con la animación de jQuery
+    $('html').css('scroll-behavior', 'auto');
+    
+    $backToTop.addClass('shattering').css('pointer-events', 'none');
+    $backToTop[0].style.setProperty('--shatter', '1');
+    
+    // Forzar un pequeño reflow para asegurar que el estado visual se aplique antes del scroll
+    void $backToTop[0].offsetWidth;
+
+    $('html, body').stop().animate({ scrollTop: 0 }, 1000, 'swing', function() {
+      // Al terminar, restaurar scroll-behavior y estado
+      $('html').css('scroll-behavior', '');
+      $backToTop.css('pointer-events', '');
+    });
   });
 
   // Global Accessibility State
@@ -86,43 +174,38 @@ $(function () {
     }
   });
 
+
+
   /** =====================
-     *  Avatar Image Cycler
-     ====================== */
-  const imagenes = [];
-  for (let i = 1; i <= 24; i++) {
-    imagenes.push(`./assets/images/profile/${i}.png`);
-  }
-
-  let index = 0;
-  const $avatar = $("#avatar");
-  const $bubble = $("#avatar-bubble");
-
-  setTimeout(() => {
-    $bubble.addClass("show");
-  }, 1000);
-
-  $("#avatar-container").on("click", function () {
-    index = (index + 1) % imagenes.length;
-
-    $avatar.css("transform", "scale(0.95)");
-    setTimeout(() => {
-      $avatar.attr("src", imagenes[index]);
-      $avatar.css("transform", "scale(1)");
-    }, 150);
-
-    $bubble.removeClass("show");
+   *  3D Tilt Effect for Cards
+   ====================== */
+  $(document).on('mousemove', '.glass-card', function(e) {
+    const $card = $(this);
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    $card.css({
+      'transform': `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
+      'transition': 'none',
+      'z-index': '50'
+    });
   });
 
-  setTimeout(() => {
-    if ($bubble.hasClass("show")) {
-      $bubble.removeClass("show");
-    }
-  }, 8000);
+  $(document).on('mouseleave', '.glass-card', function() {
+    $(this).css({
+      'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+      'transition': 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+      'z-index': ''
+    });
+  });
 
-  /** =====================
-     *  Portfolio Filter
-     ====================== */
   $(".filter-btn").on("click", function () {
     const filter = $(this).data("filter");
 
