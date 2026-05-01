@@ -1605,6 +1605,7 @@ $(function () {
         <p><span class="text-dracula-cyan">cd [dir]</span> - Change directory</p>
         <p><span class="text-dracula-cyan">cat / nano / vi [file]</span> - Read file content</p>
         <p><span class="text-dracula-cyan">pwd</span> - Print working directory</p>
+        <p><span class="text-dracula-cyan">history</span> - Show command history</p>
         <p><span class="text-dracula-cyan">clear</span> - Clear terminal screen</p>
         <p><span class="text-dracula-cyan">exit</span> - Close terminal</p>
       </div>`,
@@ -1709,6 +1710,8 @@ $(function () {
         $('#terminal-path-label').text(displayPath);
     }
 
+    let commandHistory = [];
+
     $terminalInput.on('keydown', function(e) {
         if (e.key === 'Tab') {
             e.preventDefault();
@@ -1732,6 +1735,9 @@ $(function () {
             const fullInput = $(this).val().trim();
             if (!fullInput) return;
             
+            // Add to history
+            commandHistory.push(fullInput);
+            
             const args = fullInput.split(' ');
             const cmd = args.shift().toLowerCase();
             const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
@@ -1746,7 +1752,13 @@ $(function () {
             `);
 
             if (cmd === 'exit') {
+                $terminalOutput.empty();
                 toggleFullTerminal(false);
+            } else if (cmd === 'history') {
+                const historyList = commandHistory.map((c, i) => `<div>${i + 1}  ${c}</div>`).join('');
+                const $resultEl = $(`<div class="mt-1 mb-2 ml-4 opacity-0 text-dracula-comment">${historyList}</div>`);
+                $terminalOutput.append($resultEl);
+                gsap.to($resultEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
             } else if (terminalCommands[cmd]) {
                 const result = terminalCommands[cmd](args);
                 if (result) {
