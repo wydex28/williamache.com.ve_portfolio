@@ -666,9 +666,11 @@
                                 </div>
                             </a>
     
-                            <!-- CSS3 -->
                             <a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" class="skill-item block group" data-category="language">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" class="w-full h-full object-contain" alt="CSS3" />
                                     </div>
@@ -682,6 +684,9 @@
                             <!-- Laravel -->
                             <a href="https://laravel.com/" target="_blank" class="skill-item block group" data-category="framework" data-experience="Mi framework favorito y especialidad. He desarrollado sistemas administrativos completos, APIs RESTful y plataformas e-commerce utilizando Eloquent, Blade, y sistemas de colas para procesos en segundo plano.">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" class="w-full h-full object-contain" alt="Laravel" />
                                     </div>
@@ -711,6 +716,9 @@
                             <!-- Bootstrap -->
                             <a href="https://getbootstrap.com/" target="_blank" class="skill-item block group" data-category="framework">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg" class="w-full h-full object-contain" alt="Bootstrap" />
                                     </div>
@@ -724,6 +732,9 @@
                             <!-- jQuery -->
                             <a href="https://jquery.com/" target="_blank" class="skill-item block group" data-category="framework">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-purple hover:shadow-[0_0_20px_rgba(189,147,249,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-purple/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" class="w-full h-full object-contain" alt="jQuery" />
                                     </div>
@@ -801,6 +812,9 @@
                             <!-- Git -->
                             <a href="https://git-scm.com/" target="_blank" class="skill-item block group" data-category="tools">
                                 <div class="glass-card p-4 rounded-xl flex items-center relative transition-all duration-300 border border-dracula-comment/30 hover:border-dracula-orange hover:shadow-[0_0_20px_rgba(255,184,108,0.3)]">
+                                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="bi bi-eye text-dracula-orange/50 text-[10px]"></i>
+                                    </div>
                                     <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-dracula-bg rounded-full p-2 mr-3 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-full h-full object-contain" alt="Git" />
                                     </div>
@@ -1385,9 +1399,17 @@
             <button class="absolute -top-12 right-0 text-dracula-fg hover:text-dracula-pink transition-colors text-3xl cert-modal-close">
                 <i class="bi bi-x-lg"></i>
             </button>
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-dracula-comment/30">
-                <div id="cert-modal-content" class="aspect-[16/9] w-full bg-dracula-card flex items-center justify-center">
+            <div id="cert-modal-window" class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-dracula-comment/30 transform translate-y-10 transition-all duration-300">
+                <div id="cert-modal-content" class="aspect-[16/9] w-full bg-dracula-card flex items-center justify-center relative group/cert">
                     <!-- PDF or Image injected here -->
+                    
+                    <!-- Tilt Sensor Overlay (Captures mousemove even over iframes) -->
+                    <div id="cert-tilt-sensor" class="absolute inset-0 z-10 cursor-pointer transition-opacity duration-300 flex items-center justify-center bg-dracula-bg/0 hover:bg-dracula-bg/5 group-hover/cert:opacity-100 opacity-0 pointer-events-auto">
+                        <div class="px-4 py-2 bg-dracula-purple/80 text-dracula-bg rounded-full text-xs font-bold backdrop-blur-md transform scale-90 opacity-0 group-hover/cert:opacity-100 group-hover/cert:scale-100 transition-all pointer-events-none">
+                            <i class="bi bi-arrows-move mr-1"></i>
+                            <span data-translate="Mueve para inclinar / Click para interactuar">Mueve para inclinar / Click para interactuar</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-dracula-bg/50">
                     <div>
@@ -1448,7 +1470,7 @@
         <div class="absolute inset-0 bg-dracula-bg/80 backdrop-blur-md skill-modal-close"></div>
         
         <!-- Modal Card -->
-        <div class="relative w-full max-w-lg bg-dracula-card border border-dracula-comment/30 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transform scale-95 transition-transform duration-300">
+        <div class="relative w-full max-w-lg bg-dracula-card border border-dracula-comment/30 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transform scale-95 transition-transform duration-300 glass-card">
             <!-- Header Glow -->
             <div id="skill-modal-glow" class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-dracula-purple via-dracula-cyan to-dracula-pink"></div>
             

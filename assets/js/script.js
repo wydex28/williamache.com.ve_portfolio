@@ -750,6 +750,12 @@ $(function () {
       );
     }
 
+    // Handle Tilt Sensor
+    $("#cert-tilt-sensor").removeClass("pointer-events-none").addClass("pointer-events-auto opacity-0");
+    $("#cert-tilt-sensor").off("click").on("click", function() {
+        $(this).addClass("pointer-events-none opacity-0");
+    });
+
     $certModal
       .removeClass("invisible opacity-0")
       .addClass("visible opacity-100");
