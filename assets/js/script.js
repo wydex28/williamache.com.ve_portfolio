@@ -184,12 +184,53 @@ $(function () {
   /** =====================
      *  Navigation System
      ====================== */
+  const $navIndicator = $("#nav-indicator");
+
+  function updateNavIndicator($el, isInitial = false) {
+    if (!$el || !$el.length) return;
+    
+    const width = $el.outerWidth();
+    const height = $el.outerHeight();
+    const left = $el.position().left;
+    const top = $el.position().top;
+
+    if (isInitial) {
+        gsap.set($navIndicator, { width, height, left, top, opacity: 1 });
+    } else {
+        // "Loading" pulse effect while moving (Faster)
+        gsap.to($navIndicator, {
+            left: left,
+            top: top,
+            width: width,
+            height: height,
+            duration: 0.25,
+            ease: "power2.out",
+            opacity: 1,
+            onStart: () => {
+                // Faster pulse glow
+                gsap.to($navIndicator, {
+                    boxShadow: "0 0 25px #bd93f9, inset 0 0 12px #bd93f9",
+                    duration: 0.1,
+                    repeat: 1,
+                    yoyo: true
+                });
+            }
+        });
+    }
+  }
+
+  // Set initial position
+  setTimeout(() => updateNavIndicator($(".nav-link.active"), true), 500);
+
   $(".nav-link").on("click", function () {
     const target = $(this).data("target");
     const $currentSection = $(".section-page.active");
     const $newSection = $("#" + target);
 
     if ($currentSection.attr('id') === target) return;
+
+    // Update Indicator
+    updateNavIndicator($(this));
 
     // Update Navbar visually
     $(".nav-link")

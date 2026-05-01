@@ -262,7 +262,10 @@
             
             <!-- Navbar -->
             <nav class="glass rounded-2xl p-2 lg:px-10 lg:py-4 w-full shadow-xl border border-dracula-comment/20 z-20">
-                <ul class="flex flex-wrap justify-center lg:justify-end items-center gap-2 lg:gap-6">
+                <ul class="relative flex flex-wrap justify-center lg:justify-end items-center gap-2 lg:gap-6">
+                    <!-- Dynamic Sliding Indicator -->
+                    <div id="nav-indicator" class="absolute bottom-0 left-0 h-[2px] bg-dracula-purple shadow-[0_0_12px_#bd93f9] opacity-0 transition-all duration-300 pointer-events-none"></div>
+                    
                     <li><button class="nav-link active cursor-pointer px-4 py-2 rounded-lg text-dracula-fg font-semibold transition-all duration-300 relative overflow-hidden group" data-target="about" data-translate="Resumen">Resumen</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="resume" data-translate="Experiencia">Experiencia</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="portfolio" data-translate="Portafolio">Portafolio</button></li>
