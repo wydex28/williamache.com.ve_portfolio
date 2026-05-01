@@ -12,7 +12,7 @@ $(function () {
 
   // Avatar Switcher Logic
   let currentAvatarIndex = 1;
-  const totalAvatars = 79;
+  const totalAvatars = 80;
   const $avatar = $('#avatar');
   const $avatarContainer = $('#avatar-container');
   const $avatarBubble = $('#avatar-bubble');
@@ -138,6 +138,16 @@ $(function () {
         $icon.removeClass('bi-circle-fill').addClass('bi-circle-half');
     }
   }
+
+  // Initialize UI State
+  syncContrastUI();
+  updateHtmlFilter();
+
+  // Pure Glass Mode Toggle
+  $('#glass-mode-toggle').on('click', function() {
+      $(this).toggleClass('active');
+      $('body').toggleClass('pure-glass-mode');
+  });
 
   /** =====================
      *  Navigation System
@@ -1011,6 +1021,46 @@ $(function () {
 
   $(document).on('mouseleave', function() {
     $cursorGlow.css('opacity', 0);
+  });
+
+  $(document).on('mousedown', function() {
+    $cursorGlow.find('.cursor-ripple').removeClass('animate');
+    void $cursorGlow.find('.cursor-ripple')[0].offsetWidth; 
+    $cursorGlow.find('.cursor-ripple').addClass('animate');
+    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(0.85)');
+  });
+
+  $(document).on('mouseup', function() {
+    $cursorGlow.css('transform', 'translate(-50%, -50%) scale(1)');
+  });
+
+  // Cursor Hover Interactions
+  $(document).on('mouseenter', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
+    $cursorGlow.addClass('pointer-mode');
+  }).on('mouseleave', 'a, button, .cursor-pointer, .nav-link, .filter-btn, .skill-item', function() {
+    $cursorGlow.removeClass('pointer-mode');
+  });
+
+  $(document).on('mouseenter', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
+    $cursorGlow.addClass('text-mode');
+  }).on('mouseleave', 'p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate]', function() {
+    $cursorGlow.removeClass('text-mode');
+  });
+
+  /** =====================
+   *  Deep Parallax Logic
+   ====================== */
+  const $parallaxItems = $('.parallax-item');
+  $(window).on('scroll', function() {
+    const scrolled = $(this).scrollTop();
+    $parallaxItems.each(function() {
+      const speed = $(this).data('speed') || 0.1;
+      const yPos = -(scrolled * speed);
+      $(this).css({
+        'transform': `translateY(${yPos}px)`,
+        'transition': 'transform 0.1s ease-out'
+      });
+    });
   });
 });
 

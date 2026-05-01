@@ -4,11 +4,11 @@
 
 /* Custom Cursor for Dracula Theme */
 body {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23bd93f9' stroke='%23f8f8f2' stroke-width='1' d='M4 4l14 6-7 2-3 8z'/></svg>") 4 4, auto;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'><path fill='%23bd93f9' d='M4 4l14 6-7 2-3 8z'/></svg>") 4 4, auto;
 }
 
 a, button, .cursor-pointer, .nav-link, .skill-filter-btn, .filter-btn, .skill-item {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff79c6' stroke='%23f8f8f2' stroke-width='1.5' d='M9 11.5V6a2 2 0 0 1 4 0v5.5a2 2 0 0 0 4 0V9a2 2 0 0 1 4 0v7.5c0 4.14-3.36 7.5-7.5 7.5S6 20.64 6 16.5V11a2 2 0 0 1 4 0v.5z'/></svg>") 9 6, pointer !important;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24'><circle cx='12' cy='12' r='8' fill='none' stroke='%238be9fd' stroke-width='3'/><circle cx='12' cy='12' r='3' fill='%238be9fd'/></svg>") 14 14, pointer !important;
 }
 
 
@@ -463,3 +463,38 @@ a[title="GitHub"]:hover, a[title="LinkedIn"]:hover {
     transform: translateX(-50%) scale(1);
     animation: float-bubble 2s ease-in-out infinite;
 }
+
+/* Pure Glass Mode */
+body.pure-glass-mode .glass,
+body.pure-glass-mode .glass-card {
+    background: transparent !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-color: rgba(189, 147, 249, 0.3) !important;
+}
+
+#glass-mode-toggle.active {
+    background: #8be9fd !important;
+    color: #282a36 !important;
+    box-shadow: 0 0 15px rgba(139, 233, 253, 0.4);
+}
+
+/* Cursor Click Animation */
+@keyframes ripple-effect {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+.cursor-ripple.animate {
+    animation: ripple-effect 0.4s ease-out;
+}
+
+/* Custom Text Cursor */
+p, span, h1, h2, h3, h4, h5, h6, input, textarea, [data-translate] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'><path fill='%2350fa7b' d='M8 2v20M4 2h8M4 22h8' stroke='%2350fa7b' stroke-width='1.5'/></svg>") 8 12, text !important;
+}
+
+/* Cursor Modes Glow */
+#cursor-glow.pointer-mode > div:first-child { background-color: #8be9fd !important; box-shadow: 0 0 15px #8be9fd !important; }
+#cursor-glow.text-mode > div:first-child { background-color: #50fa7b !important; box-shadow: 0 0 15px #50fa7b !important; }
+
