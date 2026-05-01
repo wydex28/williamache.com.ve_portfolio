@@ -1568,10 +1568,14 @@ $(function () {
   });
 
   /** =====================
-   *  Scrollytelling & Narrative Logic
-   ====================== */
+   *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)
+   ====================== 
   const $systemLog = $("#system-log");
   const $logContent = $("#log-content");
+  const $logFull = $("#log-full");
+  const $logIcon = $("#log-icon");
+  let logMinimizeTimeout;
+  let currentLogSection = "";
 
   const scrollyData = {
     about: {
@@ -1596,35 +1600,58 @@ $(function () {
     }
   };
 
+  function minimizeLog() {
+    $systemLog.addClass('minimized');
+    $logFull.fadeOut(300, () => {
+        $logIcon.fadeIn(300).css('display', 'flex');
+    });
+    gsap.to($systemLog, { width: "42px", height: "42px", padding: "8px", duration: 0.5, ease: "power2.inOut" });
+  }
+
+  function expandLog() {
+    $systemLog.removeClass('minimized');
+    $logIcon.fadeOut(300, () => {
+        $logFull.fadeIn(300);
+    });
+    gsap.to($systemLog, { width: "auto", height: "auto", padding: "12px", duration: 0.5, ease: "power2.inOut" });
+  }
+
   function updateScrollytelling(sectionId) {
+    if (sectionId === currentLogSection) return; // Prevent reopening if we are already in this section
+    currentLogSection = sectionId;
+
     const data = scrollyData[sectionId];
     if (!data) return;
 
-    // Show log if hidden
-    gsap.to($systemLog, { opacity: 1, duration: 0.5, pointerEvents: "auto" });
-    
-    // Typewriter/Glitch update
+    expandLog();
+    clearTimeout(logMinimizeTimeout);
+    gsap.to($systemLog, { opacity: 1, duration: 0.5 });
     $logContent.text(data.msg);
-    
-    // Update global neon accent for CSS borders/shadows
     document.documentElement.style.setProperty('--neon-color', data.color);
-    
-    // Animate log widget color
     gsap.to($systemLog, { 
         borderColor: data.color + "55", 
         color: data.color,
         boxShadow: `0 0 20px ${data.color}22`,
         duration: 0.6 
     });
-
-    // Pulse the log dot
     gsap.to($systemLog.find('span.rounded-full'), {
         backgroundColor: data.color,
         duration: 0.6
     });
+    logMinimizeTimeout = setTimeout(minimizeLog, 3000);
   }
 
-  // Register ScrollTriggers for section-based scrollytelling
+  $systemLog.on('click', () => {
+      if ($systemLog.hasClass('minimized')) {
+          expandLog();
+          clearTimeout(logMinimizeTimeout);
+          logMinimizeTimeout = setTimeout(minimizeLog, 8000); 
+      } else {
+          minimizeLog();
+          clearTimeout(logMinimizeTimeout);
+      }
+  });
+
   $(".section-page").each(function() {
     const id = $(this).attr('id');
     ScrollTrigger.create({
@@ -1636,10 +1663,9 @@ $(function () {
     });
   });
 
-  // Initial call
   setTimeout(() => {
-    if ($(".section-page.active").length) {
-        updateScrollytelling($(".section-page.active").attr('id'));
-    }
+    const activeId = $(".section-page.active").attr('id');
+    if (activeId) updateScrollytelling(activeId);
   }, 1200);
+  */
 });

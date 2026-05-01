@@ -113,14 +113,20 @@
 </head>
 
 <body class="bg-dracula-bg text-dracula-fg/90 font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-dracula-pink selection:text-dracula-bg pure-glass-mode">
-    <!-- System Log (Scrollytelling) -->
-    <div id="system-log" class="fixed bottom-6 left-6 z-[60] glass p-3 rounded-lg border border-dracula-purple/30 font-mono text-[9px] text-dracula-purple shadow-[0_0_15px_rgba(189,147,249,0.2)] pointer-events-none hidden lg:block opacity-0 transition-opacity duration-500">
-        <div class="flex items-center gap-2 mb-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-dracula-purple animate-pulse"></span>
-            <span class="uppercase tracking-tighter opacity-70">System Status</span>
+    <!-- System Log (Scrollytelling) - Comentado por petición del usuario
+    <div id="system-log" class="fixed bottom-6 left-6 z-[60] glass p-3 rounded-lg border border-dracula-purple/30 font-mono text-[9px] text-dracula-purple shadow-[0_0_15px_rgba(189,147,249,0.2)] cursor-pointer hidden lg:block opacity-0 transition-all duration-500 group overflow-hidden origin-bottom-left" style="pointer-events: auto;">
+        <div id="log-icon" class="hidden items-center justify-center w-6 h-6">
+            <i class="bi bi-terminal text-lg animate-pulse"></i>
         </div>
-        <div id="log-content" class="glitch-infinite">> WAITING_FOR_INPUT...</div>
-    </div>
+        <div id="log-full">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-dracula-purple animate-pulse"></span>
+                <span class="uppercase tracking-tighter opacity-70">System Status</span>
+            </div>
+            <div id="log-content" class="glitch-infinite">> WAITING_FOR_INPUT...</div>
+        </div>
+    </div> 
+    -->
     <!-- Custom Cursor -->
     <div id="cursor-glow" class="fixed top-0 left-0 pointer-events-none z-[9999] opacity-0 transition-opacity duration-300 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
         <!-- Center Dot -->
