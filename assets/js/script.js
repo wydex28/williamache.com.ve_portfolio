@@ -426,6 +426,36 @@ $(function () {
   }
 
   /** =====================
+     *  Neon Mode Toggle System
+     ====================== */
+  const $neonBtn = $("#neon-toggle");
+  const $neonIcon = $("#neon-toggle-icon");
+
+  $neonBtn.on("click", function () {
+    $neonBtn.toggleClass("active");
+    $body.toggleClass("neon-off");
+
+    if ($neonBtn.hasClass("active")) {
+      $neonIcon.removeClass("bi-lightning-slash-fill").addClass("bi-lightning-charge-fill");
+      localStorage.setItem("neon", "on");
+    } else {
+      $neonIcon.removeClass("bi-lightning-charge-fill").addClass("bi-lightning-slash-fill");
+      localStorage.setItem("neon", "off");
+    }
+  });
+
+  // Neon Persistence Check (Default ON)
+  if (localStorage.getItem("neon") === "off") {
+    $neonBtn.removeClass("active");
+    $body.addClass("neon-off");
+    $neonIcon.removeClass("bi-lightning-charge-fill").addClass("bi-lightning-slash-fill");
+  } else {
+    $neonBtn.addClass("active");
+    $body.removeClass("neon-off");
+    $neonIcon.addClass("bi-lightning-charge-fill");
+  }
+
+  /** =====================
      *  CV Menu Logic
      ====================== */
   const $cvBtn = $("#cv-btn-trigger");

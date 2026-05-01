@@ -323,6 +323,55 @@ header i[class*="text-dracula-"] {
     text-shadow: 0 0 8px rgba(80, 250, 123, 0.6), 0 0 15px rgba(80, 250, 123, 0.3) !important;
 }
 
+/* Neon Toggle Button States */
+#neon-toggle.active {
+    background: #bd93f9;
+    box-shadow: 0 0 15px rgba(189, 147, 249, 0.5);
+}
+
+#neon-toggle:not(.active) {
+    background: #44475a;
+    box-shadow: none;
+    border-color: rgba(98, 114, 164, 0.3);
+}
+
+/* GLOBAL NEON DISABLE */
+body.neon-off .text-neon-cyan,
+body.neon-off .text-neon-purple,
+body.neon-off .text-neon-pink,
+body.neon-off .text-neon-green,
+body.neon-off .badge-neon-purple,
+body.neon-off .nav-link.active,
+body.neon-off .glass-card,
+body.neon-off .skill-item div,
+body.neon-off .portfolio-item,
+body.neon-off .cert-item,
+body.neon-off .meteorite-line,
+body.neon-off .bg-glow,
+body.neon-off #cursor-glow,
+body.neon-off .timeline-item span,
+body.neon-off .pure-glass-mode #cursor-glow {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+body.neon-off .bg-glow,
+body.neon-off #network-canvas,
+body.neon-off .meteorite-line {
+    display: none !important;
+}
+
+body.neon-off .text-neon-cyan { color: #8be9fd !important; }
+body.neon-off .text-neon-purple { color: #bd93f9 !important; }
+body.neon-off .text-neon-pink { color: #ff79c6 !important; }
+body.neon-off .text-neon-green { color: #50fa7b !important; }
+
+body.neon-off .nav-link.active {
+    background: rgba(189, 147, 249, 0.1) !important;
+    border: 1px solid rgba(189, 147, 249, 0.3) !important;
+}
+
 /* Social Buttons Neon Hover */
 a[title="GitHub"]:hover, a[title="LinkedIn"]:hover {
     box-shadow: 0 0 15px currentColor !important;

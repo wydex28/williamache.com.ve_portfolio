@@ -126,7 +126,11 @@ class NetworkBackground {
     }
 
     animate() {
-        this.draw();
+        if (!document.body.classList.contains('neon-off')) {
+            this.draw();
+        } else {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
         requestAnimationFrame(() => this.animate());
     }
 }
