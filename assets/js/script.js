@@ -286,6 +286,9 @@ $(function () {
                     duration: 1.2
                 });
             }
+
+            // Trigger re-init of scroll reveals for the new section
+            $(document).trigger('sectionChanged');
         }
     });
   });
@@ -1250,6 +1253,57 @@ $(function () {
         'transition': 'transform 0.1s ease-out'
       });
     });
+  });
+
+  /** =====================
+   *  System Startup Reveal (ScrollTrigger)
+   ====================== */
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initScrollReveals() {
+    // Target common interactive elements
+    const revealTargets = ".glass-card, .skill-item, .portfolio-item, .cert-item, .timeline-item, .section-page h2";
+    
+    gsap.utils.toArray(revealTargets).forEach((el) => {
+      // Create a "System Startup" flicker & reveal timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top 92%",
+          toggleActions: "play none none none"
+        }
+      });
+
+      tl.fromTo(el, 
+        { 
+          opacity: 0, 
+          y: 25, 
+          scale: 0.98,
+          filter: "blur(10px) brightness(1.5)" // "Energy" burst start
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px) brightness(1)",
+          duration: 0.5,
+          ease: "expo.out"
+        }
+      )
+      // Subtle "System Boot" flicker
+      .to(el, { opacity: 0.5, duration: 0.04 }, "-=0.3")
+      .to(el, { opacity: 1, duration: 0.04 })
+      .to(el, { opacity: 0.8, duration: 0.03 })
+      .to(el, { opacity: 1, duration: 0.08 });
+    });
+  }
+
+  // Initial call after a short delay
+  setTimeout(initScrollReveals, 800);
+
+  // Re-run reveals when switching sections
+  $(document).on('sectionChanged', () => {
+    setTimeout(initScrollReveals, 100);
   });
 });
 
