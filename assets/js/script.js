@@ -1714,23 +1714,55 @@ $(function () {
   $(document).on('click', '#close-full-terminal', () => toggleFullTerminal(false));
   $('#open-terminal').on('click', () => toggleFullTerminal(true));
 
+  function updatePrompt() {
+    const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
+    $('#terminal-path-label').text(displayPath);
+  }
+
   $terminalInput.on('keydown', function(e) {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        const fullInput = $(this).val();
+        const args = fullInput.split(' ');
+        const lastArg = args[args.length - 1];
+        
+        if (lastArg) {
+            const items = virtualFS[currentPath];
+            if (items) {
+                const matches = Object.keys(items).filter(k => k.startsWith(lastArg));
+                if (matches.length === 1) {
+                    args[args.length - 1] = matches[0];
+                    $(this).val(args.join(' '));
+                }
+            }
+        }
+    }
+
     if (e.key === 'Enter') {
         const fullInput = $(this).val().trim();
         if (!fullInput) return;
         
         const args = fullInput.split(' ');
         const cmd = args.shift().toLowerCase();
+        const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
 
-        $terminalOutput.append(`<div><span class="text-dracula-cyan font-bold">william-ache@portfolio:~$</span> ${fullInput}</div>`);
+        $terminalOutput.append(`
+            <div class="flex gap-1 font-bold">
+                <span class="text-dracula-cyan">william-ache@portfolio:</span>
+                <span class="text-dracula-purple">${displayPath}</span>
+                <span class="text-dracula-cyan">$</span>
+                <span class="text-dracula-fg ml-1">${fullInput}</span>
+            </div>
+        `);
 
         if (cmd === 'exit') {
             toggleFullTerminal(false);
         } else if (terminalCommands[cmd]) {
             const result = terminalCommands[cmd](args);
-            if (result) $terminalOutput.append(`<div class="mt-1 mb-2">${result}</div>`);
+            if (result) $terminalOutput.append(`<div class="mt-1 mb-2 ml-4">${result}</div>`);
+            if (cmd === 'cd') updatePrompt();
         } else {
-            $terminalOutput.append(`<div class="text-dracula-red mb-2">> Error: Command '${cmd}' unrecognized.</div>`);
+            $terminalOutput.append(`<div class="text-dracula-red mb-2 ml-4">> Error: Command '${cmd}' unrecognized.</div>`);
         }
 
         $(this).val('');
