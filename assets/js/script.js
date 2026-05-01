@@ -1602,23 +1602,53 @@ $(function () {
 
   function toggleFullTerminal(show) {
     if (show) {
-        // Glitch Out Standard Footer
-        const glitchTl = gsap.timeline();
-        glitchTl.to($footerStandard, { x: 2, skewX: 2, duration: 0.05, repeat: 5, yoyo: true })
-                .to($footerStandard, { opacity: 0, scale: 1.05, duration: 0.2, ease: "power4.in" })
-                .set($footerStandard, { hidden: true, display: 'none' })
-                .set($footerTerminal, { display: 'flex', opacity: 0, scale: 0.95 })
-                .to($footerTerminal, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.2)" })
-                .call(() => $terminalInput.focus());
+        const btnRect = $('#open-terminal')[0].getBoundingClientRect();
+        const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
+        
+        const startX = btnRect.left - footerRect.left;
+        const startY = btnRect.top - footerRect.top;
+        const startW = btnRect.width;
+        const startH = btnRect.height;
+
+        const tl = gsap.timeline();
+        
+        tl.to($footerStandard, { opacity: 0, duration: 0.2 })
+        .set($footerStandard, { display: 'none' })
+        .set($footerTerminal, { 
+            display: 'flex', 
+            opacity: 1, 
+            clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+            backgroundColor: '#1a1a1a'
+        })
+        .to($footerTerminal, { 
+            clipPath: `inset(0px 0px 0px 0px round 24px)`,
+            duration: 0.4,
+            ease: "power3.inOut"
+        })
+        .fromTo($('#footer-terminal-view > div'), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 })
+        .set($footerTerminal, { backgroundColor: '#0d0d0d' })
+        .call(() => $terminalInput.focus());
+
     } else {
-        gsap.to($footerTerminal, { 
-            opacity: 0, scale: 0.98, duration: 0.3, 
-            onComplete: () => {
-                $footerTerminal.css('display', 'none');
-                $footerStandard.css('display', 'flex');
-                gsap.fromTo($footerStandard, { opacity: 0, scale: 1.02 }, { opacity: 1, scale: 1, duration: 0.5 });
-            }
-        });
+        const btnRect = $('#open-terminal')[0].getBoundingClientRect();
+        const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
+        const startX = btnRect.left - footerRect.left;
+        const startY = btnRect.top - footerRect.top;
+        const startW = btnRect.width;
+        const startH = btnRect.height;
+
+        const tlBack = gsap.timeline();
+        
+        tlBack.to($('#footer-terminal-view > div'), { opacity: 0, y: 5, duration: 0.15 })
+        .to($footerTerminal, { 
+            clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+            duration: 0.35,
+            ease: "power3.inOut"
+        })
+        .to($footerTerminal, { opacity: 0, duration: 0.15 })
+        .set($footerTerminal, { display: 'none' })
+        .set($footerStandard, { display: 'flex', opacity: 0 })
+        .to($footerStandard, { opacity: 1, duration: 0.3 });
     }
   }
 
