@@ -635,7 +635,7 @@ a[title="LinkedIn"]:hover {
 /* Speech Bubble Styles (Chat Cloud) */
 .speech-bubble {
   position: absolute;
-  top: -45px;
+  top: -55px;
   left: 50%;
   transform: translateX(-50%) scale(0.8);
   background: #bd93f9;
@@ -679,6 +679,15 @@ a[title="LinkedIn"]:hover {
   visibility: visible;
   transform: translateX(-50%) scale(1);
   animation: float-bubble 2s ease-in-out infinite;
+}
+
+#chatbot-container .speech-bubble {
+  background: #50fa7b; /* Green for AI assistant */
+  color: #282a36;
+}
+
+#chatbot-container .speech-bubble::after {
+  border-top-color: #50fa7b;
 }
 
 /* Pure Glass Mode */
@@ -1012,4 +1021,42 @@ button:hover,
 
 .glitch-infinite {
     animation: rgb-glitch 1.2s infinite ease-in-out;
+}
+/* Chatbot Hatch Animation (Like coming out of an egg) */
+@keyframes chatbot-hatch {
+  0%, 100% {
+    transform: translateY(15px) scale(0.9);
+    filter: brightness(0.8);
+  }
+  10%, 20% {
+    transform: translateY(15px) scale(0.9) rotate(-5deg);
+  }
+  15%, 25% {
+    transform: translateY(15px) scale(0.9) rotate(5deg);
+  }
+  30% {
+    transform: translateY(-15px) scale(1.1);
+    filter: brightness(1.2);
+  }
+  40% {
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+  50%, 60% {
+    transform: rotate(-10deg);
+  }
+  55%, 65% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-chatbot-hatch {
+  animation: chatbot-hatch 6s ease-in-out infinite;
+}
+
+#chatbot-container .speech-bubble {
+  max-width: 150px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
 }

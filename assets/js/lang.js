@@ -1,10 +1,10 @@
 // ===============================
 // Configuración inicial
 // ===============================
-let currentLang = "es"; // Por defecto español
+window.currentLang = "es"; // Por defecto español
 
 // Diccionario de traducción
-const translations = {
+window.translations = {
   es: {
     "Haz click en mi": "Haz click en mi",
     "Resumen": "Resumen",
@@ -66,6 +66,10 @@ const translations = {
     "Disponible para proyectos": "Disponible para contrataciones y proyectos",
     "Ver fuentes y recursos": "Ver fuentes y recursos",
     "Fuentes que impulsaron este proyecto": "Canales y plataformas que inspiraron el diseño y desarrollo de este portafolio.",
+    "¡Hola! ¿En qué puedo ayudarte?": "¡Hola! ¿En qué puedo ayudarte?",
+    "Hey": "¡Hey!",
+    "Estoy aquí": "Estoy aquí",
+    "Hola": "Hola",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - Español.pdf",
   },
   en: {
@@ -129,6 +133,10 @@ const translations = {
     "Disponible para proyectos": "Available for hiring and projects",
     "Ver fuentes y recursos": "View sources and resources",
     "Fuentes que impulsaron este proyecto": "Channels and platforms that inspired the design and development of this portfolio.",
+    "¡Hola! ¿En qué puedo ayudarte?": "Hi! How can I help you?",
+    "Hey": "Hey!",
+    "Estoy aquí": "I'm here",
+    "Hola": "Hello",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - English.pdf",
   },
 };
@@ -139,13 +147,13 @@ const translations = {
 function translatePage(lang) {
   document.querySelectorAll("[data-translate]").forEach((el) => {
     const key = el.getAttribute("data-translate");
-    if (translations[lang][key]) {
+    if (window.translations[lang][key]) {
       // Specifically handle the CV button which has an icon inside
       if (el.classList.contains("cv-link")) {
           const span = el.querySelector("span");
-          if (span) span.textContent = translations[lang][key];
+          if (span) span.textContent = window.translations[lang][key];
       } else {
-          el.textContent = translations[lang][key];
+          el.textContent = window.translations[lang][key];
       }
     }
   });
@@ -159,7 +167,7 @@ function updateLanguageSelector() {
   if(!langSelector) return;
   langSelector.innerHTML = "";
 
-  if (currentLang === "es") {
+  if (window.currentLang === "es") {
     langSelector.innerHTML = `
       <a href="#" class="language-link group relative w-8 h-8 rounded-full flex items-center justify-center bg-dracula-card hover:scale-110 transition-transform border border-dracula-comment/30" data-lang="en" title="Change to English">
         <span class="fi fi-us rounded-sm text-lg"></span>
@@ -178,9 +186,9 @@ function updateLanguageSelector() {
   if(newLink) {
       newLink.addEventListener("click", function (e) {
         e.preventDefault();
-        currentLang = currentLang === "es" ? "en" : "es";
+        window.currentLang = window.currentLang === "es" ? "en" : "es";
         updateLanguageSelector();
-        translatePage(currentLang);
+        translatePage(window.currentLang);
       });
   }
 }
@@ -189,6 +197,6 @@ function updateLanguageSelector() {
 // Inicialización
 // ===============================
 document.addEventListener("DOMContentLoaded", () => {
-  translatePage(currentLang);
+  translatePage(window.currentLang);
   updateLanguageSelector();
 });

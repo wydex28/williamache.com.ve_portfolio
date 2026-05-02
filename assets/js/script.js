@@ -459,7 +459,7 @@ $(function () {
     const originalText = $btnSpan.text();
 
     $btn.prop("disabled", true).addClass("opacity-70 cursor-not-allowed");
-    $btnSpan.text(currentLang === "es" ? "Enviando..." : "Sending...");
+    $btnSpan.text(window.currentLang === "es" ? "Enviando..." : "Sending...");
 
     $.ajax({
       url: $form.attr("action"),
@@ -468,7 +468,7 @@ $(function () {
       dataType: "json",
       success: function () {
         $btnSpan.text(
-          currentLang === "es" ? "¡Mensaje Enviado!" : "Message Sent!",
+          window.currentLang === "es" ? "¡Mensaje Enviado!" : "Message Sent!",
         );
         $btn
           .removeClass("from-dracula-purple to-dracula-pink")
@@ -481,12 +481,12 @@ $(function () {
               "opacity-70 cursor-not-allowed bg-dracula-green text-dracula-bg",
             )
             .addClass("from-dracula-purple to-dracula-pink");
-          $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+          $btnSpan.text(window.translations[window.currentLang]["Enviar Mensaje"]);
         }, 5000);
       },
       error: function () {
         $btnSpan.text(
-          currentLang === "es" ? "Error al enviar" : "Error sending",
+          window.currentLang === "es" ? "Error al enviar" : "Error sending",
         );
         $btn
           .removeClass("from-dracula-purple to-dracula-pink")
@@ -498,7 +498,7 @@ $(function () {
               "opacity-70 cursor-not-allowed bg-dracula-red text-dracula-fg",
             )
             .addClass("from-dracula-purple to-dracula-pink");
-          $btnSpan.text(translations[currentLang]["Enviar Mensaje"]);
+          $btnSpan.text(window.translations[window.currentLang]["Enviar Mensaje"]);
         }, 3000);
       },
     });
@@ -629,7 +629,7 @@ $(function () {
         years--;
       }
 
-      const suffix = currentLang === "es" ? "años" : "years";
+      const suffix = window.currentLang === "es" ? "años" : "years";
       const prefix = $(this).text().startsWith("+") ? "+" : "";
       $(this).text(`${prefix}${years} ${suffix}`);
     });
@@ -648,7 +648,7 @@ $(function () {
     // Refresh sidebar text if it's already rendered
     const $sidebarTitle = $('[data-translate="Desarrollador Web"]');
     if ($sidebarTitle.length) {
-      $sidebarTitle.text(translations[currentLang]["Desarrollador Web"]);
+      $sidebarTitle.text(window.translations[window.currentLang]["Desarrollador Web"]);
     }
   }
 
@@ -702,7 +702,7 @@ $(function () {
         .removeClass("bi-volume-mute-fill")
         .addClass("bi-volume-up-fill");
       const welcome =
-        currentLang === "es"
+        window.currentLang === "es"
           ? "Accesibilidad por voz activada"
           : "Voice accessibility enabled";
       speak(welcome);
@@ -720,7 +720,7 @@ $(function () {
     window.speechSynthesis.cancel(); // Stop current
 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = currentLang === "es" ? "es-ES" : "en-US";
+    utterance.lang = window.currentLang === "es" ? "es-ES" : "en-US";
     utterance.rate = 1.0;
 
     // Find best voice
@@ -748,7 +748,7 @@ $(function () {
 
       if ($el.hasClass("nav-link")) {
         text =
-          (currentLang === "es" ? "Sección " : "Section ") +
+          (window.currentLang === "es" ? "Sección " : "Section ") +
           $el.text().replace(/\s+/g, " ").trim();
       } else if ($el.hasClass("skill-item")) {
         text = $el.find("h4").text().replace(/\s+/g, " ").trim();
@@ -815,7 +815,7 @@ $(function () {
       $(this).find("i").removeClass("bi-zoom-in").addClass("bi-zoom-out");
       if (voiceEnabled) {
         const msg =
-          currentLang === "es"
+          window.currentLang === "es"
             ? `Aumento nivel ${zoomStep}`
             : `Zoom level ${zoomStep}`;
         speak(msg);
@@ -827,7 +827,7 @@ $(function () {
       $(this).find("i").removeClass("bi-zoom-out").addClass("bi-zoom-in");
       if (voiceEnabled) {
         speak(
-          currentLang === "es"
+          window.currentLang === "es"
             ? "Tamaño original restaurado"
             : "Original size restored",
         );
@@ -847,14 +847,14 @@ $(function () {
     if (isNormalContrast) {
       if (voiceEnabled)
         speak(
-          currentLang === "es"
+          window.currentLang === "es"
             ? "Contraste normal activado"
             : "Normal contrast enabled",
         );
     } else {
       if (voiceEnabled)
         speak(
-          currentLang === "es"
+          window.currentLang === "es"
             ? "Alto contraste restaurado"
             : "High contrast restored",
         );
@@ -873,7 +873,7 @@ $(function () {
     updateHtmlFilter();
 
     const modeName =
-      currentLang === "es"
+      window.currentLang === "es"
         ? colorBlindNames[colorBlindMode]
         : colorBlindEnNames[colorBlindMode];
     $colorblindLevelText.text(
@@ -886,7 +886,7 @@ $(function () {
         .removeClass("text-dracula-pink bg-dracula-card");
       if (voiceEnabled)
         speak(
-          currentLang === "es"
+          window.currentLang === "es"
             ? "Filtro de daltonismo: " + modeName
             : "Color blindness filter: " + modeName,
         );
@@ -896,7 +896,7 @@ $(function () {
         .addClass("text-dracula-pink bg-dracula-card");
       if (voiceEnabled)
         speak(
-          currentLang === "es"
+          window.currentLang === "es"
             ? "Filtros visuales desactivados"
             : "Visual filters disabled",
         );
@@ -966,7 +966,7 @@ $(function () {
 
     if (voiceEnabled)
       speak(
-        (currentLang === "es"
+        (window.currentLang === "es"
           ? "Abriendo certificado: "
           : "Opening certificate: ") + data.title,
       );
@@ -1785,6 +1785,34 @@ $(function () {
 
   // Keep focus on input when clicking anywhere in the terminal
   $footerTerminal.on('click', () => $terminalInput.focus());
+
+  /** =====================
+   *  Chatbot AI Logic
+   ====================== */
+  const $chatbotMsg = $("#chatbot-msg");
+  const chatbotMessages = ["Hola", "Hey", "Estoy aquí"];
+  let chatbotMsgIndex = 0;
+
+  function rotateChatbotMessage() {
+    if (!$chatbotMsg.length) return;
+    chatbotMsgIndex = (chatbotMsgIndex + 1) % chatbotMessages.length;
+    const key = chatbotMessages[chatbotMsgIndex];
+    
+    // Smooth transition for message
+    $chatbotMsg.fadeOut(300, function() {
+      $(this).attr("data-translate", key);
+      // We check if translations and currentLang exist (from lang.js)
+      if (window.translations && window.currentLang && window.translations[window.currentLang]) {
+        $(this).text(window.translations[window.currentLang][key]);
+      } else {
+        $(this).text(key);
+      }
+      $(this).fadeIn(300);
+    });
+  }
+
+  // Change message every 8 seconds
+  setInterval(rotateChatbotMessage, 8000);
 
   /** =====================
    *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)
