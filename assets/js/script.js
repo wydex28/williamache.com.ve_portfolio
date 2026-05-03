@@ -790,10 +790,14 @@ $(function () {
 
   // Close menu when clicking outside
   $(document).on("click", function (e) {
-    if (!$(e.target).closest(".fixed.bottom-6.right-6").length) {
+    if (!$(e.target).closest("#a11y-fab, #a11y-menu, #back-to-top, #chatbot-window, #chatbot-fab").length) {
       $a11yMenu
         .removeClass("opacity-100 visible translate-y-0")
         .addClass("opacity-0 invisible translate-y-4");
+      
+      $chatbotWindow
+        .addClass("opacity-0 invisible translate-y-10")
+        .removeClass("opacity-100 visible translate-y-0");
     }
   });
 
@@ -1799,7 +1803,7 @@ $(function () {
     const key = chatbotMessages[chatbotMsgIndex];
     
     // Smooth transition for message
-    $chatbotMsg.fadeOut(300, function() {
+    $chatbotMsg.fadeOut(150, function() {
       $(this).attr("data-translate", key);
       // We check if translations and currentLang exist (from lang.js)
       if (window.translations && window.currentLang && window.translations[window.currentLang]) {
@@ -1807,12 +1811,69 @@ $(function () {
       } else {
         $(this).text(key);
       }
-      $(this).fadeIn(300);
+      $(this).fadeIn(150);
     });
   }
 
   // Change message every 8 seconds
-  setInterval(rotateChatbotMessage, 8000);
+  setInterval(rotateChatbotMessage, 4000);
+
+  /** =====================
+   *  Chatbot Interaction Logic
+   ====================== */
+  const $chatbotFab = $("#chatbot-fab");
+  const $chatbotWindow = $("#chatbot-window");
+  const $closeChatbot = $("#close-chatbot");
+  const $chatForm = $("#chat-form");
+  const $chatInput = $("#chat-input");
+  const $chatMessages = $("#chat-messages");
+
+  $chatbotFab.on("click", function () {
+    $chatbotWindow.toggleClass("opacity-0 invisible translate-y-10 opacity-100 visible translate-y-0");
+    if (!$chatbotWindow.hasClass("invisible")) {
+      $chatInput.focus();
+      $("#chatbot-bubble").removeClass("active"); // Hide bubble when chat is open
+    }
+  });
+
+  $closeChatbot.on("click", function () {
+    $chatbotWindow.addClass("opacity-0 invisible translate-y-10").removeClass("opacity-100 visible translate-y-0");
+  });
+
+  $chatForm.on("submit", function (e) {
+    e.preventDefault();
+    const msg = $chatInput.val().trim();
+    if (!msg) return;
+
+    // Append User Message
+    appendMessage("user", msg);
+    $chatInput.val("");
+
+    // Simulated AI Response
+    setTimeout(() => {
+      const response = window.currentLang === "es" 
+        ? "De momento mi núcleo de IA está siendo configurado. ¡Pronto podré responderte todas tus dudas sobre William!"
+        : "Currently my AI core is being configured. Soon I will be able to answer all your questions about William!";
+      appendMessage("ai", response);
+    }, 1000);
+  });
+
+  function appendMessage(sender, text) {
+    const isAi = sender === "ai";
+    const name = isAi ? "AI Assistant" : (window.currentLang === "es" ? "Tú" : "You");
+    
+    const html = `
+      <div class="flex flex-col ${isAi ? 'items-start' : 'items-end'} gap-1 animate-fade-in">
+          <span class="text-[8px] text-dracula-comment font-bold uppercase ${isAi ? 'ml-2' : 'mr-2'}">${name}</span>
+          <div class="${isAi ? 'bg-dracula-card/80 text-dracula-fg rounded-tl-none border-dracula-cyan/10' : 'bg-dracula-cyan text-dracula-bg rounded-tr-none border-transparent'} text-xs p-3 rounded-2xl border max-w-[85%] shadow-lg">
+              ${text}
+          </div>
+      </div>
+    `;
+    
+    $chatMessages.append(html);
+    $chatMessages.scrollTop($chatMessages[0].scrollHeight);
+  }
 
   /** =====================
    *  Scrollytelling & Narrative Logic (Comentado por petición del usuario)

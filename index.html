@@ -241,7 +241,7 @@
                         <div class="flex flex-col overflow-hidden">
                             <span class="text-[11px] text-dracula-comment uppercase tracking-widest font-semibold mb-1" data-translate="Ubicación">Ubicación</span>
                             <address class="text-sm font-medium text-dracula-fg/90 not-italic hover:text-dracula-pink transition-colors flex items-center gap-2">
-                                Desde Aragua, Venezuela, para el mundo
+                                Desde Venezuela, para el mundo
                             </address>
                         </div>
                     </li>
@@ -1396,7 +1396,7 @@
 
     <!-- Floating Accessibility Menu -->
     <!-- Floating Actions -->
-    <div class="fixed bottom-24 right-6 z-50 flex flex-col items-end gap-3">
+    <div class="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3">
         <!-- Floating Options (hidden by default) -->
         <div id="a11y-menu" class="flex flex-col gap-3 opacity-0 invisible translate-y-4 transition-all duration-300">
             <!-- Color Blindness Toggle -->
@@ -1428,14 +1428,14 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <!-- Back to Top Button -->
-            <button id="back-to-top" title="Subir / Back to Top" class="group w-12 h-12 rounded-full bg-dracula-card border border-dracula-pink/30 text-dracula-pink flex items-center justify-center shadow-[0_0_15px_rgba(255,121,198,0.3)] hover:scale-110 hover:bg-dracula-pink hover:text-dracula-bg transition-all opacity-0 invisible translate-y-4">
-                <i class="bi bi-arrow-up-short text-3xl pointer-events-none group-hover:animate-bounce-short"></i>
-            </button>
-            
             <!-- Main FAB -->
             <button id="a11y-fab" class="w-14 h-14 rounded-full bg-gradient-to-r from-dracula-purple to-dracula-pink text-dracula-bg flex items-center justify-center shadow-[0_0_20px_rgba(189,147,249,0.4)] hover:shadow-[0_0_25px_rgba(189,147,249,0.6)] hover:scale-105 transition-all focus:outline-none">
                 <i class="bi bi-universal-access-circle text-3xl pointer-events-none"></i>
+            </button>
+
+            <!-- Back to Top Button -->
+            <button id="back-to-top" title="Subir / Back to Top" class="group w-12 h-12 rounded-full bg-dracula-card border border-dracula-pink/30 text-dracula-pink flex items-center justify-center shadow-[0_0_15px_rgba(255,121,198,0.3)] hover:scale-110 hover:bg-dracula-pink hover:text-dracula-bg transition-all opacity-0 invisible translate-y-4">
+                <i class="bi bi-arrow-up-short text-3xl pointer-events-none group-hover:animate-bounce-short"></i>
             </button>
         </div>
     </div>
@@ -1452,6 +1452,45 @@
             <button id="chatbot-fab" title="Asistentes Virtuales (Chatbots) con IA" class="w-14 h-14 rounded-full bg-gradient-to-r from-dracula-cyan to-dracula-green text-dracula-bg flex items-center justify-center shadow-[0_0_20px_rgba(139,233,253,0.4)] hover:shadow-[0_0_25px_rgba(139,233,253,0.6)] hover:scale-110 transition-all focus:outline-none animate-chatbot-hatch group-hover:animate-none">
                 <i class="bi bi-robot text-3xl pointer-events-none"></i>
             </button>
+        </div>
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="fixed bottom-24 right-6 z-50 w-[320px] h-[450px] glass rounded-3xl overflow-hidden flex flex-col shadow-2xl border border-dracula-cyan/30 opacity-0 invisible translate-y-10 transition-all duration-300">
+        <!-- Header -->
+        <div class="p-4 bg-gradient-to-r from-dracula-cyan/20 to-dracula-green/20 border-b border-dracula-cyan/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-dracula-cyan/20 flex items-center justify-center text-dracula-cyan">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-dracula-fg leading-none">WA - AI Assistant</h4>
+                    <span class="text-[9px] text-dracula-green font-bold uppercase tracking-widest mt-1 inline-block">Online</span>
+                </div>
+            </div>
+            <button id="close-chatbot" class="w-8 h-8 rounded-lg flex items-center justify-center text-dracula-fg/50 hover:bg-dracula-red/20 hover:text-dracula-red transition-all">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar bg-dracula-bg/20">
+            <!-- Initial Message -->
+            <div class="flex flex-col items-start gap-1">
+                <span class="text-[8px] text-dracula-comment font-bold uppercase ml-2">AI Assistant</span>
+                <div class="bg-dracula-card/80 text-dracula-fg text-xs p-3 rounded-2xl rounded-tl-none border border-dracula-cyan/10 max-w-[85%] shadow-lg">
+                    ¡Hola! Soy el asistente virtual de William. Puedo contarte sobre su experiencia en Laravel, sus proyectos o cómo contactarlo. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 border-t border-dracula-cyan/20 bg-dracula-bg/40 backdrop-blur-md">
+            <form id="chat-form" class="flex gap-2">
+                <input type="text" id="chat-input" autocomplete="off" placeholder="Escribe tu mensaje..." 
+                    class="flex-1 bg-dracula-bg/50 border border-dracula-comment/30 rounded-xl px-4 py-2.5 text-xs text-dracula-fg placeholder:text-dracula-comment/40 focus:outline-none focus:border-dracula-cyan focus:ring-1 focus:ring-dracula-cyan transition-all">
+                <button type="submit" class="w-10 h-10 bg-gradient-to-r from-dracula-cyan to-dracula-green text-dracula-bg rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-dracula-cyan/20">
+                    <i class="bi bi-send-fill text-sm"></i>
+                </button>
+            </form>
         </div>
     </div>
 

@@ -1051,7 +1051,7 @@ button:hover,
 }
 
 .animate-chatbot-hatch {
-  animation: chatbot-hatch 6s ease-in-out infinite;
+  animation: chatbot-hatch 3s ease-in-out infinite;
 }
 
 #chatbot-container .speech-bubble {
