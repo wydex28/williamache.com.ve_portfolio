@@ -168,29 +168,57 @@ function updateLanguageSelector() {
 
   const isEs = window.currentLang === "es";
   
-  langSelector.innerHTML = `
-    <div class="flex items-center gap-2 select-none">
-      <span class="text-[10px] font-bold ${!isEs ? 'text-dracula-cyan' : 'text-dracula-fg/30'} transition-colors">EN</span>
-      <button id="lang-switch" class="relative w-12 h-6 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
-          <div class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full transition-all duration-500 flex items-center justify-center overflow-hidden ${isEs ? 'translate-x-6' : 'translate-x-0'}">
-              <span class="fi ${isEs ? 'fi-es' : 'fi-us'} w-full h-full object-cover"></span>
-          </div>
-      </button>
-      <span class="text-[10px] font-bold ${isEs ? 'text-dracula-cyan' : 'text-dracula-fg/30'} transition-colors">ES</span>
-    </div>
-  `;
+  // Create structure only if it doesn't exist
+  if (!langSelector.querySelector('#lang-switch')) {
+    langSelector.innerHTML = `
+      <div class="flex items-center gap-2 select-none">
+        <span id="lang-label-en" class="text-[10px] font-bold transition-colors">EN</span>
+        <button id="lang-switch" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
+          <span class="dot inline-block w-4 h-4 transform rounded-full transition-all duration-500 translate-x-1 shadow-lg flex items-center justify-center overflow-hidden">
+              <span class="fi w-full h-full object-cover scale-150"></span>
+          </span>
+        </button>
+        <span id="lang-label-es" class="text-[10px] font-bold transition-colors">ES</span>
+      </div>
+    `;
 
+    const langSwitch = document.getElementById("lang-switch");
+    langSwitch.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.currentLang = window.currentLang === "es" ? "en" : "es";
+      updateLanguageSelector();
+      translatePage(window.currentLang);
+      document.dispatchEvent(new CustomEvent('languageChanged', { detail: window.currentLang }));
+    });
+  }
+
+  // Update existing elements
   const langSwitch = document.getElementById("lang-switch");
-  if(langSwitch) {
-      langSwitch.addEventListener("click", function (e) {
-        e.preventDefault();
-        window.currentLang = window.currentLang === "es" ? "en" : "es";
-        updateLanguageSelector();
-        translatePage(window.currentLang);
-        
-        // Custom event for other components to react if needed
-        document.dispatchEvent(new CustomEvent('languageChanged', { detail: window.currentLang }));
-      });
+  const dot = langSwitch.querySelector('.dot');
+  const fi = langSwitch.querySelector('.fi');
+  const labelEn = document.getElementById('lang-label-en');
+  const labelEs = document.getElementById('lang-label-es');
+
+  if (isEs) {
+    langSwitch.classList.add('active');
+    dot.classList.remove('translate-x-1');
+    dot.classList.add('translate-x-6');
+    fi.classList.remove('fi-us');
+    fi.classList.add('fi-es');
+    labelEs.classList.remove('text-dracula-fg/30');
+    labelEs.classList.add('text-dracula-cyan');
+    labelEn.classList.remove('text-dracula-cyan');
+    labelEn.classList.add('text-dracula-fg/30');
+  } else {
+    langSwitch.classList.remove('active');
+    dot.classList.remove('translate-x-6');
+    dot.classList.add('translate-x-1');
+    fi.classList.remove('fi-es');
+    fi.classList.add('fi-us');
+    labelEn.classList.remove('text-dracula-fg/30');
+    labelEn.classList.add('text-dracula-cyan');
+    labelEs.classList.remove('text-dracula-cyan');
+    labelEs.classList.add('text-dracula-fg/30');
   }
 }
 

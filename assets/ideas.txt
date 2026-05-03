@@ -1,2 +1,24 @@
 acomodar el efecto de glitch para que sea en mas parte del sistema y que el loader lo tenga por defecto
 
+hacer video para mi portafolio y los proyectos que no tengo aun, ponerlos, como proximamente o en desarollo con capturas de pantalla, tecnologias usadas y descripcoin de lo que es y si puede estar viendoce como dentro de una laptop o un celular los captures, mejor y agregar una modal apra que se vea mas descriptivo el proyecto
+
+Ocultar cualquier dato personal por ciberseguridad
+
+Agregar modelo IA gratuito como asistente personal
+
+cambiar tecnologia a Next.js + React + Tailwind CSS
+
+Asistentes Virtuales (Chatbots)
+
+Pasarelas de Pago
+
+Gráficos de radar: Un gráfico que compare tus habilidades en Frontend, Backend y Devops, demostrando tu perfil completo de Full-Stack.
+
+agrega la misma animacion 3d de cuando apsa el cursor a los badges de años neon 
+
+la animacion del swich de neon se daño
+
+hacer animacion cuando las ventanas se mueven o se reposicionan por el responsive, quetenga una animacion suave
+
+
+El Sobre mi, destaca más: Que metodología de arquitectura aplicas ejemplo: Para Frontend Atómica Design, Modular, etc, En Backend: Orientado a metodologías de escalabilidad, aplicó clean code y principios SOLID, eres más Backend por lo que veo.
