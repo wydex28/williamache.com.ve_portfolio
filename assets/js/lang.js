@@ -70,6 +70,12 @@ window.translations = {
     "Hey": "¡Hey!",
     "Estoy aquí": "Estoy aquí",
     "Hola": "Hola",
+    "Sobre Mi P1": "Desarrollador Full-Stack con más de +8 años de experiencia en la construcción de aplicaciones y sistemas robustos. Especializado en el ecosistema Laravel y bases de datos relacionales (MySQL), con sólidos conocimientos en frontend (jQuery, Tailwind CSS, Bootstrap).",
+    "Sobre Mi P2": "Enfocado en integrar herramientas y bibliotecas que agilizan los tiempos de desarrollo y elevan la experiencia del usuario (UX). Mi objetivo es crear soluciones escalables, estéticamente impactantes y de alto rendimiento.",
+    "Arquitectura Frontend": "Arquitectura Frontend",
+    "Frontend Desc": "Uso de metodologías como Atomic Design y componentes modulares para interfaces mantenibles.",
+    "Metodología Backend": "Metodología Backend",
+    "Backend Desc": "Orientado a la escalabilidad mediante Clean Code, principios SOLID y patrones de diseño.",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - Español.pdf",
   },
   en: {
@@ -137,6 +143,12 @@ window.translations = {
     "Hey": "Hey!",
     "Estoy aquí": "I'm here",
     "Hola": "Hello",
+    "Sobre Mi P1": "Full-Stack Developer with +8 years of experience building robust applications and systems. Specialized in the Laravel ecosystem and relational databases (MySQL), with solid knowledge in frontend (jQuery, Tailwind CSS, Bootstrap).",
+    "Sobre Mi P2": "Focused on integrating tools and libraries that speed up development times and elevate user experience (UX). My goal is to create scalable, aesthetically stunning, and high-performance solutions.",
+    "Arquitectura Frontend": "Frontend Architecture",
+    "Frontend Desc": "Use of methodologies like Atomic Design and modular components for maintainable interfaces.",
+    "Metodología Backend": "Backend Methodology",
+    "Backend Desc": "Oriented towards scalability through Clean Code, SOLID principles, and design patterns.",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - English.pdf",
   },
 };
@@ -145,16 +157,51 @@ window.translations = {
 // Función para traducir página
 // ===============================
 function translatePage(lang) {
-  document.querySelectorAll("[data-translate]").forEach((el) => {
-    const key = el.getAttribute("data-translate");
-    if (window.translations[lang][key]) {
-      // Specifically handle the CV button which has an icon inside
-      if (el.classList.contains("cv-link")) {
-          const span = el.querySelector("span");
-          if (span) span.textContent = window.translations[lang][key];
-      } else {
-          el.textContent = window.translations[lang][key];
-      }
+  const elements = document.querySelectorAll("[data-translate]");
+  
+  // Faster cinematic transition
+  gsap.to(elements, {
+    opacity: 0,
+    y: 5,
+    filter: "blur(2px)",
+    duration: 0.25,
+    ease: "power2.in",
+    stagger: {
+      amount: 0.15,
+      from: "start"
+    },
+    onComplete: () => {
+      elements.forEach((el) => {
+        const key = el.getAttribute("data-translate");
+        if (window.translations[lang][key]) {
+          if (el.classList.contains("cv-link")) {
+            const span = el.querySelector("span");
+            if (span) span.textContent = window.translations[lang][key];
+          } else {
+            el.textContent = window.translations[lang][key];
+          }
+        }
+      });
+
+      // Reset position for entry
+      gsap.set(elements, { y: -5 });
+
+      // Fade in new text
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.4,
+        ease: "power2.out",
+        stagger: {
+          amount: 0.2,
+          from: "start"
+        },
+        onStart: () => {
+          // Trigger nav indicator update as soon as the new text starts appearing
+          document.dispatchEvent(new CustomEvent('languageChanged', { detail: lang }));
+        }
+      });
     }
   });
 }
@@ -188,7 +235,6 @@ function updateLanguageSelector() {
       window.currentLang = window.currentLang === "es" ? "en" : "es";
       updateLanguageSelector();
       translatePage(window.currentLang);
-      document.dispatchEvent(new CustomEvent('languageChanged', { detail: window.currentLang }));
     });
   }
 

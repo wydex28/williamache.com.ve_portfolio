@@ -229,7 +229,7 @@ $(function () {
     const width = $el.outerWidth();
     const height = $el.outerHeight();
     const left = $el.position().left;
-    const top = $el.position().top;
+    const top = $el.position().top - 3; // Raised more to ensure perfect centering
 
     if (isInitial) {
       gsap.set($navIndicator, { width, height, left, top, opacity: 1 });
