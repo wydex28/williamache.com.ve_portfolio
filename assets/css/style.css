@@ -263,12 +263,30 @@ body.light-theme .bubble-arrow {
   border-color: rgba(248, 248, 242, 0.2) !important;
 }
 #theme-toggle.active #theme-toggle-dot {
-  transform: translateX(20px);
+  transform: translateX(52px);
   background-color: #f8f8f2; /* White/Off-white */
   box-shadow: 0 0 10px rgba(255, 121, 198, 0.5);
 }
 #theme-toggle.active #theme-toggle-icon {
   color: #ff79c6; /* Pink icon on white dot */
+}
+
+/* Internal labels visibility handling */
+#theme-toggle #theme-label-light,
+#theme-toggle #theme-label-dark,
+#lang-switch #lang-label-en,
+#lang-switch #lang-label-es {
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+#theme-toggle.active #theme-label-light,
+#lang-switch.active #lang-label-en {
+  opacity: 0.2;
+}
+
+#theme-toggle:not(.active) #theme-label-dark,
+#lang-switch:not(.active) #lang-label-es {
+  opacity: 0.2;
 }
 
 /* Voice Accessibility Toggle Styles */

@@ -45,7 +45,7 @@ $(function () {
   });
 
   // Avatar Switcher Logic
-  let currentAvatarIndex = 1;
+  let currentAvatarIndex = 0; // 0 is gemini.webp
   const totalAvatars = 80;
   const $avatar = $("#avatar");
   const $avatarContainer = $("#avatar-container");
@@ -53,11 +53,16 @@ $(function () {
 
   $avatarContainer.on("click", function () {
     currentAvatarIndex++;
-    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 1;
+    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 0;
 
-    // Check extension: 34 is png, others are webp
-    const ext = currentAvatarIndex === 34 ? "png" : "webp";
-    const newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
+    let newSrc;
+    if (currentAvatarIndex === 0) {
+      newSrc = `./assets/images/profile/gemini.webp`;
+    } else {
+      // Check extension: 34 is png, others are webp
+      const ext = currentAvatarIndex === 34 ? "png" : "webp";
+      newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
+    }
 
     // Smooth and organic transition effect
     $avatar.css({
@@ -87,7 +92,7 @@ $(function () {
 
   // Show help bubble after 1.5s and keep it active
   setTimeout(() => {
-    if (currentAvatarIndex === 1) {
+    if (currentAvatarIndex === 0) {
       $avatarBubble.addClass("active");
     }
   }, 1500);
@@ -525,11 +530,24 @@ $(function () {
      ====================== */
   const $themeBtn = $("#theme-toggle");
   const $themeIcon = $("#theme-toggle-icon");
+  const $labelLight = $("#theme-label-light");
+  const $labelDark = $("#theme-label-dark");
   const $body = $("body");
+
+  function updateThemeLabels() {
+    if ($themeBtn.hasClass("active")) {
+      $labelLight.removeClass("text-dracula-fg/30").addClass("text-dracula-purple");
+      $labelDark.removeClass("text-dracula-purple").addClass("text-dracula-fg/30");
+    } else {
+      $labelDark.removeClass("text-dracula-fg/30").addClass("text-dracula-purple");
+      $labelLight.removeClass("text-dracula-purple").addClass("text-dracula-fg/30");
+    }
+  }
 
   $themeBtn.on("click", function () {
     $themeBtn.toggleClass("active");
     $body.toggleClass("light-theme");
+    updateThemeLabels();
 
     if ($themeBtn.hasClass("active")) {
       $themeIcon
@@ -561,6 +579,9 @@ $(function () {
     $themeIcon
       .removeClass("bi-moon-stars-fill text-dracula-bg")
       .addClass("bi-sun-fill text-dracula-fg");
+    updateThemeLabels();
+  } else {
+    updateThemeLabels();
   }
 
   /** =====================

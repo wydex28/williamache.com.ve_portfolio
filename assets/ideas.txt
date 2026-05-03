@@ -22,3 +22,5 @@ hacer animacion cuando las ventanas se mueven o se reposicionan por el responsiv
 
 
 El Sobre mi, destaca más: Que metodología de arquitectura aplicas ejemplo: Para Frontend Atómica Design, Modular, etc, En Backend: Orientado a metodologías de escalabilidad, aplicó clean code y principios SOLID, eres más Backend por lo que veo.
+.
+cambiar  nombre de la imagen principal

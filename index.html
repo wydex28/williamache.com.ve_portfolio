@@ -188,7 +188,7 @@
                 <!-- Avatar -->
                 <div class="relative mt-12 mb-4 cursor-pointer group" id="avatar-container">
                     <div class="absolute inset-0 bg-dracula-purple rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
-                    <img id="avatar" src="./assets/images/profile/1.webp" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
+                    <img id="avatar" src="./assets/images/profile/gemini.webp" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
                     
                     <div id="avatar-bubble" class="speech-bubble" data-translate="Haz click en mi">
                         <span>¡Haz click en mi!</span>
@@ -292,12 +292,15 @@
                         
 
 
-                        <!-- Theme Toggle Switch -->
-                        <button id="theme-toggle" title="Cambiar Tema / Switch Theme" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
-                            <span id="theme-toggle-dot" class="inline-block w-4 h-4 transform bg-dracula-purple rounded-full transition-all duration-500 translate-x-1 shadow-lg flex items-center justify-center">
-                                <i id="theme-toggle-icon" class="bi bi-moon-stars-fill text-[8px] text-dracula-bg"></i>
-                            </span>
-                        </button>
+                        <div class="flex items-center gap-2 select-none">
+                            <button id="theme-toggle" title="Cambiar Tema / Switch Theme" class="relative inline-flex items-center h-7 w-20 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner px-1 overflow-hidden">
+                                <span id="theme-label-light" class="absolute left-2 text-[8px] font-bold text-dracula-fg/30 transition-colors pointer-events-none z-0" data-translate="Modo Claro">CLARO</span>
+                                <span id="theme-label-dark" class="absolute right-2 text-[8px] font-bold text-dracula-purple transition-colors pointer-events-none z-0" data-translate="Modo Oscuro">OSCURO</span>
+                                <span id="theme-toggle-dot" class="z-10 inline-block w-5 h-5 transform bg-dracula-purple rounded-full transition-all duration-500 translate-x-0 shadow-lg flex items-center justify-center">
+                                    <i id="theme-toggle-icon" class="bi bi-moon-stars-fill text-[10px] text-dracula-bg"></i>
+                                </span>
+                            </button>
+                        </div>
 
                         <!-- Neon Mode Toggle Switch -->
                         <button id="neon-toggle" title="Modo Neon / Neon Mode" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-purple border border-dracula-purple/30 transition-all duration-500 focus:outline-none group shadow-[0_0_10px_rgba(189,147,249,0.4)] active">

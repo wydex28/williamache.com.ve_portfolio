@@ -76,6 +76,8 @@ window.translations = {
     "Frontend Desc": "Uso de metodologías como Atomic Design y componentes modulares para interfaces mantenibles.",
     "Metodología Backend": "Metodología Backend",
     "Backend Desc": "Orientado a la escalabilidad mediante Clean Code, principios SOLID y patrones de diseño.",
+    "Modo Claro": "CLARO",
+    "Modo Oscuro": "OSCURO",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - Español.pdf",
   },
   en: {
@@ -149,6 +151,8 @@ window.translations = {
     "Frontend Desc": "Use of methodologies like Atomic Design and modular components for maintainable interfaces.",
     "Metodología Backend": "Backend Methodology",
     "Backend Desc": "Oriented towards scalability through Clean Code, SOLID principles, and design patterns.",
+    "Modo Claro": "LIGHT",
+    "Modo Oscuro": "DARK",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - English.pdf",
   },
 };
@@ -219,13 +223,13 @@ function updateLanguageSelector() {
   if (!langSelector.querySelector('#lang-switch')) {
     langSelector.innerHTML = `
       <div class="flex items-center gap-2 select-none">
-        <span id="lang-label-en" class="text-[10px] font-bold transition-colors">EN</span>
-        <button id="lang-switch" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
-          <span class="dot inline-block w-4 h-4 transform rounded-full transition-all duration-500 translate-x-1 shadow-lg flex items-center justify-center overflow-hidden">
+        <button id="lang-switch" class="relative inline-flex items-center h-7 w-20 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner px-1 overflow-hidden">
+          <span id="lang-label-en" class="absolute left-2 text-[8px] font-bold transition-colors pointer-events-none z-0">EN</span>
+          <span id="lang-label-es" class="absolute right-2 text-[8px] font-bold transition-colors pointer-events-none z-0">ES</span>
+          <span class="dot z-10 inline-block w-5 h-5 transform rounded-full transition-all duration-500 translate-x-0 shadow-lg flex items-center justify-center overflow-hidden">
               <span class="fi w-full h-full object-cover scale-150"></span>
           </span>
         </button>
-        <span id="lang-label-es" class="text-[10px] font-bold transition-colors">ES</span>
       </div>
     `;
 
@@ -247,8 +251,7 @@ function updateLanguageSelector() {
 
   if (isEs) {
     langSwitch.classList.add('active');
-    dot.classList.remove('translate-x-1');
-    dot.classList.add('translate-x-6');
+    dot.style.transform = 'translateX(52px)';
     fi.classList.remove('fi-us');
     fi.classList.add('fi-es');
     labelEs.classList.remove('text-dracula-fg/30');
@@ -257,8 +260,7 @@ function updateLanguageSelector() {
     labelEn.classList.add('text-dracula-fg/30');
   } else {
     langSwitch.classList.remove('active');
-    dot.classList.remove('translate-x-6');
-    dot.classList.add('translate-x-1');
+    dot.style.transform = 'translateX(0px)';
     fi.classList.remove('fi-es');
     fi.classList.add('fi-us');
     labelEn.classList.remove('text-dracula-fg/30');
