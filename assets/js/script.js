@@ -116,6 +116,14 @@ $(function () {
 
     // Shattering/Reassembling logic
     if (isShattering) {
+      // Safety reset if user manually scrolls down significantly after clicking back to top
+      if (currentScroll > shatterStartY + 50) {
+          isShattering = false;
+          $backToTop.removeClass("shattering").css("pointer-events", "");
+          $backToTop[0].style.removeProperty("--shatter");
+          return;
+      }
+
       // progress goes from 1 (broken at start) to 0 (assembled at top)
       let progress = currentScroll / shatterStartY;
       if (progress < 0) progress = 0;
@@ -123,11 +131,12 @@ $(function () {
 
       $backToTop[0].style.setProperty("--shatter", progress);
 
-      // Once it reaches top, hide it and remove shattering state
-      if (currentScroll <= 10) {
+      // Once it reaches top or very close, hide it and remove shattering state
+      if (currentScroll <= 20) {
         isShattering = false;
         $backToTop
           .removeClass("shattering")
+          .css("pointer-events", "")
           .addClass("opacity-0 translate-y-4 invisible")
           .removeClass("opacity-100 translate-y-0");
         $backToTop[0].style.removeProperty("--shatter");
@@ -249,6 +258,13 @@ $(function () {
 
   // Set initial position
   setTimeout(() => updateNavIndicator($(".nav-link.active"), true), 500);
+
+  // Recalculate indicator when language changes (as text sizes might shift)
+  document.addEventListener('languageChanged', () => {
+    setTimeout(() => {
+        updateNavIndicator($(".nav-link.active"));
+    }, 50); // Small delay to let the DOM update
+  });
 
   $(".nav-link").on("click", function () {
     const target = $(this).data("target");
@@ -1568,7 +1584,7 @@ $(function () {
     }
 
     setTimeout(initScrollReveals, 100);
-    if (activeId) updateScrollytelling(activeId);
+    // if (activeId) updateScrollytelling(activeId);
   });
 
   /** =====================

@@ -165,30 +165,31 @@ function translatePage(lang) {
 function updateLanguageSelector() {
   const langSelector = document.querySelector(".language-selector");
   if(!langSelector) return;
-  langSelector.innerHTML = "";
 
-  if (window.currentLang === "es") {
-    langSelector.innerHTML = `
-      <a href="#" class="language-link group relative w-8 h-8 rounded-full flex items-center justify-center bg-dracula-card hover:scale-110 transition-transform border border-dracula-comment/30" data-lang="en" title="Change to English">
-        <span class="fi fi-us rounded-sm text-lg"></span>
-      </a>
-    `;
-  } else {
-    langSelector.innerHTML = `
-      <a href="#" class="language-link group relative w-8 h-8 rounded-full flex items-center justify-center bg-dracula-card hover:scale-110 transition-transform border border-dracula-comment/30" data-lang="es" title="Cambiar a Español">
-        <span class="fi fi-es rounded-sm text-lg"></span>
-      </a>
-    `;
-  }
+  const isEs = window.currentLang === "es";
+  
+  langSelector.innerHTML = `
+    <div class="flex items-center gap-2 select-none">
+      <span class="text-[10px] font-bold ${!isEs ? 'text-dracula-cyan' : 'text-dracula-fg/30'} transition-colors">EN</span>
+      <button id="lang-switch" class="relative w-12 h-6 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner">
+          <div class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full transition-all duration-500 flex items-center justify-center overflow-hidden ${isEs ? 'translate-x-6' : 'translate-x-0'}">
+              <span class="fi ${isEs ? 'fi-es' : 'fi-us'} w-full h-full object-cover"></span>
+          </div>
+      </button>
+      <span class="text-[10px] font-bold ${isEs ? 'text-dracula-cyan' : 'text-dracula-fg/30'} transition-colors">ES</span>
+    </div>
+  `;
 
-  // Reasignar el listener
-  const newLink = document.querySelector(".language-link");
-  if(newLink) {
-      newLink.addEventListener("click", function (e) {
+  const langSwitch = document.getElementById("lang-switch");
+  if(langSwitch) {
+      langSwitch.addEventListener("click", function (e) {
         e.preventDefault();
         window.currentLang = window.currentLang === "es" ? "en" : "es";
         updateLanguageSelector();
         translatePage(window.currentLang);
+        
+        // Custom event for other components to react if needed
+        document.dispatchEvent(new CustomEvent('languageChanged', { detail: window.currentLang }));
       });
   }
 }
