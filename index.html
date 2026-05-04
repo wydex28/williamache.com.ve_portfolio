@@ -188,7 +188,7 @@
                 <!-- Avatar -->
                 <div class="relative mt-12 mb-4 cursor-pointer group" id="avatar-container">
                     <div class="absolute inset-0 bg-dracula-purple rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
-                    <img id="avatar" src="./assets/images/profile/gemini.webp" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
+                    <img id="avatar" src="./assets/images/profile/1.webp" alt="William Ache" class="relative w-32 h-32 xl:w-36 xl:h-36 rounded-3xl object-cover shadow-2xl border-2 border-dracula-comment group-hover:border-dracula-purple transition-colors duration-300 bg-dracula-card" />
                     
                     <div id="avatar-bubble" class="speech-bubble" data-translate="Haz click en mi">
                         <span>¡Haz click en mi!</span>
@@ -222,7 +222,9 @@
                         </div>
                         <div class="flex flex-col overflow-hidden">
                             <span class="text-[11px] text-dracula-comment uppercase tracking-widest font-semibold mb-1" data-translate="Correo Electrónico">Correo Electrónico</span>
-                            <a href="#" id="contact-email" class="text-sm font-medium text-dracula-fg/90 hover:text-dracula-pink truncate transition-colors" data-translate="Ver Correo">Ver Correo</a>
+                            <a href="mailto:william28ache@gmail.com" id="contact-email" class="block hover:opacity-80 transition-opacity">
+                                <img src="./assets/images/email.webp" alt="Email" class="h-5 w-auto object-contain brightness-110">
+                            </a>
                         </div>
                     </li>
                     <li id="contact-li-phone" class="flex items-center gap-4 group cursor-pointer">
@@ -230,8 +232,10 @@
                             <i class="bi bi-phone text-xl"></i>
                         </div>
                         <div class="flex flex-col overflow-hidden">
-                            <span class="text-[11px] text-dracula-comment uppercase tracking-widest font-semibold mb-1" data-translate="Teléfono">Teléfono</span>
-                            <a href="#" id="contact-phone" class="text-sm font-medium text-dracula-fg/90 hover:text-dracula-pink truncate transition-colors" data-translate="Ver Teléfono">Ver Teléfono</a>
+                            <span class="text-[11px] text-dracula-comment uppercase tracking-widest font-semibold mb-1" data-translate="Whatsapp Empresarial">Whatsapp Empresarial</span>
+                            <a href="https://wa.me/584121305420" target="_blank" id="contact-phone" class="block hover:opacity-80 transition-opacity">
+                                <img src="./assets/images/phone.webp" alt="Phone Number" class="h-4 w-auto object-contain brightness-110">
+                            </a>
                         </div>
                     </li>
                     <li id="contact-li-location" class="flex items-center gap-4 group cursor-pointer">
@@ -275,7 +279,7 @@
             
             <!-- Navbar -->
             <nav class="glass rounded-2xl p-2 lg:px-10 lg:py-4 w-full shadow-xl border border-dracula-comment/20 z-20">
-                <ul class="relative flex flex-wrap justify-center lg:justify-end items-center gap-2 lg:gap-6">
+                <ul class="relative flex flex-nowrap justify-between lg:justify-end items-center gap-1 lg:gap-4">
                     <!-- Dynamic Sliding Indicator -->
                     <div id="nav-indicator" class="absolute bottom-0 left-0 h-[2px] bg-dracula-purple shadow-[0_0_12px_#bd93f9] opacity-0 transition-all duration-300 pointer-events-none"></div>
                     
@@ -285,27 +289,33 @@
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="certificates" data-translate="Certificados">Certificados</button></li>
                     <li><button class="nav-link cursor-pointer px-4 py-2 rounded-lg text-dracula-fg/60 font-semibold transition-all duration-300 relative overflow-hidden group" data-target="contact" data-translate="Contacto">Contacto</button></li>
                     
-                    <li class="flex items-center ml-2 lg:ml-4 border-l border-dracula-comment/30 pl-4 h-8 gap-4">
-                        <div class="language-selector flex items-center">
-                            <!-- language switcher from lang.js -->
-                        </div>
+                    <li class="flex items-center ml-2 lg:ml-4 border-l border-dracula-comment/30 pl-4 gap-4">
+                        <!-- Language Switcher -->
+                        <button id="lang-switch" class="relative inline-flex items-center h-9 w-24 rounded-full bg-dracula-card  border-dracula-comment/30 transition-all duration-500 focus:outline-none group overflow-hidden active">
+                            <span id="lang-label-en" class="absolute right-5 text-[9px] font-bold text-dracula-cyan transition-all duration-500">ENGLISH</span>
+                            <span id="lang-label-es" class="absolute left-3 text-[9px] font-bold text-dracula-pink transition-all duration-500">ESPAÑOL</span>
+                            <span class="dot z-10 absolute inline-block w-7 h-7 transform bg-white rounded-full transition-all duration-500 shadow-md flex items-center justify-center overflow-hidden">
+                                <span class="fi fi-es w-full h-full object-cover scale-150"></span>
+                            </span>
+                        </button>
                         
 
 
-                        <div class="flex items-center gap-2 select-none">
-                            <button id="theme-toggle" title="Cambiar Tema / Switch Theme" class="relative inline-flex items-center h-7 w-20 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner px-1 overflow-hidden">
-                                <span id="theme-label-light" class="absolute left-2 text-[8px] font-bold text-dracula-fg/30 transition-colors pointer-events-none z-0" data-translate="Modo Claro">CLARO</span>
-                                <span id="theme-label-dark" class="absolute right-2 text-[8px] font-bold text-dracula-purple transition-colors pointer-events-none z-0" data-translate="Modo Oscuro">OSCURO</span>
-                                <span id="theme-toggle-dot" class="z-10 inline-block w-5 h-5 transform bg-dracula-purple rounded-full transition-all duration-500 translate-x-0 shadow-lg flex items-center justify-center">
-                                    <i id="theme-toggle-icon" class="bi bi-moon-stars-fill text-[10px] text-dracula-bg"></i>
-                                </span>
-                            </button>
-                        </div>
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" title="Cambiar Tema / Switch Theme" class="relative inline-flex items-center h-9 w-24 rounded-full bg-dracula-card border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-lg overflow-hidden">
+                            <span id="theme-label-light" class="absolute right-8 text-[10px] font-bold text-white transition-all duration-500" data-translate="Modo Claro">CLARO</span>
+                            <span id="theme-label-dark" class="absolute left-3 text-[10px] font-bold text-dracula-purple transition-all duration-500" data-translate="Modo Oscuro">OSCURO</span>
+                            <span id="theme-toggle-dot" class="z-10 absolute inline-block w-7 h-7 transform bg-white rounded-full transition-all duration-500 shadow-md flex items-center justify-center">
+                                <i id="theme-toggle-icon" class="bi bi-moon-stars-fill text-sm text-dracula-purple"></i>
+                            </span>
+                        </button>
 
                         <!-- Neon Mode Toggle Switch -->
-                        <button id="neon-toggle" title="Modo Neon / Neon Mode" class="relative inline-flex items-center h-6 w-11 rounded-full bg-dracula-purple border border-dracula-purple/30 transition-all duration-500 focus:outline-none group shadow-[0_0_10px_rgba(189,147,249,0.4)] active">
-                            <span id="neon-toggle-dot" class="inline-block w-4 h-4 transform bg-dracula-bg rounded-full transition-all duration-500 translate-x-6 shadow-lg flex items-center justify-center">
-                                <i id="neon-toggle-icon" class="bi bi-lightning-charge-fill text-[8px] text-dracula-purple"></i>
+                        <button id="neon-toggle" title="Modo Neon / Neon Mode" class="relative inline-flex items-center h-9 w-24 rounded-full bg-dracula-card border-dracula-purple/30 transition-all duration-500 focus:outline-none group overflow-hidden active">
+                            <span id="neon-label-on" class="absolute left-5 text-[10px] font-bold text-dracula-bg transition-all duration-500 opacity-0 -translate-x-4" data-translate="Modo Neon">NEON</span>
+                            <span id="neon-label-off" class="absolute right-6 text-[10px] font-bold text-dracula-comment transition-all duration-500" data-translate="Modo Normal">NORMAL</span>
+                            <span id="neon-toggle-dot" class="z-10 absolute inline-block w-7 h-7 transform bg-dracula-bg rounded-full transition-all duration-500 shadow-md flex items-center justify-center">
+                                <i id="neon-toggle-icon" class="bi bi-lightning-charge-fill text-sm text-dracula-purple"></i>
                             </span>
                         </button>
                     </li>
@@ -1446,7 +1456,12 @@
             </button>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div id="a11y-container" class="relative group">
+            <!-- Message Bubble -->
+            <div id="a11y-bubble" class="speech-bubble active">
+                <span data-translate="Accesibilidad">Accesibilidad</span>
+                <i class="bubble-arrow"></i>
+            </div>
             <!-- Main FAB -->
             <button id="a11y-fab" class="w-14 h-14 rounded-full bg-gradient-to-r from-dracula-purple to-dracula-pink text-dracula-bg flex items-center justify-center shadow-[0_0_20px_rgba(189,147,249,0.4)] hover:shadow-[0_0_25px_rgba(189,147,249,0.6)] hover:scale-105 transition-all focus:outline-none">
                 <i class="bi bi-universal-access-circle text-3xl pointer-events-none"></i>

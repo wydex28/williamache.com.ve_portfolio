@@ -45,24 +45,19 @@ $(function () {
   });
 
   // Avatar Switcher Logic
-  let currentAvatarIndex = 0; // 0 is gemini.webp
-  const totalAvatars = 80;
+  let currentAvatarIndex = 1; // 1 is the primary profile image (formerly gemini.webp)
+  const totalAvatars = 81;
   const $avatar = $("#avatar");
   const $avatarContainer = $("#avatar-container");
   const $avatarBubble = $("#avatar-bubble");
 
   $avatarContainer.on("click", function () {
     currentAvatarIndex++;
-    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 0;
+    if (currentAvatarIndex > totalAvatars) currentAvatarIndex = 1;
 
-    let newSrc;
-    if (currentAvatarIndex === 0) {
-      newSrc = `./assets/images/profile/gemini.webp`;
-    } else {
-      // Check extension: 34 is png, others are webp
-      const ext = currentAvatarIndex === 34 ? "png" : "webp";
-      newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
-    }
+    // Check extension: 35 is png (formerly 34), others are webp
+    const ext = currentAvatarIndex === 35 ? "png" : "webp";
+    const newSrc = `./assets/images/profile/${currentAvatarIndex}.${ext}`;
 
     // Smooth and organic transition effect
     $avatar.css({
@@ -92,7 +87,7 @@ $(function () {
 
   // Show help bubble after 1.5s and keep it active
   setTimeout(() => {
-    if (currentAvatarIndex === 0) {
+    if (currentAvatarIndex === 1) {
       $avatarBubble.addClass("active");
     }
   }, 1500);
@@ -123,10 +118,10 @@ $(function () {
     if (isShattering) {
       // Safety reset if user manually scrolls down significantly after clicking back to top
       if (currentScroll > shatterStartY + 50) {
-          isShattering = false;
-          $backToTop.removeClass("shattering").css("pointer-events", "");
-          $backToTop[0].style.removeProperty("--shatter");
-          return;
+        isShattering = false;
+        $backToTop.removeClass("shattering").css("pointer-events", "");
+        $backToTop[0].style.removeProperty("--shatter");
+        return;
       }
 
       // progress goes from 1 (broken at start) to 0 (assembled at top)
@@ -265,9 +260,9 @@ $(function () {
   setTimeout(() => updateNavIndicator($(".nav-link.active"), true), 500);
 
   // Recalculate indicator when language changes (as text sizes might shift)
-  document.addEventListener('languageChanged', () => {
+  document.addEventListener("languageChanged", () => {
     setTimeout(() => {
-        updateNavIndicator($(".nav-link.active"));
+      updateNavIndicator($(".nav-link.active"));
     }, 50); // Small delay to let the DOM update
   });
 
@@ -438,29 +433,9 @@ $(function () {
   const rawEmail = "d2lsbGlhbTI4YWNoZUBnbWFpbC5jb20=";
   const rawPhone = "KzU4NDEyMTMwNTQyMA==";
 
-  $("#contact-li-email").on("click", function (e) {
-    const $link = $("#contact-email");
-    const mail = atob(rawEmail);
-    if ($link.data("revealed")) {
-      window.location.href = `mailto:${mail}`;
-    } else {
-      $link.text(mail);
-      $link.data("revealed", true);
-      $link.removeAttr("data-translate");
-    }
-  });
 
-  $("#contact-li-phone").on("click", function (e) {
-    const $link = $("#contact-phone");
-    const phone = atob(rawPhone);
-    if ($link.data("revealed")) {
-      window.location.href = `tel:${phone}`;
-    } else {
-      $link.text("+58 (412) 130 5420");
-      $link.data("revealed", true);
-      $link.removeAttr("data-translate");
-    }
-  });
+
+
 
   $("#contact-li-location").on("click", function () {
     window.open(
@@ -502,7 +477,9 @@ $(function () {
               "opacity-70 cursor-not-allowed bg-dracula-green text-dracula-bg",
             )
             .addClass("from-dracula-purple to-dracula-pink");
-          $btnSpan.text(window.translations[window.currentLang]["Enviar Mensaje"]);
+          $btnSpan.text(
+            window.translations[window.currentLang]["Enviar Mensaje"],
+          );
         }, 5000);
       },
       error: function () {
@@ -519,7 +496,9 @@ $(function () {
               "opacity-70 cursor-not-allowed bg-dracula-red text-dracula-fg",
             )
             .addClass("from-dracula-purple to-dracula-pink");
-          $btnSpan.text(window.translations[window.currentLang]["Enviar Mensaje"]);
+          $btnSpan.text(
+            window.translations[window.currentLang]["Enviar Mensaje"],
+          );
         }, 3000);
       },
     });
@@ -530,18 +509,10 @@ $(function () {
      ====================== */
   const $themeBtn = $("#theme-toggle");
   const $themeIcon = $("#theme-toggle-icon");
-  const $labelLight = $("#theme-label-light");
-  const $labelDark = $("#theme-label-dark");
   const $body = $("body");
 
   function updateThemeLabels() {
-    if ($themeBtn.hasClass("active")) {
-      $labelLight.removeClass("text-dracula-fg/30").addClass("text-dracula-purple");
-      $labelDark.removeClass("text-dracula-purple").addClass("text-dracula-fg/30");
-    } else {
-      $labelDark.removeClass("text-dracula-fg/30").addClass("text-dracula-purple");
-      $labelLight.removeClass("text-dracula-purple").addClass("text-dracula-fg/30");
-    }
+    // Labels are now handled via CSS animations for a smoother transition
   }
 
   $themeBtn.on("click", function () {
@@ -550,9 +521,7 @@ $(function () {
     updateThemeLabels();
 
     if ($themeBtn.hasClass("active")) {
-      $themeIcon
-        .removeClass("bi-moon-stars-fill text-dracula-bg")
-        .addClass("bi-sun-fill text-dracula-fg");
+      $themeIcon.removeClass("bi-moon-stars-fill").addClass("bi-sun-fill");
       localStorage.setItem("theme", "light");
 
       // Sincronizar con el botón de Contraste (activarlo en modo claro)
@@ -560,9 +529,7 @@ $(function () {
       syncContrastUI();
       updateHtmlFilter();
     } else {
-      $themeIcon
-        .removeClass("bi-sun-fill text-dracula-fg")
-        .addClass("bi-moon-stars-fill text-dracula-bg");
+      $themeIcon.removeClass("bi-sun-fill").addClass("bi-moon-stars-fill");
       localStorage.setItem("theme", "dark");
 
       // Sincronizar con el botón de Contraste (desactivarlo en modo oscuro)
@@ -576,11 +543,10 @@ $(function () {
   if (localStorage.getItem("theme") === "light") {
     $themeBtn.addClass("active");
     $body.addClass("light-theme");
-    $themeIcon
-      .removeClass("bi-moon-stars-fill text-dracula-bg")
-      .addClass("bi-sun-fill text-dracula-fg");
+    $themeIcon.removeClass("bi-moon-stars-fill").addClass("bi-sun-fill");
     updateThemeLabels();
   } else {
+    $themeIcon.removeClass("bi-sun-fill").addClass("bi-moon-stars-fill");
     updateThemeLabels();
   }
 
@@ -685,7 +651,9 @@ $(function () {
     // Refresh sidebar text if it's already rendered
     const $sidebarTitle = $('[data-translate="Desarrollador Web"]');
     if ($sidebarTitle.length) {
-      $sidebarTitle.text(window.translations[window.currentLang]["Desarrollador Web"]);
+      $sidebarTitle.text(
+        window.translations[window.currentLang]["Desarrollador Web"],
+      );
     }
   }
 
@@ -823,15 +791,20 @@ $(function () {
     $a11yMenu.toggleClass(
       "opacity-0 invisible translate-y-4 opacity-100 visible translate-y-0",
     );
+    $("#a11y-bubble").removeClass("active");
   });
 
   // Close menu when clicking outside
   $(document).on("click", function (e) {
-    if (!$(e.target).closest("#a11y-fab, #a11y-menu, #back-to-top, #chatbot-window, #chatbot-fab").length) {
+    if (
+      !$(e.target).closest(
+        "#a11y-fab, #a11y-menu, #back-to-top, #chatbot-window, #chatbot-fab",
+      ).length
+    ) {
       $a11yMenu
         .removeClass("opacity-100 visible translate-y-0")
         .addClass("opacity-0 invisible translate-y-4");
-      
+
       $chatbotWindow
         .addClass("opacity-0 invisible translate-y-10")
         .removeClass("opacity-100 visible translate-y-0");
@@ -1524,9 +1497,9 @@ $(function () {
 
   function initScrollReveals() {
     // Inject loaders if they don't exist
-    $('.portfolio-item').each(function() {
-        if ($(this).find('.software-loader').length === 0) {
-            $(this).prepend(`
+    $(".portfolio-item").each(function () {
+      if ($(this).find(".software-loader").length === 0) {
+        $(this).prepend(`
                 <div class="software-loader absolute inset-0 flex flex-col items-center justify-center font-mono text-[9px] p-4 text-dracula-green z-50 pointer-events-none rounded-2xl" style="background: #282a36; opacity: 0; visibility: hidden;">
                     <div class="w-full max-w-[140px] glitch-infinite">
                         <div class="loader-line" style="width:0; overflow:hidden;" data-text="> BOOTING_SaaS_CORE..."></div>
@@ -1535,41 +1508,98 @@ $(function () {
                     </div>
                 </div>
             `);
-        }
+      }
     });
 
     // Target common interactive elements
-    const revealTargets = ".glass-card, .skill-item, .portfolio-item, .cert-item, .timeline-item, .section-page h2";
-    
+    const revealTargets =
+      ".glass-card, .skill-item, .portfolio-item, .cert-item, .timeline-item, .section-page h2";
+
     gsap.utils.toArray(revealTargets).forEach((el) => {
       // Avoid re-animating if already visible
-      if (gsap.getProperty(el, "opacity") > 0 && !$(el).closest('.section-page').hasClass('active')) return;
+      if (
+        gsap.getProperty(el, "opacity") > 0 &&
+        !$(el).closest(".section-page").hasClass("active")
+      )
+        return;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
           start: "top 92%",
-          toggleActions: "play none none none"
-        }
+          toggleActions: "play none none none",
+        },
       });
 
-      if ($(el).hasClass('portfolio-item')) {
-          const loader = el.querySelector('.software-loader');
-          const lines = loader.querySelectorAll('.loader-line');
-          const content = el.querySelectorAll('.p-6, img, i, .h-48, .absolute:not(.software-loader)');
+      if ($(el).hasClass("portfolio-item")) {
+        const loader = el.querySelector(".software-loader");
+        const lines = loader.querySelectorAll(".loader-line");
+        const content = el.querySelectorAll(
+          ".p-6, img, i, .h-48, .absolute:not(.software-loader)",
+        );
 
-          tl.set(loader, { autoAlpha: 1 })
-            .set(content, { opacity: 0 })
-            .to(lines[0], { width: "100%", duration: 0.3, ease: "steps(20)", onStart: () => { lines[0].textContent = lines[0].dataset.text; lines[0].classList.add('active-caret'); } })
-            .to(lines[1], { width: "100%", duration: 0.4, ease: "steps(25)", onStart: () => { lines[1].textContent = lines[1].dataset.text; lines[1].classList.add('active-caret'); } })
-            .to(lines[2], { width: "100%", duration: 0.2, ease: "steps(15)", onStart: () => { lines[2].textContent = lines[2].dataset.text; lines[2].classList.add('active-caret'); } })
-            .to(loader, { opacity: 0, scale: 1.05, duration: 0.3, ease: "power2.in", delay: 0.2, onComplete: () => { loader.style.display = 'none'; } })
-            .to(content, { opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out" }, "-=0.1");
+        tl.set(loader, { autoAlpha: 1 })
+          .set(content, { opacity: 0 })
+          .to(lines[0], {
+            width: "100%",
+            duration: 0.3,
+            ease: "steps(20)",
+            onStart: () => {
+              lines[0].textContent = lines[0].dataset.text;
+              lines[0].classList.add("active-caret");
+            },
+          })
+          .to(lines[1], {
+            width: "100%",
+            duration: 0.4,
+            ease: "steps(25)",
+            onStart: () => {
+              lines[1].textContent = lines[1].dataset.text;
+              lines[1].classList.add("active-caret");
+            },
+          })
+          .to(lines[2], {
+            width: "100%",
+            duration: 0.2,
+            ease: "steps(15)",
+            onStart: () => {
+              lines[2].textContent = lines[2].dataset.text;
+              lines[2].classList.add("active-caret");
+            },
+          })
+          .to(loader, {
+            opacity: 0,
+            scale: 1.05,
+            duration: 0.3,
+            ease: "power2.in",
+            delay: 0.2,
+            onComplete: () => {
+              loader.style.display = "none";
+            },
+          })
+          .to(
+            content,
+            { opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out" },
+            "-=0.1",
+          );
       } else {
-          tl.fromTo(el, 
-            { opacity: 0, y: 25, scale: 0.98, filter: "blur(10px) brightness(1.5)" },
-            { opacity: 1, y: 0, scale: 1, filter: "blur(0px) brightness(1)", duration: 0.5, ease: "expo.out" }
-          )
+        tl.fromTo(
+          el,
+          {
+            opacity: 0,
+            y: 25,
+            scale: 0.98,
+            filter: "blur(10px) brightness(1.5)",
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px) brightness(1)",
+            duration: 0.5,
+            ease: "expo.out",
+          },
+        )
           .to(el, { opacity: 0.5, duration: 0.04 }, "-=0.3")
           .to(el, { opacity: 1, duration: 0.04 })
           .to(el, { opacity: 0.8, duration: 0.03 })
@@ -1583,25 +1613,31 @@ $(function () {
 
   // Re-run reveals when switching sections
   $(document).on("sectionChanged", () => {
-    const activeId = $(".section-page.active").attr('id');
-    
+    const activeId = $(".section-page.active").attr("id");
+
     // Specifically reset portfolio items when entering the portfolio section
-    if (activeId === 'portfolio') {
-        $('.portfolio-item').each(function() {
-            const $item = $(this);
-            const $loader = $item.find('.software-loader');
-            const $content = $item.find('.p-6, img, i, .h-48, .absolute:not(.software-loader)');
-            
-            // Reset components state
-            gsap.set($loader, { autoAlpha: 0, display: 'flex' });
-            gsap.set($content, { opacity: 0 });
-            $loader.find('.loader-line').css({ width: 0 }).text('').removeClass('active-caret');
-            
-            // Kill existing triggers for portfolio items to allow fresh ones
-            ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger === this) st.kill();
-            });
+    if (activeId === "portfolio") {
+      $(".portfolio-item").each(function () {
+        const $item = $(this);
+        const $loader = $item.find(".software-loader");
+        const $content = $item.find(
+          ".p-6, img, i, .h-48, .absolute:not(.software-loader)",
+        );
+
+        // Reset components state
+        gsap.set($loader, { autoAlpha: 0, display: "flex" });
+        gsap.set($content, { opacity: 0 });
+        $loader
+          .find(".loader-line")
+          .css({ width: 0 })
+          .text("")
+          .removeClass("active-caret");
+
+        // Kill existing triggers for portfolio items to allow fresh ones
+        ScrollTrigger.getAll().forEach((st) => {
+          if (st.trigger === this) st.kill();
         });
+      });
     }
 
     setTimeout(initScrollReveals, 100);
@@ -1611,32 +1647,58 @@ $(function () {
   /** =====================
    *  Virtual File System & Terminal Logic
    ====================== */
-  const $footerStandard = $('#footer-standard-view');
-  const $footerTerminal = $('#footer-terminal-view');
-  const $terminalInput = $('#full-terminal-input');
-  const $terminalOutput = $('#full-terminal-output');
-  
+  const $footerStandard = $("#footer-standard-view");
+  const $footerTerminal = $("#footer-terminal-view");
+  const $terminalInput = $("#full-terminal-input");
+  const $terminalOutput = $("#full-terminal-output");
+
   let currentPath = "/";
   const virtualFS = {
     "/": {
-        "assets": { type: "dir" },
-        "index.html": { type: "file", content: "<!-- William Ache Portfolio v2.4 -->\n<!DOCTYPE html>\n<html lang='es'>\n<head>..." },
-        ".gitignore": { type: "file", content: "node_modules/\n.next/\n.env\n*.log" },
-        "README.md": { type: "file", content: "# William Ache Portfolio\nImmersive Cyberpunk Experience built with GSAP & Vanilla JS." }
+      assets: { type: "dir" },
+      "index.html": {
+        type: "file",
+        content:
+          "<!-- William Ache Portfolio v2.4 -->\n<!DOCTYPE html>\n<html lang='es'>\n<head>...",
+      },
+      ".gitignore": {
+        type: "file",
+        content: "node_modules/\n.next/\n.env\n*.log",
+      },
+      "README.md": {
+        type: "file",
+        content:
+          "# William Ache Portfolio\nImmersive Cyberpunk Experience built with GSAP & Vanilla JS.",
+      },
     },
     "/assets": {
-        "css": { type: "dir" },
-        "js": { type: "dir" },
-        "images": { type: "dir" },
-        "ideas.txt": { type: "file", content: "- Add Linux Terminal Easter Egg [DONE]\n- Improve Scrollytelling [DONE]\n- Fix Scroll Propagation [DONE]" }
+      css: { type: "dir" },
+      js: { type: "dir" },
+      images: { type: "dir" },
+      "ideas.txt": {
+        type: "file",
+        content:
+          "- Add Linux Terminal Easter Egg [DONE]\n- Improve Scrollytelling [DONE]\n- Fix Scroll Propagation [DONE]",
+      },
     },
     "/assets/js": {
-        "script.js": { type: "file", content: "/** Main Logic */\n$(document).ready(() => {\n  initPortfolio();\n});" },
-        "lang.js": { type: "file", content: "const translations = {\n  es: { ... },\n  en: { ... }\n};" }
+      "script.js": {
+        type: "file",
+        content:
+          "/** Main Logic */\n$(document).ready(() => {\n  initPortfolio();\n});",
+      },
+      "lang.js": {
+        type: "file",
+        content: "const translations = {\n  es: { ... },\n  en: { ... }\n};",
+      },
     },
     "/assets/css": {
-        "style.css": { type: "file", content: ":root {\n  --dracula-bg: #282a36;\n  --dracula-purple: #bd93f9;\n}" }
-    }
+      "style.css": {
+        type: "file",
+        content:
+          ":root {\n  --dracula-bg: #282a36;\n  --dracula-purple: #bd93f9;\n}",
+      },
+    },
   };
 
   const terminalCommands = {
@@ -1652,58 +1714,70 @@ $(function () {
       </div>`,
     pwd: () => `<p class="text-dracula-fg/60">${currentPath}</p>`,
     ls: () => {
-        const items = virtualFS[currentPath];
-        if (!items) return "Error: Path not found.";
-        return `<div class="flex flex-wrap gap-x-6">` + 
-            Object.keys(items).map(key => {
-                const isDir = items[key].type === "dir";
-                return `<span class="${isDir ? 'text-dracula-purple font-bold' : 'text-dracula-fg'}">${key}${isDir ? '/' : ''}</span>`;
-            }).join('') + `</div>`;
+      const items = virtualFS[currentPath];
+      if (!items) return "Error: Path not found.";
+      return (
+        `<div class="flex flex-wrap gap-x-6">` +
+        Object.keys(items)
+          .map((key) => {
+            const isDir = items[key].type === "dir";
+            return `<span class="${isDir ? "text-dracula-purple font-bold" : "text-dracula-fg"}">${key}${isDir ? "/" : ""}</span>`;
+          })
+          .join("") +
+        `</div>`
+      );
     },
     dir: () => terminalCommands.ls(),
     cd: (args) => {
-        const target = args[0];
-        if (!target || target === "~") { currentPath = "/"; return ""; }
-        if (target === "..") {
-            if (currentPath === "/") return "";
-            const parts = currentPath.split('/').filter(p => p);
-            parts.pop();
-            currentPath = "/" + parts.join('/');
-            return "";
+      const target = args[0];
+      if (!target || target === "~") {
+        currentPath = "/";
+        return "";
+      }
+      if (target === "..") {
+        if (currentPath === "/") return "";
+        const parts = currentPath.split("/").filter((p) => p);
+        parts.pop();
+        currentPath = "/" + parts.join("/");
+        return "";
+      }
+
+      // Simple relative path support
+      const normalizedTarget =
+        currentPath === "/" ? `/${target}` : `${currentPath}/${target}`;
+      if (virtualFS[normalizedTarget]) {
+        currentPath = normalizedTarget;
+        return "";
+      } else {
+        const items = virtualFS[currentPath];
+        if (items && items[target] && items[target].type === "dir") {
+          currentPath = normalizedTarget;
+          return "";
         }
-        
-        // Simple relative path support
-        const normalizedTarget = currentPath === "/" ? `/${target}` : `${currentPath}/${target}`;
-        if (virtualFS[normalizedTarget]) {
-            currentPath = normalizedTarget;
-            return "";
-        } else {
-            const items = virtualFS[currentPath];
-            if (items && items[target] && items[target].type === "dir") {
-                currentPath = normalizedTarget;
-                return "";
-            }
-        }
-        return `<span class="text-dracula-red">cd: no such directory: ${target}</span>`;
+      }
+      return `<span class="text-dracula-red">cd: no such directory: ${target}</span>`;
     },
     cat: (args) => {
-        const file = args[0];
-        if (!file) return "Usage: cat [filename]";
-        const items = virtualFS[currentPath];
-        if (items && items[file]) {
-            if (items[file].type === "dir") return `cat: ${file}: Is a directory`;
-            return `<pre class="text-dracula-comment whitespace-pre-wrap mt-2 p-2 bg-black/40 rounded border border-white/5">${items[file].content}</pre>`;
-        }
-        return `cat: ${file}: No such file`;
+      const file = args[0];
+      if (!file) return "Usage: cat [filename]";
+      const items = virtualFS[currentPath];
+      if (items && items[file]) {
+        if (items[file].type === "dir") return `cat: ${file}: Is a directory`;
+        return `<pre class="text-dracula-comment whitespace-pre-wrap mt-2 p-2 bg-black/40 rounded border border-white/5">${items[file].content}</pre>`;
+      }
+      return `cat: ${file}: No such file`;
     },
     nano: (args) => terminalCommands.cat(args),
     vi: (args) => terminalCommands.cat(args),
-    clear: () => { $terminalOutput.empty(); return ""; }
+    clear: () => {
+      $terminalOutput.empty();
+      return "";
+    },
   };
 
   function toggleFullTerminal(show) {
-    const btnRect = $('#open-terminal')[0].getBoundingClientRect();
-    const footerRect = $('#footer-inner-wrapper')[0].getBoundingClientRect();
+    const btnRect = $("#open-terminal")[0].getBoundingClientRect();
+    const footerRect = $("#footer-inner-wrapper")[0].getBoundingClientRect();
     const startX = btnRect.left - footerRect.left;
     const startY = btnRect.top - footerRect.top;
     const startW = btnRect.width;
@@ -1711,79 +1785,104 @@ $(function () {
 
     const tl = gsap.timeline();
 
-        if (show) {
-            tl.to($footerStandard, { opacity: 0, duration: 0.1, scale: 0.97, ease: "power2.in" })
-            .set($footerStandard, { display: 'none' })
-            .set($footerTerminal, { 
-                display: 'flex', 
-                opacity: 1, 
-                clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
-                backgroundColor: 'rgba(26, 26, 26, 0.4)'
-            })
-            .to($footerTerminal, { 
-                clipPath: `inset(0px 0px 0px 0px round 24px)`,
-                duration: 0.25,
-                backgroundColor: 'rgba(13, 13, 13, 0.5)',
-                ease: "power4.out"
-            })
-            .fromTo($('#footer-terminal-view > div'), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.15, stagger: 0.04, ease: "power2.out" })
-            .call(() => $terminalInput.focus());
+    if (show) {
+      tl.to($footerStandard, {
+        opacity: 0,
+        duration: 0.1,
+        scale: 0.97,
+        ease: "power2.in",
+      })
+        .set($footerStandard, { display: "none" })
+        .set($footerTerminal, {
+          display: "flex",
+          opacity: 1,
+          clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+          backgroundColor: "rgba(26, 26, 26, 0.4)",
+        })
+        .to($footerTerminal, {
+          clipPath: `inset(0px 0px 0px 0px round 24px)`,
+          duration: 0.25,
+          backgroundColor: "rgba(13, 13, 13, 0.5)",
+          ease: "power4.out",
+        })
+        .fromTo(
+          $("#footer-terminal-view > div"),
+          { opacity: 0, y: 5 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            stagger: 0.04,
+            ease: "power2.out",
+          },
+        )
+        .call(() => $terminalInput.focus());
+    } else {
+      tl.to($("#footer-terminal-view > div"), {
+        opacity: 0,
+        y: 5,
+        duration: 0.1,
+      })
+        .to($footerTerminal, {
+          clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
+          duration: 0.2,
+          backgroundColor: "rgba(26, 26, 26, 0.4)",
+          ease: "power4.in",
+        })
+        .to($footerTerminal, { opacity: 0, duration: 0.1 })
+        .set($footerTerminal, { display: "none" })
+        .set($footerStandard, { display: "flex", opacity: 0, scale: 0.97 })
+        .to($footerStandard, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.2,
+          ease: "power2.out",
+        });
+    }
+  }
 
-        } else {
-            tl.to($('#footer-terminal-view > div'), { opacity: 0, y: 5, duration: 0.1 })
-            .to($footerTerminal, { 
-                clipPath: `inset(${startY}px ${footerRect.width - (startX + startW)}px ${footerRect.height - (startY + startH)}px ${startX}px round 16px)`,
-                duration: 0.2,
-                backgroundColor: 'rgba(26, 26, 26, 0.4)',
-                ease: "power4.in"
-            })
-            .to($footerTerminal, { opacity: 0, duration: 0.1 })
-            .set($footerTerminal, { display: 'none' })
-            .set($footerStandard, { display: 'flex', opacity: 0, scale: 0.97 })
-            .to($footerStandard, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" });
+  $("#open-terminal").on("click", () => toggleFullTerminal(true));
+
+  function updatePrompt() {
+    const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
+    $("#terminal-path-label").text(displayPath);
+  }
+
+  let commandHistory = [];
+
+  $terminalInput.on("keydown", function (e) {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const fullInput = $(this).val();
+      const args = fullInput.split(" ");
+      const lastArg = args[args.length - 1];
+
+      if (lastArg) {
+        const items = virtualFS[currentPath];
+        if (items) {
+          const matches = Object.keys(items).filter((k) =>
+            k.startsWith(lastArg),
+          );
+          if (matches.length === 1) {
+            args[args.length - 1] = matches[0];
+            $(this).val(args.join(" "));
+          }
         }
+      }
     }
 
-    $('#open-terminal').on('click', () => toggleFullTerminal(true));
+    if (e.key === "Enter") {
+      const fullInput = $(this).val().trim();
+      if (!fullInput) return;
 
-    function updatePrompt() {
-        const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
-        $('#terminal-path-label').text(displayPath);
-    }
+      // Add to history
+      commandHistory.push(fullInput);
 
-    let commandHistory = [];
+      const args = fullInput.split(" ");
+      const cmd = args.shift().toLowerCase();
+      const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
 
-    $terminalInput.on('keydown', function(e) {
-        if (e.key === 'Tab') {
-            e.preventDefault();
-            const fullInput = $(this).val();
-            const args = fullInput.split(' ');
-            const lastArg = args[args.length - 1];
-            
-            if (lastArg) {
-                const items = virtualFS[currentPath];
-                if (items) {
-                    const matches = Object.keys(items).filter(k => k.startsWith(lastArg));
-                    if (matches.length === 1) {
-                        args[args.length - 1] = matches[0];
-                        $(this).val(args.join(' '));
-                    }
-                }
-            }
-        }
-
-        if (e.key === 'Enter') {
-            const fullInput = $(this).val().trim();
-            if (!fullInput) return;
-            
-            // Add to history
-            commandHistory.push(fullInput);
-            
-            const args = fullInput.split(' ');
-            const cmd = args.shift().toLowerCase();
-            const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;
-
-            $terminalOutput.append(`
+      $terminalOutput.append(`
                 <div class="flex gap-1 font-bold">
                     <span class="text-dracula-cyan">william-ache@portfolio:</span>
                     <span class="text-dracula-purple">${displayPath}</span>
@@ -1792,40 +1891,65 @@ $(function () {
                 </div>
             `);
 
-            if (cmd === 'exit') {
-                $terminalOutput.empty();
-                toggleFullTerminal(false);
-            } else if (cmd === 'history') {
-                const historyList = commandHistory.map((c, i) => `<div>${i + 1}  ${c}</div>`).join('');
-                const $resultEl = $(`<div class="mt-1 mb-2 ml-4 opacity-0 text-dracula-comment">${historyList}</div>`);
-                $terminalOutput.append($resultEl);
-                gsap.to($resultEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
-            } else if (terminalCommands[cmd]) {
-                const result = terminalCommands[cmd](args);
-                if (result) {
-                    const $resultEl = $(`<div class="mt-1 mb-2 ml-4 opacity-0">${result}</div>`);
-                    $terminalOutput.append($resultEl);
-                    gsap.to($resultEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
-                }
-                if (cmd === 'cd') updatePrompt();
-            } else {
-                const $errorEl = $(`<div class="text-dracula-red mb-2 ml-4 opacity-0">> Error: Command '${cmd}' unrecognized.</div>`);
-                $terminalOutput.append($errorEl);
-                gsap.to($errorEl, { opacity: 1, y: -2, duration: 0.8, ease: "power2.inOut" });
-            }
+      if (cmd === "exit") {
+        $terminalOutput.empty();
+        toggleFullTerminal(false);
+      } else if (cmd === "history") {
+        const historyList = commandHistory
+          .map((c, i) => `<div>${i + 1}  ${c}</div>`)
+          .join("");
+        const $resultEl = $(
+          `<div class="mt-1 mb-2 ml-4 opacity-0 text-dracula-comment">${historyList}</div>`,
+        );
+        $terminalOutput.append($resultEl);
+        gsap.to($resultEl, {
+          opacity: 1,
+          y: -2,
+          duration: 0.8,
+          ease: "power2.inOut",
+        });
+      } else if (terminalCommands[cmd]) {
+        const result = terminalCommands[cmd](args);
+        if (result) {
+          const $resultEl = $(
+            `<div class="mt-1 mb-2 ml-4 opacity-0">${result}</div>`,
+          );
+          $terminalOutput.append($resultEl);
+          gsap.to($resultEl, {
+            opacity: 1,
+            y: -2,
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+        }
+        if (cmd === "cd") updatePrompt();
+      } else {
+        const $errorEl = $(
+          `<div class="text-dracula-red mb-2 ml-4 opacity-0">> Error: Command '${cmd}' unrecognized.</div>`,
+        );
+        $terminalOutput.append($errorEl);
+        gsap.to($errorEl, {
+          opacity: 1,
+          y: -2,
+          duration: 0.8,
+          ease: "power2.inOut",
+        });
+      }
 
-        $(this).val('');
-        $('#full-terminal-body').scrollTop($('#full-terminal-body')[0].scrollHeight);
+      $(this).val("");
+      $("#full-terminal-body").scrollTop(
+        $("#full-terminal-body")[0].scrollHeight,
+      );
     }
   });
 
   // Prevent scroll propagation to the main page
-  $('#full-terminal-body').on('wheel mousewheel DOMMouseScroll', function(e) {
-      e.stopPropagation();
+  $("#full-terminal-body").on("wheel mousewheel DOMMouseScroll", function (e) {
+    e.stopPropagation();
   });
 
   // Keep focus on input when clicking anywhere in the terminal
-  $footerTerminal.on('click', () => $terminalInput.focus());
+  $footerTerminal.on("click", () => $terminalInput.focus());
 
   /** =====================
    *  Chatbot AI Logic
@@ -1838,12 +1962,16 @@ $(function () {
     if (!$chatbotMsg.length) return;
     chatbotMsgIndex = (chatbotMsgIndex + 1) % chatbotMessages.length;
     const key = chatbotMessages[chatbotMsgIndex];
-    
+
     // Smooth transition for message
-    $chatbotMsg.fadeOut(150, function() {
+    $chatbotMsg.fadeOut(150, function () {
       $(this).attr("data-translate", key);
       // We check if translations and currentLang exist (from lang.js)
-      if (window.translations && window.currentLang && window.translations[window.currentLang]) {
+      if (
+        window.translations &&
+        window.currentLang &&
+        window.translations[window.currentLang]
+      ) {
         $(this).text(window.translations[window.currentLang][key]);
       } else {
         $(this).text(key);
@@ -1866,7 +1994,9 @@ $(function () {
   const $chatMessages = $("#chat-messages");
 
   $chatbotFab.on("click", function () {
-    $chatbotWindow.toggleClass("opacity-0 invisible translate-y-10 opacity-100 visible translate-y-0");
+    $chatbotWindow.toggleClass(
+      "opacity-0 invisible translate-y-10 opacity-100 visible translate-y-0",
+    );
     if (!$chatbotWindow.hasClass("invisible")) {
       $chatInput.focus();
       $("#chatbot-bubble").removeClass("active"); // Hide bubble when chat is open
@@ -1874,7 +2004,9 @@ $(function () {
   });
 
   $closeChatbot.on("click", function () {
-    $chatbotWindow.addClass("opacity-0 invisible translate-y-10").removeClass("opacity-100 visible translate-y-0");
+    $chatbotWindow
+      .addClass("opacity-0 invisible translate-y-10")
+      .removeClass("opacity-100 visible translate-y-0");
   });
 
   $chatForm.on("submit", function (e) {
@@ -1888,26 +2020,31 @@ $(function () {
 
     // Simulated AI Response
     setTimeout(() => {
-      const response = window.currentLang === "es" 
-        ? "De momento mi núcleo de IA está siendo configurado. ¡Pronto podré responderte todas tus dudas sobre William!"
-        : "Currently my AI core is being configured. Soon I will be able to answer all your questions about William!";
+      const response =
+        window.currentLang === "es"
+          ? "De momento mi núcleo de IA está siendo configurado. ¡Pronto podré responderte todas tus dudas sobre William!"
+          : "Currently my AI core is being configured. Soon I will be able to answer all your questions about William!";
       appendMessage("ai", response);
     }, 1000);
   });
 
   function appendMessage(sender, text) {
     const isAi = sender === "ai";
-    const name = isAi ? "AI Assistant" : (window.currentLang === "es" ? "Tú" : "You");
-    
+    const name = isAi
+      ? "AI Assistant"
+      : window.currentLang === "es"
+        ? "Tú"
+        : "You";
+
     const html = `
-      <div class="flex flex-col ${isAi ? 'items-start' : 'items-end'} gap-1 animate-fade-in">
-          <span class="text-[8px] text-dracula-comment font-bold uppercase ${isAi ? 'ml-2' : 'mr-2'}">${name}</span>
-          <div class="${isAi ? 'bg-dracula-card/80 text-dracula-fg rounded-tl-none border-dracula-cyan/10' : 'bg-dracula-cyan text-dracula-bg rounded-tr-none border-transparent'} text-xs p-3 rounded-2xl border max-w-[85%] shadow-lg">
+      <div class="flex flex-col ${isAi ? "items-start" : "items-end"} gap-1 animate-fade-in">
+          <span class="text-[8px] text-dracula-comment font-bold uppercase ${isAi ? "ml-2" : "mr-2"}">${name}</span>
+          <div class="${isAi ? "bg-dracula-card/80 text-dracula-fg rounded-tl-none border-dracula-cyan/10" : "bg-dracula-cyan text-dracula-bg rounded-tr-none border-transparent"} text-xs p-3 rounded-2xl border max-w-[85%] shadow-lg">
               ${text}
           </div>
       </div>
     `;
-    
+
     $chatMessages.append(html);
     $chatMessages.scrollTop($chatMessages[0].scrollHeight);
   }

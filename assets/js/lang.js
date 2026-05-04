@@ -78,6 +78,7 @@ window.translations = {
     "Backend Desc": "Orientado a la escalabilidad mediante Clean Code, principios SOLID y patrones de diseño.",
     "Modo Claro": "CLARO",
     "Modo Oscuro": "OSCURO",
+    "Accesibilidad": "Accesibilidad",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - Español.pdf",
   },
   en: {
@@ -153,6 +154,7 @@ window.translations = {
     "Backend Desc": "Oriented towards scalability through Clean Code, SOLID principles, and design patterns.",
     "Modo Claro": "LIGHT",
     "Modo Oscuro": "DARK",
+    "Accesibilidad": "Accessibility",
     cvFile: "./assets/docs/Curriculum Vitae CV - William Ache - Full Stack Laravel - English.pdf",
   },
 };
@@ -211,62 +213,35 @@ function translatePage(lang) {
 }
 
 // ===============================
+// ===============================
 // Inicializar selector de idioma
 // ===============================
 function updateLanguageSelector() {
-  const langSelector = document.querySelector(".language-selector");
-  if(!langSelector) return;
+  const langSwitch = document.getElementById("lang-switch");
+  if (!langSwitch) return;
 
+  const dot = langSwitch.querySelector(".dot");
+  const fi = langSwitch.querySelector(".fi");
   const isEs = window.currentLang === "es";
-  
-  // Create structure only if it doesn't exist
-  if (!langSelector.querySelector('#lang-switch')) {
-    langSelector.innerHTML = `
-      <div class="flex items-center gap-2 select-none">
-        <button id="lang-switch" class="relative inline-flex items-center h-7 w-20 rounded-full bg-dracula-card/80 border border-dracula-comment/30 transition-all duration-500 focus:outline-none group shadow-inner px-1 overflow-hidden">
-          <span id="lang-label-en" class="absolute left-2 text-[8px] font-bold transition-colors pointer-events-none z-0">EN</span>
-          <span id="lang-label-es" class="absolute right-2 text-[8px] font-bold transition-colors pointer-events-none z-0">ES</span>
-          <span class="dot z-10 inline-block w-5 h-5 transform rounded-full transition-all duration-500 translate-x-0 shadow-lg flex items-center justify-center overflow-hidden">
-              <span class="fi w-full h-full object-cover scale-150"></span>
-          </span>
-        </button>
-      </div>
-    `;
 
-    const langSwitch = document.getElementById("lang-switch");
+  // Initialize listener only once
+  if (!langSwitch.dataset.listenerAdded) {
     langSwitch.addEventListener("click", function (e) {
       e.preventDefault();
       window.currentLang = window.currentLang === "es" ? "en" : "es";
       updateLanguageSelector();
       translatePage(window.currentLang);
     });
+    langSwitch.dataset.listenerAdded = "true";
   }
 
-  // Update existing elements
-  const langSwitch = document.getElementById("lang-switch");
-  const dot = langSwitch.querySelector('.dot');
-  const fi = langSwitch.querySelector('.fi');
-  const labelEn = document.getElementById('lang-label-en');
-  const labelEs = document.getElementById('lang-label-es');
-
+  // Update visual state
   if (isEs) {
-    langSwitch.classList.add('active');
-    dot.style.transform = 'translateX(52px)';
-    fi.classList.remove('fi-us');
-    fi.classList.add('fi-es');
-    labelEs.classList.remove('text-dracula-fg/30');
-    labelEs.classList.add('text-dracula-cyan');
-    labelEn.classList.remove('text-dracula-cyan');
-    labelEn.classList.add('text-dracula-fg/30');
+    langSwitch.classList.add("active");
+    fi.className = "fi fi-es w-full h-full object-cover scale-150";
   } else {
-    langSwitch.classList.remove('active');
-    dot.style.transform = 'translateX(0px)';
-    fi.classList.remove('fi-es');
-    fi.classList.add('fi-us');
-    labelEn.classList.remove('text-dracula-fg/30');
-    labelEn.classList.add('text-dracula-cyan');
-    labelEs.classList.remove('text-dracula-cyan');
-    labelEs.classList.add('text-dracula-fg/30');
+    langSwitch.classList.remove("active");
+    fi.className = "fi fi-us w-full h-full object-cover scale-150";
   }
 }
 

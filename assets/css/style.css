@@ -257,36 +257,119 @@ body.light-theme .bubble-arrow {
   border-color: #6272a4 transparent transparent transparent;
 }
 
-/* Switch Animation Styles */
+/* Theme Toggle Enhanced Styles (Reference Match) */
+#theme-toggle {
+  background: linear-gradient(to right, #282a36, #44475a);
+}
+
 #theme-toggle.active {
-  background: linear-gradient(to right, #bd93f9, #ff79c6);
-  border-color: rgba(248, 248, 242, 0.2) !important;
+  background: linear-gradient(
+    to right,
+    #ff79c6,
+    #ffb86c
+  ); /* Day Gradient: Pink to Orange */
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
+
+#theme-toggle #theme-toggle-dot {
+  position: absolute;
+  left: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  left: calc(
+    100% - 33px
+  ); /* Default Dark Mode: Right (28px dot + 5px margin) */
+}
+
 #theme-toggle.active #theme-toggle-dot {
-  transform: translateX(52px);
-  background-color: #f8f8f2; /* White/Off-white */
-  box-shadow: 0 0 10px rgba(255, 121, 198, 0.5);
+  left: 5px; /* Light Mode: Left */
 }
+
+#theme-toggle #theme-toggle-icon {
+  color: #bd93f9; /* Dark mode icon color */
+  transition: all 0.5s ease;
+}
+
 #theme-toggle.active #theme-toggle-icon {
-  color: #ff79c6; /* Pink icon on white dot */
+  color: #ffb86c; /* Sun color for Day Mode */
+}
+
+/* Internal labels animation */
+#theme-toggle #theme-label-light {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#theme-toggle.active #theme-label-light {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+#theme-toggle #theme-label-dark {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#theme-toggle.active #theme-label-dark {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
 }
 
 /* Internal labels visibility handling */
-#theme-toggle #theme-label-light,
-#theme-toggle #theme-label-dark,
-#lang-switch #lang-label-en,
+#lang-switch {
+  background: linear-gradient(to right, #44475a, #6272a4);
+  border-color: rgba(98, 114, 164, 0.3);
+}
+
+#lang-switch .dot {
+  position: absolute;
+  left: 5px;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background-color: #ffffff;
+}
+
+#lang-switch.active .dot {
+  left: calc(100% - 33px); /* Spanish State: Right (28px dot + 5px margin) */
+}
+
+/* Language labels animation */
+#lang-switch #lang-label-en {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#lang-switch:not(.active) #lang-label-en {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
 #lang-switch #lang-label-es {
-  transition: opacity 0.3s ease, color 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#theme-toggle.active #theme-label-light,
-#lang-switch.active #lang-label-en {
-  opacity: 0.2;
+#lang-switch.active #lang-label-es {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }
 
-#theme-toggle:not(.active) #theme-label-dark,
 #lang-switch:not(.active) #lang-label-es {
-  opacity: 0.2;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
 }
 
 /* Voice Accessibility Toggle Styles */
@@ -430,16 +513,66 @@ header i[class*="text-dracula-"] {
     0 0 15px rgba(80, 250, 123, 0.3) !important;
 }
 
-/* Neon Toggle Button States */
-#neon-toggle.active {
-  background: #bd93f9;
-  box-shadow: 0 0 15px rgba(189, 147, 249, 0.5);
+/* Neon Toggle Enhanced Styles */
+#neon-toggle {
+  background: #282a36;
+  border-color: rgba(98, 114, 164, 0.3);
 }
 
-#neon-toggle:not(.active) {
-  background: #44475a;
-  box-shadow: none;
-  border-color: rgba(98, 114, 164, 0.3);
+#neon-toggle.active {
+  background: linear-gradient(to right, #bd93f9, #8be9fd);
+  box-shadow: 0 0 15px rgba(189, 147, 249, 0.4);
+  border-color: rgba(189, 147, 249, 0.5) !important;
+}
+
+#neon-toggle #neon-toggle-dot {
+  position: absolute;
+  left: 5px;
+  background-color: #282a36;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#neon-toggle.active #neon-toggle-dot {
+  left: calc(100% - 33px); /* Neon: Right (28px dot + 5px margin) */
+  background-color: #ffffff;
+}
+
+#neon-toggle #neon-toggle-icon {
+  color: #bd93f9;
+  transition: all 0.5s ease;
+}
+
+#neon-toggle.active #neon-toggle-icon {
+  color: #bd93f9;
+}
+
+/* Neon labels animation */
+#neon-toggle #neon-label-on {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  color: #282a36;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#neon-toggle.active #neon-label-on {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+#neon-toggle #neon-label-off {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#neon-toggle.active #neon-label-off {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
 }
 
 /* GLOBAL NEON DISABLE */
@@ -1001,61 +1134,77 @@ textarea {
 
 /* Cyberpunk RGB Split Glitch Effect - Looped for continuous hover */
 @keyframes rgb-glitch {
-    0% {
-        text-shadow: -3px 0 0 rgba(255, 0, 0, 0.8), 3px 0 0 rgba(0, 255, 255, 0.8);
-        transform: skew(3deg);
-    }
-    5% {
-        text-shadow: 3px 0 0 rgba(255, 0, 0, 0.8), -3px 0 0 rgba(0, 255, 255, 0.8);
-        transform: skew(-3deg);
-    }
-    10% {
-        text-shadow: -2px 0 0 rgba(255, 0, 0, 0.7), 2px 0 0 rgba(0, 255, 255, 0.7);
-        transform: skew(1deg);
-    }
-    15% {
-        text-shadow: 2px 0 0 rgba(255, 0, 0, 0.7), -2px 0 0 rgba(0, 255, 255, 0.7);
-        transform: skew(-1deg);
-    }
-    20% {
-        text-shadow: -1px 0 0 rgba(255, 0, 0, 0.6), 1px 0 0 rgba(0, 255, 255, 0.6);
-        transform: skew(0deg);
-    }
-    25% {
-        text-shadow: 1px 0 0 rgba(255, 0, 0, 0.5), -1px 0 0 rgba(0, 255, 255, 0.5);
-    }
-    30%, 100% {
-        text-shadow: none;
-        transform: none;
-    }
+  0% {
+    text-shadow:
+      -3px 0 0 rgba(255, 0, 0, 0.8),
+      3px 0 0 rgba(0, 255, 255, 0.8);
+    transform: skew(3deg);
+  }
+  5% {
+    text-shadow:
+      3px 0 0 rgba(255, 0, 0, 0.8),
+      -3px 0 0 rgba(0, 255, 255, 0.8);
+    transform: skew(-3deg);
+  }
+  10% {
+    text-shadow:
+      -2px 0 0 rgba(255, 0, 0, 0.7),
+      2px 0 0 rgba(0, 255, 255, 0.7);
+    transform: skew(1deg);
+  }
+  15% {
+    text-shadow:
+      2px 0 0 rgba(255, 0, 0, 0.7),
+      -2px 0 0 rgba(0, 255, 255, 0.7);
+    transform: skew(-1deg);
+  }
+  20% {
+    text-shadow:
+      -1px 0 0 rgba(255, 0, 0, 0.6),
+      1px 0 0 rgba(0, 255, 255, 0.6);
+    transform: skew(0deg);
+  }
+  25% {
+    text-shadow:
+      1px 0 0 rgba(255, 0, 0, 0.5),
+      -1px 0 0 rgba(0, 255, 255, 0.5);
+  }
+  30%,
+  100% {
+    text-shadow: none;
+    transform: none;
+  }
 }
 
-.nav-link:hover, 
-h1:hover, 
-h2:hover, 
-h3:hover, 
-h4:hover, 
+.nav-link:hover,
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
 button:hover,
 .portfolio-item:hover h4,
 .cert-item:hover h3,
 .badge-neon-purple:hover,
 .glitch-auto {
-    animation: rgb-glitch 1.2s ease-in-out infinite;
+  animation: rgb-glitch 1.2s ease-in-out infinite;
 }
 
 .glitch-infinite {
-    animation: rgb-glitch 1.2s infinite ease-in-out;
+  animation: rgb-glitch 1.2s infinite ease-in-out;
 }
 /* Chatbot Hatch Animation (Like coming out of an egg) */
 @keyframes chatbot-hatch {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(15px) scale(0.9);
     filter: brightness(0.8);
   }
-  10%, 20% {
+  10%,
+  20% {
     transform: translateY(15px) scale(0.9) rotate(-5deg);
   }
-  15%, 25% {
+  15%,
+  25% {
     transform: translateY(15px) scale(0.9) rotate(5deg);
   }
   30% {
@@ -1066,10 +1215,12 @@ button:hover,
     transform: translateY(0) scale(1);
     filter: brightness(1);
   }
-  50%, 60% {
+  50%,
+  60% {
     transform: rotate(-10deg);
   }
-  55%, 65% {
+  55%,
+  65% {
     transform: rotate(10deg);
   }
 }
@@ -1086,9 +1237,6 @@ button:hover,
 }
 
 /* Language Toggle Switch - Mirrored from Theme Toggle */
-#lang-switch.active .dot {
-  transform: translateX(20px) !important;
-}
 
 #lang-switch .fi {
   filter: saturate(1.2);
