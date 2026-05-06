@@ -24,3 +24,19 @@ hacer animacion cuando las ventanas se mueven o se reposicionan por el responsiv
 El Sobre mi, destaca más: Que metodología de arquitectura aplicas ejemplo: Para Frontend Atómica Design, Modular, etc, En Backend: Orientado a metodologías de escalabilidad, aplicó clean code y principios SOLID, eres más Backend por lo que veo.
 .
 cambiar  nombre de la imagen principal
+
+
+https://ko-fi.com/williamache
+
+https://hixec.com/empezar/
+
+https://www.google.com/recaptcha/admin/create
+
+sistema de blogs propio, 
+
+<a href="https://ko-fi.com/tu_usuario" 
+   target="_blank" 
+   class="inline-flex items-center gap-2 px-4 py-2 bg-[#ff5e5b] text-white font-bold rounded-full hover:scale-105 transition-transform">
+   <img src="https://ko-fi.com/favicon.ico" class="w-5 h-5" alt="Ko-fi">
+   Apóyame en Ko-fi
+</a>
