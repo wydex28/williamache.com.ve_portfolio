@@ -1196,19 +1196,19 @@ button:hover,
 @keyframes chatbot-hatch {
   0%,
   100% {
-    transform: translateY(15px) scale(0.9);
+    transform: translateY(0) scale(0.9);
     filter: brightness(0.8);
   }
   10%,
   20% {
-    transform: translateY(15px) scale(0.9) rotate(-5deg);
+    transform: translateY(0) scale(0.9) rotate(-5deg);
   }
   15%,
   25% {
-    transform: translateY(15px) scale(0.9) rotate(5deg);
+    transform: translateY(0) scale(0.9) rotate(5deg);
   }
   30% {
-    transform: translateY(-15px) scale(1.1);
+    transform: translateY(-25px) scale(1.1);
     filter: brightness(1.2);
   }
   40% {
